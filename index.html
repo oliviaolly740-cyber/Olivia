@@ -14,7 +14,6 @@
     .card { transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1); }
     .card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
     .btn-blue { background: #007AFF; color: white; border-radius: 9999px; }
-    .badge { background: #007AFF; color: white; padding: 6px 16px; border-radius: 9999px; font-size: 12px; }
     .glass { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); }
     .whatsapp-btn {
       background: #25D366;
@@ -31,7 +30,7 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-<!-- HEADER (icon + title + logo only + Brandava Tours-style rounded WhatsApp button) -->
+<!-- HEADER (icon + title + logo only + rounded WhatsApp button top-right) -->
 <nav class="bg-white shadow fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between">
   <div class="flex items-center gap-3">
     <img src="https://picsum.photos/id/1015/64/64" alt="Logo" class="w-10 h-10">
@@ -53,13 +52,12 @@
   <div class="flex flex-col gap-6 text-lg font-medium mt-20">
     <a href="#services" class="hover:text-blue-600">Services</a>
     <a href="#testimonials" class="hover:text-blue-600">Reviews</a>
-    <a href="#why" class="hover:text-blue-600">Why Us</a>
-    <a href="#pricing" class="hover:text-blue-600">Pricing</a>
+    <a href="#about" class="hover:text-blue-600">About</a>
     <a href="#contact" class="hover:text-blue-600">Contact</a>
   </div>
 </div>
 
-<!-- HERO WITH SLIDING PHOTOS -->
+<!-- HERO WITH SLIDING PHOTOS (Cloudinary) -->
 <section class="hero-bg h-screen flex items-center text-white relative">
   <div id="heroSlider" class="absolute inset-0">
     <img src="https://res.cloudinary.com/demo/image/upload/v1234567890/photo1.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
@@ -97,7 +95,7 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIALS (reviews stored in Firebase) -->
 <section id="testimonials" class="py-20 bg-blue-50">
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="heading text-5xl text-center mb-12">What Our Customers Say</h2>
@@ -118,7 +116,7 @@
   </div>
 </section>
 
-<!-- CONTACT / FORM -->
+<!-- CONTACT / FORM (exact fields from the photo) -->
 <section id="contact" class="py-20 bg-white">
   <div class="max-w-3xl mx-auto px-6">
     <h2 class="heading text-5xl text-center mb-12">Send Us a Message</h2>
@@ -126,7 +124,16 @@
       <input type="text" id="name" placeholder="Full Name" required class="w-full border border-gray-300 rounded-2xl px-6 py-4">
       <input type="tel" id="phone" placeholder="Telephone Number (with country code)" required class="w-full border border-gray-300 rounded-2xl px-6 py-4">
       <input type="email" id="email" placeholder="Email Address (optional)" class="w-full border border-gray-300 rounded-2xl px-6 py-4">
-      <textarea id="message" placeholder="Tell us more about your move..." rows="4" class="w-full border border-gray-300 rounded-3xl px-6 py-4"></textarea>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <input type="text" id="from" placeholder="Where are you moving FROM? (e.g. Plot 45, Ntinda, Kampala)" required class="w-full border border-gray-300 rounded-2xl px-6 py-4">
+        <input type="text" id="to" placeholder="Where are you moving TO? (e.g. Plot 12, Kira, Wakiso)" required class="w-full border border-gray-300 rounded-2xl px-6 py-4">
+      </div>
+      
+      <input type="date" id="date" placeholder="Preferred Relocation Date" required class="w-full border border-gray-300 rounded-2xl px-6 py-4">
+      
+      <textarea id="message" placeholder="Tell us more about your move... (3-bedroom house, large sofa, piano, 20 boxes, fragile artwork, etc.)" rows="4" class="w-full border border-gray-300 rounded-3xl px-6 py-4"></textarea>
+      
       <button type="submit" class="btn-blue w-full py-5 rounded-3xl text-lg font-semibold">SUBMIT MOVE REQUEST</button>
     </form>
   </div>
@@ -172,7 +179,7 @@ function toggleMobileMenu() {
   document.getElementById('mobileMenu').classList.toggle('hidden');
 }
 
-// Hero slider
+// Hero slider (Cloudinary)
 let slideIndex = 0;
 const slides = document.querySelectorAll('#heroSlider img');
 function showSlides() {
@@ -188,14 +195,32 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const WHATSAPP_NUMBER = "254700123456"; // REPLACE
 
-// Form submission
+// Form submission (booking goes straight to WhatsApp)
 document.getElementById('quoteForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  // ... (Cloudinary + Firebase + WhatsApp code)
-  alert("✅ Move request saved and sent to WhatsApp!");
+  const data = {
+    name: document.getElementById('name').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('email').value,
+    from: document.getElementById('from').value,
+    to: document.getElementById('to').value,
+    date: document.getElementById('date').value,
+    message: document.getElementById('message').value
+  };
+
+  try {
+    await db.collection('bookings').add(data);
+    const messageText = encodeURIComponent(`*New Move Request from HOLLY MOVERS*\n\nName: ${data.name}\nPhone: ${data.phone}\nFrom: ${data.from}\nTo: ${data.to}\nDate: ${data.date}\nMessage: ${data.message}`);
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${messageText}`;
+    window.open(whatsappUrl, '_blank');
+    alert("✅ Booking saved and sent to WhatsApp!");
+    e.target.reset();
+  } catch (err) {
+    alert("❌ Submission failed. Please try again.");
+  }
 });
 
-// Testimonials
+// Testimonials (Firebase)
 const testimonialsHTML = `
   <div class="bg-white p-8 rounded-3xl">
     <div class="flex gap-1 text-amber-400 mb-6">★★★★★</div>
@@ -209,7 +234,7 @@ const testimonialsHTML = `
 `;
 document.getElementById('testimonialContainer').innerHTML = testimonialsHTML;
 
-window.onload = () => console.log('%c✅ HOLLY MOVERS with Brandava Tours-style WhatsApp button + exact mobile format ready!', 'color:#007AFF; font-size:14px');
+window.onload = () => console.log('%c✅ HOLLY MOVERS matches the exact mobile app format + Cloudinary + Firebase reviews + rounded WhatsApp button ready!', 'color:#007AFF; font-size:14px');
 </script>
 
 </body>
