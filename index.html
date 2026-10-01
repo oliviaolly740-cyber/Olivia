@@ -16,8 +16,9 @@
     .btn-blue { background: #007AFF; color: white; border-radius: 9999px; }
     .glass { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); }
     .whatsapp-btn {
-      background: #25D366;
+      background: #007AFF;
       color: white;
+      border: 3px solid #25D366;
       border-radius: 9999px;
       padding: 12px 24px;
       font-weight: 600;
@@ -30,7 +31,7 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-<!-- HEADER (icon + title + logo only + rounded WhatsApp button top-right) -->
+<!-- HEADER (icon + title + logo only) -->
 <nav class="bg-white shadow fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between">
   <div class="flex items-center gap-3">
     <img src="https://picsum.photos/id/1015/64/64" alt="Logo" class="w-10 h-10">
@@ -38,6 +39,14 @@
     <span class="text-xs text-gray-500 mt-1">MOVERS</span>
   </div>
   
+  <!-- Menu button + WhatsApp button (top-right corner, professional rounded) -->
+  <div class="flex items-center gap-4">
+    <a href="https://wa.me/254700123456" target="_blank" class="whatsapp-btn">
+      <i class="fa-brands fa-whatsapp text-2xl"></i>
+      WhatsApp
+    </a>
+    <button onclick="toggleMobileMenu()" class="text-2xl">☰</button>
+  </div>
 </nav>
 
 <!-- MOBILE MENU -->
@@ -62,13 +71,6 @@
     <h1 class="heading text-6xl md:text-7xl font-bold leading-none mb-6">"Moving You With Care"</h1>
     <p class="text-2xl mb-10">Reliable, professional relocation services for homes and businesses.</p>
     <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="btn-blue px-10 py-4 rounded-full text-lg font-medium">REQUEST A MOVE</button>
-  </div>
-  <div class="flex items-center gap-4">
-    <a href="https://wa.me/254700123456" target="_blank" class="whatsapp-btn">
-      <i class="fa-brands fa-whatsapp text-2xl"></i>
-      WhatsApp
-    </a>
-    <button onclick="toggleMobileMenu()" class="text-2xl">☰</button>
   </div>
 </section>
 
@@ -96,7 +98,7 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS (reviews stored in Firebase) -->
+<!-- TESTIMONIALS (Firebase) -->
 <section id="testimonials" class="py-20 bg-blue-50">
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="heading text-5xl text-center mb-12">What Our Customers Say</h2>
@@ -235,7 +237,7 @@ const testimonialsHTML = `
 `;
 document.getElementById('testimonialContainer').innerHTML = testimonialsHTML;
 
-window.onload = () => console.log('%c✅ HOLLY MOVERS matches the exact mobile app format + Cloudinary + Firebase reviews + rounded WhatsApp button ready!', 'color:#007AFF; font-size:14px');
+window.onload = () => console.log('%c✅ HOLLY MOVERS fully modified with menu button + professional WhatsApp button + Cloudinary + Firebase ready!', 'color:#007AFF; font-size:14px');
 </script>
 
 </body>
