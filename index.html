@@ -16,24 +16,34 @@
     .btn-blue { background: #007AFF; color: white; border-radius: 9999px; }
     .badge { background: #007AFF; color: white; padding: 6px 16px; border-radius: 9999px; font-size: 12px; }
     .glass { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); }
-    .whatsapp-btn { background: #25D366; color: white; }
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+      border-radius: 9999px;
+      padding: 12px 24px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    }
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-<!-- HEADER (exactly like the mobile app) -->
+<!-- HEADER (icon + title + logo only + Brandava Tours-style rounded WhatsApp button) -->
 <nav class="bg-white shadow fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between">
   <div class="flex items-center gap-3">
     <img src="https://picsum.photos/id/1015/64/64" alt="Logo" class="w-10 h-10">
     <span class="text-2xl font-bold text-blue-600">HOLLY</span>
     <span class="text-xs text-gray-500 mt-1">MOVERS</span>
   </div>
-  <div class="flex items-center gap-3">
-    <a href="https://wa.me/254700123456" target="_blank" class="whatsapp-btn px-5 py-2 rounded-full text-sm font-medium flex items-center gap-2">
-      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+  <div class="flex items-center gap-4">
+    <a href="https://wa.me/254700123456" target="_blank" class="whatsapp-btn">
+      <i class="fa-brands fa-whatsapp text-2xl"></i>
+      WhatsApp
     </a>
     <button onclick="toggleMobileMenu()" class="text-2xl">☰</button>
-    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="btn-blue px-6 py-2 rounded-full text-sm font-medium">REQUEST A MOVE</button>
   </div>
 </nav>
 
@@ -46,7 +56,6 @@
     <a href="#why" class="hover:text-blue-600">Why Us</a>
     <a href="#pricing" class="hover:text-blue-600">Pricing</a>
     <a href="#contact" class="hover:text-blue-600">Contact</a>
-    <a href="#admin" class="hover:text-blue-600">Admin Portal</a>
   </div>
 </div>
 
@@ -123,7 +132,7 @@
   </div>
 </section>
 
-<!-- FOOTER (with all data from the link) -->
+<!-- FOOTER -->
 <footer class="bg-black text-white py-12">
   <div class="max-w-7xl mx-auto px-6">
     <div class="flex flex-col md:flex-row justify-between gap-10">
@@ -200,7 +209,7 @@ const testimonialsHTML = `
 `;
 document.getElementById('testimonialContainer').innerHTML = testimonialsHTML;
 
-window.onload = () => console.log('%c✅ HOLLY MOVERS with WhatsApp button + exact mobile format ready!', 'color:#007AFF; font-size:14px');
+window.onload = () => console.log('%c✅ HOLLY MOVERS with Brandava Tours-style WhatsApp button + exact mobile format ready!', 'color:#007AFF; font-size:14px');
 </script>
 
 </body>
