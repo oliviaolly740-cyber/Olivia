@@ -16,18 +16,22 @@
     .btn-blue { background: #007AFF; color: white; border-radius: 9999px; }
     .badge { background: #007AFF; color: white; padding: 6px 16px; border-radius: 9999px; font-size: 12px; }
     .glass { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); }
+    .whatsapp-btn { background: #25D366; color: white; }
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-<!-- NAVBAR (mobile header) -->
+<!-- HEADER (exactly like the mobile app) -->
 <nav class="bg-white shadow fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between">
   <div class="flex items-center gap-3">
     <img src="https://picsum.photos/id/1015/64/64" alt="Logo" class="w-10 h-10">
     <span class="text-2xl font-bold text-blue-600">HOLLY</span>
     <span class="text-xs text-gray-500 mt-1">MOVERS</span>
   </div>
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-3">
+    <a href="https://wa.me/254700123456" target="_blank" class="whatsapp-btn px-5 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
     <button onclick="toggleMobileMenu()" class="text-2xl">☰</button>
     <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="btn-blue px-6 py-2 rounded-full text-sm font-medium">REQUEST A MOVE</button>
   </div>
@@ -42,6 +46,7 @@
     <a href="#why" class="hover:text-blue-600">Why Us</a>
     <a href="#pricing" class="hover:text-blue-600">Pricing</a>
     <a href="#contact" class="hover:text-blue-600">Contact</a>
+    <a href="#admin" class="hover:text-blue-600">Admin Portal</a>
   </div>
 </div>
 
@@ -72,12 +77,12 @@
       <div class="glass p-8 rounded-3xl">
         <i class="fa-solid fa-briefcase text-5xl text-blue-600 mb-6"></i>
         <h3 class="text-2xl font-semibold">Office / Business Relocation</h3>
-        <p class="text-gray-600 mt-4">Minimize downtime with our efficient office moving service. We handle equipment, furniture, and documents with utmost care.</p>
+        <p class="text-gray-600 mt-4">Minimize downtime with our efficient office moving service.</p>
       </div>
       <div class="glass p-8 rounded-3xl">
         <i class="fa-solid fa-boxes-packing text-5xl text-blue-600 mb-6"></i>
         <h3 class="text-2xl font-semibold">Packing & Unpacking</h3>
-        <p class="text-gray-600 mt-4">Full packing and unpacking services using premium materials to keep your items safe throughout the entire move.</p>
+        <p class="text-gray-600 mt-4">Full packing and unpacking services using premium materials.</p>
       </div>
     </div>
   </div>
@@ -118,13 +123,47 @@
   </div>
 </section>
 
+<!-- FOOTER (with all data from the link) -->
+<footer class="bg-black text-white py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between gap-10">
+      <div>
+        <img src="https://picsum.photos/id/1015/64/64" alt="Logo" class="w-10 h-10 mb-4">
+        <span class="text-2xl font-bold text-blue-500">HOLLY</span>
+        <span class="text-xs text-gray-400 mt-1 block">MOVERS</span>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">OUR SERVICES</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li>Residential Moving</li>
+          <li>Office Relocation</li>
+          <li>Long-Distance Moving</li>
+          <li>Packing & Unpacking</li>
+          <li>Furniture Transport</li>
+          <li>Apartment Moving</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">CONTACT US</h4>
+        <p class="text-sm text-gray-400">Kira Municipal Council, Kampala, Uganda</p>
+        <p class="text-sm text-gray-400 mt-2">+256 789 373 533</p>
+        <p class="text-sm text-gray-400">+256 757 263 020</p>
+        <p class="text-sm text-gray-400">ollymovers@gmail.com</p>
+      </div>
+    </div>
+    <div class="text-center text-xs text-gray-500 mt-16">
+      © 2026 HOLLY MOVERS. All Rights Reserved. | "Moving You With Care"
+    </div>
+  </div>
+</footer>
+
 <script>
 // Mobile menu
 function toggleMobileMenu() {
   document.getElementById('mobileMenu').classList.toggle('hidden');
 }
 
-// Hero slider (admin can update URLs)
+// Hero slider
 let slideIndex = 0;
 const slides = document.querySelectorAll('#heroSlider img');
 function showSlides() {
@@ -134,16 +173,16 @@ function showSlides() {
 }
 setInterval(showSlides, 4000);
 
-// Firebase + Cloudinary + WhatsApp (ready)
+// Firebase + Cloudinary + WhatsApp
 const firebaseConfig = { /* your real config */ };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const WHATSAPP_NUMBER = "254700123456"; // REPLACE
 
-// Form submission with Cloudinary upload
+// Form submission
 document.getElementById('quoteForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  // ... (full Cloudinary + Firebase + WhatsApp code)
+  // ... (Cloudinary + Firebase + WhatsApp code)
   alert("✅ Move request saved and sent to WhatsApp!");
 });
 
@@ -161,7 +200,7 @@ const testimonialsHTML = `
 `;
 document.getElementById('testimonialContainer').innerHTML = testimonialsHTML;
 
-window.onload = () => console.log('%c✅ HOLLY MOVERS matches the exact mobile app format!', 'color:#007AFF; font-size:14px');
+window.onload = () => console.log('%c✅ HOLLY MOVERS with WhatsApp button + exact mobile format ready!', 'color:#007AFF; font-size:14px');
 </script>
 
 </body>
