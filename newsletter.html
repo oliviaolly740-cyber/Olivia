@@ -8,18 +8,337 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; color: #1f2937; }
-    h1, h2, .heading { font-family: 'Playfair Display', serif; }
+    
+    :root {
+      --primary: #1e40af;
+    }
+    
+    body { 
+      font-family: 'Inter', system-ui, sans-serif; 
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+      color: #1f2937;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, .heading { 
+      font-family: 'Playfair Display', serif; 
+      letter-spacing: -0.025em;
+    }
+    
+    .hero {
+      background: linear-gradient(rgba(30, 64, 175, 0.92), rgba(30, 64, 175, 0.92)), url('https://via.placeholder.com/2000x1200?text=Newsletter+Hero+Image+to+be+replaced+with+Cloudinary') center/cover no-repeat;
+      color: white;
+      padding: 5rem 1.5rem;
+      border-radius: 3rem 3rem 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(to right, #f59e0b, #ec4899);
+    }
+    
+    .newsletter-card {
+      background: white;
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .newsletter-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 35px 60px -15px rgb(0 0 0 / 0.25);
+    }
+    
+    .newsletter-img {
+      position: relative;
+      height: 420px;
+      object-fit: cover;
+    }
+    
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.75));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .newsletter-card:hover .video-overlay {
+      opacity: 1;
+    }
+    
+    .btn-blue {
+      background: linear-gradient(to right, #1e40af, #3b82f6);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-blue:hover {
+      background: linear-gradient(to right, #1e3a8a, #2563eb);
+      transform: scale(1.05);
+      box-shadow: 0 10px 15px -3px rgb(37 99 235);
+    }
+    
+    .issue-badge {
+      background: linear-gradient(90deg, #f59e0b, #ec4899);
+      color: white;
+      padding: 0.5rem 1.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .newsletter-list {
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
-  <div class="max-w-2xl mx-auto px-6 py-20 text-center">
-    <h1 class="heading text-5xl md:text-6xl">Weekly Move Insights</h1>
-    <p class="text-xl text-gray-600 mt-6">Expert tips, discounts, and new routes delivered to your inbox.</p>
-    <form id="newsletterForm" class="mt-10 flex flex-col md:flex-row gap-4">
-      <input type="email" id="nlEmail" placeholder="Your email address" class="form-input flex-1 border border-gray-300 focus:border-blue-600 rounded-3xl px-7 py-5 text-lg">
-      <button type="submit" class="btn-blue px-10 rounded-3xl font-semibold text-lg">SUBSCRIBE</button>
-    </form>
+
+  <!-- Hero Section -->
+  <div class="hero text-center">
+    <div class="max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-md px-6 py-2 rounded-3xl mb-6">
+        <span class="text-white text-sm font-medium flex items-center gap-2">
+          <i class="fa-solid fa-truck"></i>
+          HOLLY MOVERS
+        </span>
+        <span class="text-white/80 text-xs">EST. 2018 • EUROPE</span>
+      </div>
+      <h1 class="heading text-7xl md:text-8xl leading-none font-bold mb-6">Weekly<br>Movers<br>Insights</h1>
+      <p class="text-2xl md:text-3xl text-white/90 max-w-lg mx-auto mb-12">
+        Expert tips, real discounts, and fresh routes — straight to your inbox every week.
+      </p>
+      
+      <form id="newsletterForm" class="max-w-xl mx-auto flex flex-col md:flex-row gap-4">
+        <input type="email" id="nlEmail" 
+               placeholder="Enter your email" 
+               class="flex-1 border border-white/30 focus:border-white rounded-3xl px-8 py-6 text-lg text-gray-900 placeholder:text-gray-500 outline-none">
+        <button type="submit" 
+                class="btn-blue px-12 rounded-3xl font-semibold text-xl shadow-lg">
+          SUBSCRIBE FREE
+        </button>
+      </form>
+    </div>
   </div>
+
+  <!-- Main Content -->
+  <div class="max-w-4xl mx-auto px-6 -mt-20 relative z-10">
+    
+    <!-- Issue 1 -->
+    <div class="newsletter-card mb-12">
+      <div class="p-8 pb-0">
+        <div class="flex justify-between items-center mb-8">
+          <div>
+            <span class="issue-badge">ISSUE #1 • 02 OCT 2026</span>
+          </div>
+          <div class="flex items-center gap-2 text-gray-400 text-sm">
+            <i class="fa-solid fa-calendar"></i>
+            <span>2 hours ago</span>
+          </div>
+        </div>
+        
+        <h2 class="heading text-4xl md:text-5xl leading-tight font-bold mb-8">
+          5 Smart Moves That Will Save You Time &amp; Money This Week
+        </h2>
+      </div>
+
+      <!-- Image -->
+      <div class="relative">
+        <img id="issue1-img" 
+             src="https://via.placeholder.com/1200x600?text=Newsletter+Cover+Image+to+be+replaced+with+Cloudinary+URL"
+             alt="Weekly Move Insights Cover" 
+             class="newsletter-img w-full">
+        
+        <!-- Video Placeholder -->
+        <div id="issue1-video" class="video-overlay hidden">
+          <div class="text-center">
+            <div class="mx-auto w-20 h-20 bg-white/90 rounded-2xl flex items-center justify-center shadow-2xl">
+              <i class="fa-solid fa-play text-5xl text-blue-600"></i>
+            </div>
+            <p class="text-white mt-4 text-xl font-medium">Watch: Why vans break down</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8 pt-8">
+        <p class="text-2xl leading-relaxed text-gray-600">
+          Whether you're a first-timer or a seasoned mover, one thing is certain — 
+          the right information can cut your move costs by up to 35%.
+        </p>
+        
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div class="flex gap-5">
+              <div class="w-9 h-9 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0 font-bold text-xl">01</div>
+              <div>
+                <p class="font-semibold text-lg">Book 7 days early</p>
+                <p class="text-gray-600">Our early-bird code <span class="bg-amber-100 px-2 py-0.5 rounded font-mono">EARLY35</span> saves you 35% off your first week.</p>
+              </div>
+            </div>
+            <div class="flex gap-5">
+              <div class="w-9 h-9 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0 font-bold text-xl">02</div>
+              <div>
+                <p class="font-semibold text-lg">Choose the right van size</p>
+                <p class="text-gray-600">2.5-tonne vans = perfect for 1- and 2-bed homes.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-6">
+            <div class="flex gap-5">
+              <div class="w-9 h-9 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0 font-bold text-xl">03</div>
+              <div>
+                <p class="font-semibold text-lg">Get your quote in 60 seconds</p>
+                <p class="text-gray-600">No more phone calls — we do it all instantly.</p>
+              </div>
+            </div>
+            <div class="flex gap-5">
+              <div class="w-9 h-9 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0 font-bold text-xl">04</div>
+              <div>
+                <p class="font-semibold text-lg">Free packing checklist</p>
+                <p class="text-gray-600">Download our viral checklist and never forget a box again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discount Banner -->
+        <div class="mt-12 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-3xl p-8 flex items-center justify-between">
+          <div>
+            <p class="text-sm tracking-widest font-medium">SPECIAL OFFER THIS WEEK</p>
+            <p class="text-4xl font-bold leading-none mt-1">Use code <span class="font-mono text-black">FIRST35</span></p>
+            <p class="mt-3 text-xl">and get <span class="text-5xl font-bold">€49</span> off your first move</p>
+          </div>
+          <div class="text-7xl">🚚</div>
+        </div>
+
+        <!-- Footer link -->
+        <div class="mt-10 flex justify-end">
+          <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2">
+            Read full newsletter <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subscription Reminder -->
+    <div class="text-center py-12 text-gray-500">
+      <p class="text-sm">Already subscribed? Check your inbox for this week's full edition.</p>
+    </div>
+  </div>
+
+  <script>
+    // ====================== FIREBASE CONFIG ======================
+    const firebaseConfig = {
+      apiKey: "AIzaSyC9RLegycn1D7QkFshepdE5hj0KJFJF68M",
+      authDomain: "olivia-a6e60.firebaseapp.com",
+      databaseURL: "https://olivia-a6e60-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "olivia-a6e60",
+      storageBucket: "olivia-a6e60.firebasestorage.app",
+      messagingSenderId: "184840699254",
+      appId: "1:184840699254:web:71f438ef2f7d04a3f8ce57",
+      measurementId: "G-RBQCS16HP9"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const auth = firebase.auth();
+
+    let currentUser = null;
+
+    // ====================== TAILWIND ======================
+    tailwind.config = {
+      content: [],
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    };
+
+    // ====================== SUBSCRIPTION ======================
+    document.getElementById('newsletterForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = document.getElementById('nlEmail');
+      const email = emailInput.value.trim().toLowerCase();
+
+      if (!email) return alert('Please enter a valid email address');
+
+      const btn = document.querySelector('button[type="submit"]');
+      const original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'SUBSCRIBING...';
+
+      try {
+        const userCredential = await auth.signInAnonymously();
+        currentUser = userCredential.user;
+
+        await db.ref('subscriptions').push({
+          email: email,
+          subscribedAt: firebase.database.ServerValue.TIMESTAMP,
+          lastNotified: null
+        });
+
+        emailInput.value = '';
+        emailInput.placeholder = '🎉 Subscribed!';
+        setTimeout(() => { emailInput.placeholder = 'Enter your email'; }, 2500);
+      } catch (err) {
+        console.error(err);
+        alert('Subscription failed. Try again later.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    });
+
+    auth.onAuthStateChanged(user => { if (user) currentUser = user; });
+
+    // ====================== SEED NEWSLETTER DATA IN FIREBASE ======================
+    async function seedNewsletterData() {
+      const newsletterRef = db.ref('newsletter');
+
+      try {
+        const snapshot = await newsletterRef.once('value');
+        if (snapshot.exists()) {
+          console.log('✅ Newsletter data already in Firebase');
+          return;
+        }
+
+        await newsletterRef.set({
+          issue1: {
+            imageUrl: "https://res.cloudinary.com/YOUR_CLOUDINARY_ACCOUNT/image/upload/v[YOUR_VERSION]/weekly-move-insights.jpg",
+            // videoUrl: "https://res.cloudinary.com/YOUR_CLOUDINARY_ACCOUNT/video/upload/v[YOUR_VERSION]/move-insights-demo.mp4",
+            title: "5 Smart Moves That Will Save You Time &amp; Money This Week",
+            description: "Whether you're a first-timer or a seasoned mover, one thing is certain — the right information can cut your move costs by up to 35%.",
+            date: "02 Oct 2026",
+            discountCode: "FIRST35",
+            discountAmount: "€49 off"
+          }
+        });
+        console.log('✅ Newsletter data seeded in Firebase (Cloudinary URLs ready)');
+      } catch (error) {
+        console.error('Seed error:', error);
+      }
+    }
+
+    seedNewsletterData();
+  </script>
 </body>
 </html>
