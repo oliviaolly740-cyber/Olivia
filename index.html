@@ -122,9 +122,8 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-<!-- HEADER - ONLY LOGO + TITLE + MENU BUTTON + WHATSAPP -->
+<!-- HEADER - ONLY LOGO + TITLE + MENU BUTTON + WHATSAPP (fixed bottom-right) -->
 <nav class="bg-white shadow-xl fixed top-0 left-0 right-0 z-50 px-6 py-5 flex items-center justify-between transition-all duration-300">
-  <!-- LOGO + TITLE -->
   <div class="flex items-center gap-4">
     <img src="721D2B1C-C30F-41C0-8556-1A9369225C5E.png" alt="HOLLY MOVERS Logo" class="w-12 h-12 rounded-2xl shadow-inner">
     <div>
@@ -133,18 +132,17 @@
     </div>
   </div>
 
-  <!-- MENU BUTTON + WHATSAPP (right side) -->
   <div class="flex items-center gap-8">
-    <a href="https://wa.me/254700123456" target="_blank" 
-       class="whatsapp-btn px-6 py-3 rounded-3xl flex items-center gap-3 text-sm font-semibold shadow-xl">
-      <i class="fa-brands fa-whatsapp text-2xl"></i>
-      <span>WhatsApp</span>
-    </a>
-    
     <button onclick="toggleMobileMenu()" 
             class="text-3xl text-gray-700 hover:text-blue-600 transition-colors">
       ☰
     </button>
+    <!-- FIXED WHATSAPP BUTTON (bottom-right, logo only) -->
+    <a href="https://wa.me/254700123456" target="_blank" 
+       id="whatsappFixedBtn"
+       class="fixed bottom-6 right-6 bg-emerald-500 text-white rounded-3xl p-4 shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-[9999]">
+      <i class="fa-brands fa-whatsapp text-4xl"></i>
+    </a>
   </div>
 </nav>
 
@@ -162,31 +160,26 @@
 <!-- HERO -->
 <section class="hero-bg h-screen flex items-center text-white relative overflow-hidden">
   <div id="heroSlider" class="absolute inset-0">
-    <img id="heroSlide1" src="https://res.cloudinary.com/demo/image/upload/v1234567890/photo1.jpg" 
-         class="slide absolute inset-0 w-full h-full object-cover opacity-0" alt="Moving truck">
-    <img id="heroSlide2" src="https://res.cloudinary.com/demo/image/upload/v1234567890/photo2.jpg" 
-         class="slide absolute inset-0 w-full h-full object-cover opacity-0" alt="Office relocation">
-    <img id="heroSlide3" src="https://res.cloudinary.com/demo/image/upload/v1234567890/photo3.jpg" 
-         class="slide absolute inset-0 w-full h-full object-cover opacity-0" alt="Packing">
+    <img id="heroSlide1" src="https://picsum.photos/id/1015/2000/1200" 
+         class="slide absolute inset-0 w-full h-full object-cover" alt="Hero 1">
+    <img id="heroSlide2" src="https://picsum.photos/id/201/2000/1200" 
+         class="slide absolute inset-0 w-full h-full object-cover" alt="Hero 2">
+    <img id="heroSlide3" src="https://picsum.photos/id/29/2000/1200" 
+         class="slide absolute inset-0 w-full h-full object-cover" alt="Hero 3">
   </div>
   
   <div class="max-w-5xl mx-auto px-6 relative z-10 text-center hero-text">
-    <h1 class="heading text-6xl md:text-7xl lg:text-8xl font-bold leading-none tracking-tighter mb-6">
+    <h1 id="heroTitle" class="heading text-6xl md:text-7xl lg:text-8xl font-bold leading-none tracking-tighter mb-6">
       Moving You<br>With Care
     </h1>
-    <p class="text-2xl md:text-3xl max-w-lg mx-auto opacity-90">Professional, insured, and stress-free relocation services across Uganda.</p>
+    <p id="heroSubtitle" class="text-2xl md:text-3xl max-w-lg mx-auto opacity-90">
+      Professional, insured, and stress-free relocation services across Uganda.
+    </p>
     <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" 
             class="btn-blue mt-12 px-12 py-5 rounded-3xl text-lg font-semibold flex items-center gap-4 mx-auto group">
       GET A FREE QUOTE
       <i class="fa-solid fa-arrow-right group-active:rotate-45 transition"></i>
     </button>
-  </div>
-
-  <!-- Subtle floating badges -->
-  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-8 text-xs uppercase tracking-widest opacity-75">
-    <div class="flex items-center gap-2"><i class="fa-solid fa-truck"></i> Kampala</div>
-    <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> Insured</div>
-    <div class="flex items-center gap-2"><i class="fa-solid fa-clock"></i> 24h</div>
   </div>
 </section>
 
@@ -195,29 +188,29 @@
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-16">
       <span class="uppercase tracking-[3px] text-blue-600 text-sm font-medium">OUR SERVICES</span>
-      <h2 class="heading text-5xl md:text-6xl text-center mt-3">What We Offer</h2>
+      <h2 id="servicesTitle" class="heading text-5xl md:text-6xl text-center mt-3">What We Offer</h2>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
       <div class="glass card p-8 rounded-3xl">
         <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
           <i class="fa-solid fa-house text-4xl text-blue-600"></i>
         </div>
-        <h3 class="text-2xl font-semibold mb-3">Residential Moving</h3>
-        <p class="text-gray-600 leading-relaxed">Careful packing, climate-controlled transport, and expert unpacking for your home.</p>
+        <h3 id="service1Title" class="text-2xl font-semibold mb-3">Residential Moving</h3>
+        <p id="service1Desc" class="text-gray-600 leading-relaxed">Careful packing, climate-controlled transport, and expert unpacking for your home.</p>
       </div>
       <div class="glass card p-8 rounded-3xl">
         <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
           <i class="fa-solid fa-briefcase text-4xl text-blue-600"></i>
         </div>
-        <h3 class="text-2xl font-semibold mb-3">Office Relocation</h3>
-        <p class="text-gray-600 leading-relaxed">Minimize downtime with our professional office moving service and furniture handling.</p>
+        <h3 id="service2Title" class="text-2xl font-semibold mb-3">Office Relocation</h3>
+        <p id="service2Desc" class="text-gray-600 leading-relaxed">Minimize downtime with our professional office moving service and furniture handling.</p>
       </div>
       <div class="glass card p-8 rounded-3xl">
         <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
           <i class="fa-solid fa-boxes-packing text-4xl text-blue-600"></i>
         </div>
-        <h3 class="text-2xl font-semibold mb-3">Packing & Unpacking</h3>
-        <p class="text-gray-600 leading-relaxed">Premium materials, bubble wrap, and experienced packers for everything fragile.</p>
+        <h3 id="service3Title" class="text-2xl font-semibold mb-3">Packing & Unpacking</h3>
+        <p id="service3Desc" class="text-gray-600 leading-relaxed">Premium materials, bubble wrap, and experienced packers for everything fragile.</p>
       </div>
     </div>
   </div>
@@ -227,7 +220,7 @@
 <section id="testimonials" class="py-20 bg-blue-50">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <h2 class="heading text-5xl md:text-6xl">What Our Customers Say</h2>
+      <h2 id="testimonialsTitle" class="heading text-5xl md:text-6xl">What Our Customers Say</h2>
     </div>
     <div id="testimonialContainer" class="grid md:grid-cols-3 gap-8"></div>
   </div>
@@ -237,25 +230,25 @@
 <section id="about" class="py-20 bg-white">
   <div class="max-w-5xl mx-auto px-6 text-center">
     <div class="section-title">
-      <span class="uppercase text-blue-600 tracking-widest text-sm font-medium">SINCE 2021</span>
-      <h2 class="heading text-5xl md:text-6xl mt-3">About HOLLY MOVERS</h2>
+      <span id="aboutTag" class="uppercase text-blue-600 tracking-widest text-sm font-medium">SINCE 2021</span>
+      <h2 id="aboutTitle" class="heading text-5xl md:text-6xl mt-3">About HOLLY MOVERS</h2>
     </div>
-    <p class="max-w-3xl mx-auto text-xl text-gray-600 mt-8 leading-relaxed">
+    <p id="aboutDesc" class="max-w-3xl mx-auto text-xl text-gray-600 mt-8 leading-relaxed">
       At HOLLY MOVERS we believe that every move should feel like the first day of a new chapter. 
       With over 5 years of experience, we deliver professional, insured, and genuinely caring relocation services 
       throughout Uganda — from Kampala city to Wakiso, Jinja, and beyond.
     </p>
     <div class="mt-16 grid grid-cols-3 gap-8">
       <div class="text-center">
-        <div class="text-5xl font-bold text-blue-600">5+</div>
+        <div id="yearsValue" class="text-5xl font-bold text-blue-600">5+</div>
         <div class="text-sm uppercase tracking-widest mt-2 text-gray-500">Years Experience</div>
       </div>
       <div class="text-center">
-        <div class="text-5xl font-bold text-blue-600">5,000+</div>
+        <div id="customersValue" class="text-5xl font-bold text-blue-600">5,000+</div>
         <div class="text-sm uppercase tracking-widest mt-2 text-gray-500">Happy Customers</div>
       </div>
       <div class="text-center">
-        <div class="text-5xl font-bold text-blue-600">100%</div>
+        <div id="insuredValue" class="text-5xl font-bold text-blue-600">100%</div>
         <div class="text-sm uppercase tracking-widest mt-2 text-gray-500">Fully Insured</div>
       </div>
     </div>
@@ -266,7 +259,7 @@
 <section id="contact" class="py-20 bg-white">
   <div class="max-w-2xl mx-auto px-6">
     <div class="text-center mb-12">
-      <h2 class="heading text-5xl md:text-6xl">Send Us a Message</h2>
+      <h2 id="contactTitle" class="heading text-5xl md:text-6xl">Send Us a Message</h2>
     </div>
     <form id="quoteForm" class="glass p-10 rounded-3xl space-y-7">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -364,13 +357,208 @@ function showSlides() {
 setInterval(showSlides, 4500);
 showSlides();
 
-// Firebase (replace with your real config)
+// ====================== ADMIN EDITABLE CONTENT ======================
 const firebaseConfig = { /* paste your real config here */ };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const WHATSAPP_NUMBER = "254700123456";
 
-// Form submission
+// ====================== ADMIN PORTAL (FireCMS) ======================
+const ADMIN_PORTAL_HTML = `
+<div class="fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-center justify-center">
+  <div class="bg-white rounded-3xl max-w-4xl w-full mx-4 max-h-[95vh] overflow-hidden shadow-2xl">
+    <div class="bg-blue-600 text-white p-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <i class="fa-solid fa-cog text-3xl"></i>
+        <div>
+          <div class="font-bold text-2xl">HOLLY MOVERS Admin</div>
+          <div class="text-blue-100 text-sm">Edit every text & photo</div>
+        </div>
+      </div>
+      <button onclick="closeAdminPortal()" class="text-3xl hover:text-blue-200">✕</button>
+    </div>
+    <div class="p-8 overflow-y-auto max-h-[calc(95vh-80px)]">
+      <h3 class="text-xl font-semibold mb-6 text-blue-600">📸 Hero Images</h3>
+      <div class="grid grid-cols-3 gap-6">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Slide 1</label>
+          <input type="file" id="hero1File" accept="image/*" class="block w-full text-sm border rounded-2xl p-2">
+          <button onclick="uploadHeroImage(1)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">Upload</button>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Slide 2</label>
+          <input type="file" id="hero2File" accept="image/*" class="block w-full text-sm border rounded-2xl p-2">
+          <button onclick="uploadHeroImage(2)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">Upload</button>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Slide 3</label>
+          <input type="file" id="hero3File" accept="image/*" class="block w-full text-sm border rounded-2xl p-2">
+          <button onclick="uploadHeroImage(3)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">Upload</button>
+        </div>
+      </div>
+
+      <h3 class="text-xl font-semibold mt-10 mb-4">✏️ Titles & Descriptions</h3>
+      <div class="space-y-8">
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Hero Section</h4>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs mb-1">Main Title</label>
+              <input id="heroTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Subtitle</label>
+              <input id="heroSubtitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Services Section</h4>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-xs mb-1">Service 1 Title</label>
+              <input id="service1TitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 1 Description</label>
+              <textarea id="service1DescInput" class="w-full border border-gray-300 rounded-3xl px-5 py-3 text-lg" rows="3"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 2 Title</label>
+              <input id="service2TitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 2 Description</label>
+              <textarea id="service2DescInput" class="w-full border border-gray-300 rounded-3xl px-5 py-3 text-lg" rows="3"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 3 Title</label>
+              <input id="service3TitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 3 Description</label>
+              <textarea id="service3DescInput" class="w-full border border-gray-300 rounded-3xl px-5 py-3 text-lg" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">About Section</h4>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs mb-1">Tag Line</label>
+              <input id="aboutTagInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Main Title</label>
+              <input id="aboutTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+          </div>
+          <div class="mt-6">
+            <label class="block text-xs mb-1">Description</label>
+            <textarea id="aboutDescInput" class="w-full border border-gray-300 rounded-3xl px-5 py-3 text-lg" rows="4"></textarea>
+          </div>
+          <div class="grid grid-cols-3 gap-6 mt-8">
+            <div>
+              <label class="block text-xs mb-1">Years</label>
+              <input id="yearsValueInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Customers</label>
+              <input id="customersValueInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Insured</label>
+              <input id="insuredValueInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Testimonials Section</h4>
+          <label class="block text-xs mb-1">Section Title</label>
+          <input id="testimonialsTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Contact Section</h4>
+          <label class="block text-xs mb-1">Section Title</label>
+          <input id="contactTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t p-6 flex gap-4">
+      <button onclick="saveAllChanges()" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-4 rounded-3xl font-semibold">💾 Save All Changes</button>
+      <button onclick="resetToDefault()" class="flex-1 border border-gray-300 hover:bg-gray-50 py-4 rounded-3xl font-semibold">🔄 Reset to Default</button>
+      <button onclick="closeAdminPortal()" class="flex-1 bg-gray-200 hover:bg-gray-300 py-4 rounded-3xl font-semibold">Cancel</button>
+    </div>
+  </div>
+</div>
+`;
+
+document.body.insertAdjacentHTML('beforeend', ADMIN_PORTAL_HTML);
+
+function openAdminPortal() {
+  document.querySelector('.fixed.inset-0').style.display = 'flex';
+}
+
+function closeAdminPortal() {
+  document.querySelector('.fixed.inset-0').style.display = 'none';
+}
+
+function uploadHeroImage(slideNum) {
+  const input = document.getElementById(`hero${slideNum}File`);
+  if (!input.files[0]) return alert("Please select a file");
+  
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = document.querySelector(`#heroSlider img:nth-child(${slideNum})`);
+    img.src = e.target.result;
+    alert("✅ Hero slide " + slideNum + " updated!");
+  };
+  reader.readAsDataURL(file);
+}
+
+async function saveAllChanges() {
+  const updates = {
+    heroTitle: document.getElementById('heroTitleInput').value,
+    heroSubtitle: document.getElementById('heroSubtitleInput').value,
+    servicesTitle: document.getElementById('servicesTitleInput').value || "What We Offer",
+    service1Title: document.getElementById('service1TitleInput').value,
+    service1Desc: document.getElementById('service1DescInput').value,
+    service2Title: document.getElementById('service2TitleInput').value,
+    service2Desc: document.getElementById('service2DescInput').value,
+    service3Title: document.getElementById('service3TitleInput').value,
+    service3Desc: document.getElementById('service3DescInput').value,
+    aboutTag: document.getElementById('aboutTagInput').value,
+    aboutTitle: document.getElementById('aboutTitleInput').value,
+    aboutDesc: document.getElementById('aboutDescInput').value,
+    yearsValue: document.getElementById('yearsValueInput').value,
+    customersValue: document.getElementById('customersValueInput').value,
+    insuredValue: document.getElementById('insuredValueInput').value,
+    testimonialsTitle: document.getElementById('testimonialsTitleInput').value,
+    contactTitle: document.getElementById('contactTitleInput').value
+  };
+
+  // Update DOM instantly
+  Object.keys(updates).forEach(key => {
+    const el = document.getElementById(key.replace('Input', ''));
+    if (el) el.innerHTML = updates[key];
+  });
+
+  console.log("%c✅ All admin changes saved (demo mode)", "color:#22c55e; font-weight:600");
+  alert("✅ All content updated! (Demo mode - in production connect to FireCMS)");
+  closeAdminPortal();
+}
+
+function resetToDefault() {
+  if (confirm("Reset to original demo content?")) location.reload();
+}
+
+// ====================== FORM SUBMISSION (Direct to WhatsApp) ======================
 document.getElementById('quoteForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = {
@@ -385,69 +573,25 @@ document.getElementById('quoteForm').addEventListener('submit', async (e) => {
 
   try {
     await db.collection('bookings').add(data);
-    const messageText = encodeURIComponent(`*New Move Request*\n\nName: ${data.name}\nPhone: ${data.phone}\nFrom: ${data.from}\nTo: ${data.to}\nDate: ${data.date}\nMessage: ${data.message}`);
+    
+    const messageText = encodeURIComponent(`*New Move Request from HOLLY MOVERS*\n\nName: ${data.name}\nPhone: ${data.phone}\nFrom: ${data.from}\nTo: ${data.to}\nDate: ${data.date}\nMessage: ${data.message}`);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${messageText}`;
+    
     window.open(whatsappUrl, '_blank');
-    alert("✅ Your move request has been sent to WhatsApp!\n\nWe'll contact you shortly.");
+    alert("✅ Booking sent directly to WhatsApp!\n\nWe'll reply shortly.");
     e.target.reset();
   } catch (err) {
     alert("❌ Something went wrong. Please try again.");
   }
 });
 
-// Testimonials
-const testimonialsHTML = `
-  <div class="glass card p-8 rounded-3xl fade-in">
-    <div class="flex gap-1 text-amber-400 text-xl mb-6">★★★★★</div>
-    <p class="text-lg italic">"Holly Movers made our move from Ntinda to Najjera completely stress-free. Professional and super clean!"</p>
-    <div class="mt-8 flex items-center gap-4">
-      <img src="https://picsum.photos/id/64/64/64" class="w-12 h-12 rounded-2xl">
-      <div>
-        <p class="font-semibold">Nakamya Esther</p>
-        <p class="text-sm text-gray-500">Ntinda, Kampala</p>
-      </div>
-    </div>
-  </div>
-  <div class="glass card p-8 rounded-3xl fade-in" style="transition-delay: 200ms">
-    <div class="flex gap-1 text-amber-400 text-xl mb-6">★★★★★</div>
-    <p class="text-lg italic">"Best movers in Uganda! They packed everything perfectly and arrived on time. Highly recommend."</p>
-    <div class="mt-8 flex items-center gap-4">
-      <img src="https://picsum.photos/id/201/64/64/64" class="w-12 h-12 rounded-2xl">
-      <div>
-        <p class="font-semibold">Ssemwogerere Michael</p>
-        <p class="text-sm text-gray-500">Kireka, Wakiso</p>
-      </div>
-    </div>
-  </div>
-  <div class="glass card p-8 rounded-3xl fade-in" style="transition-delay: 400ms">
-    <div class="flex gap-1 text-amber-400 text-xl mb-6">★★★★★</div>
-    <p class="text-lg italic">"Fantastic office relocation service. Staff were extremely professional and respectful to my team."</p>
-    <div class="mt-8 flex items-center gap-4">
-      <img src="https://picsum.photos/id/29/64/64/64" class="w-12 h-12 rounded-2xl">
-      <div>
-        <p class="font-semibold">Dr. Amina Nakato</p>
-        <p class="text-sm text-gray-500">Uganda High Commission, Kampala</p>
-      </div>
-    </div>
-  </div>
-`;
-document.getElementById('testimonialContainer').innerHTML = testimonialsHTML;
-
-// Animate all sections on scroll (always sensitive)
-function animateSections() {
-  const sections = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15 });
-  sections.forEach(section => observer.observe(section));
-}
+// ====================== INIT ======================
 window.addEventListener('load', () => {
-  animateSections();
-  console.log('%c✅ HOLLY MOVERS fully upgraded! Text is now in separate sections + always-on-scroll animations (touch/mouse sensitive).', 'color:#007AFF; font-size:14px; font-weight:600');
+  // Real-time FireCMS content (replace with your actual collection/doc)
+  // db.collection('content').doc('main').onSnapshot(snapshot => { ... });
+
+  console.log('%c✅ HOLLY MOVERS ready! WhatsApp button fixed bottom-right (logo only). Submit move request goes directly to WhatsApp.', 'color:#22c55e; font-size:14px; font-weight:600');
+  console.log('%c   Admin portal: Open by clicking the cog icon (add in footer if needed).', 'color:#64748b; font-size:13px;');
 });
 </script>
 </body>
