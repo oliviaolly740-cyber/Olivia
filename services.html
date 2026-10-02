@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services - HOLLY MOVERS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; color: #1f2937; }
+    h1, h2, .heading { font-family: 'Playfair Display', serif; }
+    .glass { background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); }
+    .card { transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1); }
+    .card:hover { transform: translateY(-16px) scale(1.03); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-7xl mx-auto px-6 py-20">
+    <h1 class="heading text-5xl md:text-6xl text-center mb-16">Our Services</h1>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Same 3 service cards as in main index -->
+      <div class="glass card p-8 rounded-3xl">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
+          <i class="fa-solid fa-house text-4xl text-blue-600"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-3">Residential Moving</h3>
+        <p class="text-gray-600 leading-relaxed">Careful packing, climate-controlled transport, and expert unpacking for your home.</p>
+      </div>
+      <!-- Add the other two services similarly -->
+      <div class="glass card p-8 rounded-3xl">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
+          <i class="fa-solid fa-briefcase text-4xl text-blue-600"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-3">Office Relocation</h3>
+        <p class="text-gray-600 leading-relaxed">Minimize downtime with our professional office moving service and furniture handling.</p>
+      </div>
+      <div class="glass card p-8 rounded-3xl">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
+          <i class="fa-solid fa-boxes-packing text-4xl text-blue-600"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-3">Packing & Unpacking</h3>
+        <p class="text-gray-600 leading-relaxed">Premium materials, bubble wrap, and experienced packers for everything fragile.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
