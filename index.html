@@ -10,7 +10,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
     
     :root {
-      --primary: 0 123 255; /* Tailwind blue-600 */
+      --primary: 0 123 255;
     }
     
     body { 
@@ -122,8 +122,9 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-<!-- HEADER -->
+<!-- HEADER - ONLY LOGO + TITLE + MENU BUTTON + WHATSAPP -->
 <nav class="bg-white shadow-xl fixed top-0 left-0 right-0 z-50 px-6 py-5 flex items-center justify-between transition-all duration-300">
+  <!-- LOGO + TITLE -->
   <div class="flex items-center gap-4">
     <img src="721D2B1C-C30F-41C0-8556-1A9369225C5E.png" alt="HOLLY MOVERS Logo" class="w-12 h-12 rounded-2xl shadow-inner">
     <div>
@@ -131,18 +132,19 @@
       <span class="text-3xl font-bold tracking-tight text-gray-900">MOVERS</span>
     </div>
   </div>
-  
-  <div class="flex items-center gap-8 text-sm font-medium">
-    <a href="#services" onclick="smoothScrollTo('services')" class="nav-link text-gray-700 hover:text-blue-600">Services</a>
-    <a href="#testimonials" onclick="smoothScrollTo('testimonials')" class="nav-link text-gray-700 hover:text-blue-600">Reviews</a>
-    <a href="#about" onclick="smoothScrollTo('about')" class="nav-link text-gray-700 hover:text-blue-600">About</a>
-    <a href="#contact" onclick="smoothScrollTo('contact')" class="nav-link text-gray-700 hover:text-blue-600">Contact</a>
-    
+
+  <!-- MENU BUTTON + WHATSAPP (right side) -->
+  <div class="flex items-center gap-8">
     <a href="https://wa.me/254700123456" target="_blank" 
        class="whatsapp-btn px-6 py-3 rounded-3xl flex items-center gap-3 text-sm font-semibold shadow-xl">
       <i class="fa-brands fa-whatsapp text-2xl"></i>
       <span>WhatsApp</span>
     </a>
+    
+    <button onclick="toggleMobileMenu()" 
+            class="text-3xl text-gray-700 hover:text-blue-600 transition-colors">
+      ☰
+    </button>
   </div>
 </nav>
 
@@ -340,7 +342,7 @@
 </footer>
 
 <script>
-// Tailwind script already loaded
+// Mobile menu
 function toggleMobileMenu() {
   document.getElementById('mobileMenu').classList.toggle('hidden');
 }
@@ -393,7 +395,7 @@ document.getElementById('quoteForm').addEventListener('submit', async (e) => {
   }
 });
 
-// Testimonials (Firebase ready - replace with your real collection query)
+// Testimonials
 const testimonialsHTML = `
   <div class="glass card p-8 rounded-3xl fade-in">
     <div class="flex gap-1 text-amber-400 text-xl mb-6">★★★★★</div>
@@ -431,19 +433,21 @@ const testimonialsHTML = `
 `;
 document.getElementById('testimonialContainer').innerHTML = testimonialsHTML;
 
-// Animate testimonials on scroll
-function animateTestimonials() {
-  const cards = document.querySelectorAll('.fade-in');
+// Animate all sections on scroll (always sensitive)
+function animateSections() {
+  const sections = document.querySelectorAll('.fade-in');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
     });
-  }, { threshold: 0.2 });
-  cards.forEach(card => observer.observe(card));
+  }, { threshold: 0.15 });
+  sections.forEach(section => observer.observe(section));
 }
 window.addEventListener('load', () => {
-  animateTestimonials();
-  console.log('%c✅ HOLLY MOVERS upgraded with professional animations, improved CSS, and full mobile menu ready!', 'color:#007AFF; font-size:14px; font-weight:600');
+  animateSections();
+  console.log('%c✅ HOLLY MOVERS fully upgraded! Text is now in separate sections + always-on-scroll animations (touch/mouse sensitive).', 'color:#007AFF; font-size:14px; font-weight:600');
 });
 </script>
 </body>
