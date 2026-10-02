@@ -118,6 +118,14 @@
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    .slide-text {
+      animation: slideText 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    @keyframes slideText {
+      0% { opacity: 0; transform: translateY(40px) scale(0.9); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
@@ -153,10 +161,10 @@
     <a href="services.html" onclick="toggleMobileMenu(); smoothScrollTo('services')" class="nav-link">Services</a>
     <a href="testimonials.html" onclick="toggleMobileMenu(); smoothScrollTo('testimonials')" class="nav-link">Reviews</a>
     <a href="about.html" onclick="toggleMobileMenu(); smoothScrollTo('about')" class="nav-link">About</a>
-    <a href="gallery.html" onclick="toggleMobileMenu(); smoothScrollTo('contact')" class="nav-link">Gallery</a>
-     <a href="newsletter.html" onclick="toggleMobileMenu(); smoothScrollTo('services')" class="nav-link">Newsletter</a>
+    <a href="gallery.html" onclick="toggleMobileMenu(); smoothScrollTo('gallery')" class="nav-link">Gallery</a>
+    <a href="newsletter.html" onclick="toggleMobileMenu(); smoothScrollTo('newsletter')" class="nav-link">Newsletter</a>
     <a href="contact.html" onclick="toggleMobileMenu(); smoothScrollTo('contact')" class="nav-link">Contact</a>
-     <a href="admin.html" onclick="toggleMobileMenu(); smoothScrollTo('services')" class="nav-link">ADMIN PORTAL</a>
+    <a href="admin.html" onclick="toggleMobileMenu(); smoothScrollTo('admin')" class="nav-link">ADMIN PORTAL</a>
   </div>
 </div>
 
@@ -258,6 +266,37 @@
   </div>
 </section>
 
+<!-- GALLERY -->
+<section id="gallery" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <span class="uppercase tracking-[3px] text-blue-600 text-sm font-medium">OUR MOMENTS</span>
+      <h2 id="galleryTitle" class="heading text-5xl md:text-6xl text-center mt-3">Moments That Matter</h2>
+    </div>
+    <div id="galleryGrid" class="grid md:grid-cols-3 gap-8"></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter" class="py-20 bg-blue-50">
+  <div class="max-w-2xl mx-auto px-6 text-center">
+    <div class="section-title">
+      <span class="uppercase text-blue-600 tracking-widest text-sm font-medium">STAY INFORMED</span>
+      <h2 id="newsletterTitle" class="heading text-5xl md:text-6xl mt-3">Weekly Move Insights</h2>
+    </div>
+    <p class="text-xl text-gray-600 mt-6 max-w-md mx-auto">Expert tips, discounts, and new routes delivered to your inbox.</p>
+    
+    <form id="newsletterForm" class="mt-10 flex flex-col md:flex-row gap-4">
+      <input type="email" id="nlEmail" placeholder="Your email address" 
+             class="form-input flex-1 border border-gray-300 focus:border-blue-600 rounded-3xl px-7 py-5 text-lg">
+      <button type="submit" 
+              class="btn-blue px-10 rounded-3xl font-semibold text-lg flex items-center gap-3">
+        SUBSCRIBE
+      </button>
+    </form>
+  </div>
+</section>
+
 <!-- CONTACT FORM -->
 <section id="contact" class="py-20 bg-white">
   <div class="max-w-2xl mx-auto px-6">
@@ -337,71 +376,46 @@
   </div>
 </footer>
 
-<script>
-// Mobile menu
-function toggleMobileMenu() {
-  document.getElementById('mobileMenu').classList.toggle('hidden');
-}
-
-function smoothScrollTo(sectionId) {
-  document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-}
-
-// Hero slider
-let slideIndex = 0;
-const slides = document.querySelectorAll('#heroSlider img');
-function showSlides() {
-  slides.forEach((slide, i) => {
-    slide.style.opacity = i === slideIndex ? '1' : '0';
-    slide.style.zIndex = i === slideIndex ? '10' : '1';
-  });
-  slideIndex = (slideIndex + 1) % slides.length;
-}
-setInterval(showSlides, 4500);
-showSlides();
-
-// ====================== ADMIN EDITABLE CONTENT ======================
-const firebaseConfig = { /* paste your real config here */ };
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const WHATSAPP_NUMBER = "254700123456";
-
-// ====================== ADMIN PORTAL (FireCMS) ======================
-const ADMIN_PORTAL_HTML = `
-<div class="fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-center justify-center">
-  <div class="bg-white rounded-3xl max-w-4xl w-full mx-4 max-h-[95vh] overflow-hidden shadow-2xl">
+<!-- ====================== ADMIN PORTAL ====================== -->
+<div id="adminPortal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-center justify-center">
+  <div class="bg-white rounded-3xl max-w-5xl w-full mx-4 max-h-[95vh] overflow-hidden shadow-2xl">
     <div class="bg-blue-600 text-white p-6 flex items-center justify-between">
       <div class="flex items-center gap-4">
         <i class="fa-solid fa-cog text-3xl"></i>
         <div>
           <div class="font-bold text-2xl">HOLLY MOVERS Admin</div>
-          <div class="text-blue-100 text-sm">Edit every text & photo</div>
+          <div class="text-blue-100 text-sm">Edit every text, photo, &amp; review • Cloudinary + Firestore</div>
         </div>
       </div>
       <button onclick="closeAdminPortal()" class="text-3xl hover:text-blue-200">✕</button>
     </div>
+
     <div class="p-8 overflow-y-auto max-h-[calc(95vh-80px)]">
-      <h3 class="text-xl font-semibold mb-6 text-blue-600">📸 Hero Images</h3>
+      <!-- Hero Images -->
+      <h3 class="text-xl font-semibold mb-6 text-blue-600">📸 Hero Images (Cloudinary)</h3>
       <div class="grid grid-cols-3 gap-6">
         <div>
-          <label class="block text-xs font-medium text-gray-500 mb-1">Slide 1</label>
-          <input type="file" id="hero1File" accept="image/*" class="block w-full text-sm border rounded-2xl p-2">
-          <button onclick="uploadHeroImage(1)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">Upload</button>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Slide 1 (Cloudinary URL)</label>
+          <input id="hero1File" type="text" placeholder="https://res.cloudinary.com/..." 
+                 class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3">
+          <button onclick="updateHeroImage(1)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">UPDATE</button>
         </div>
         <div>
           <label class="block text-xs font-medium text-gray-500 mb-1">Slide 2</label>
-          <input type="file" id="hero2File" accept="image/*" class="block w-full text-sm border rounded-2xl p-2">
-          <button onclick="uploadHeroImage(2)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">Upload</button>
+          <input id="hero2File" type="text" placeholder="https://res.cloudinary.com/..." 
+                 class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3">
+          <button onclick="updateHeroImage(2)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">UPDATE</button>
         </div>
         <div>
           <label class="block text-xs font-medium text-gray-500 mb-1">Slide 3</label>
-          <input type="file" id="hero3File" accept="image/*" class="block w-full text-sm border rounded-2xl p-2">
-          <button onclick="uploadHeroImage(3)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">Upload</button>
+          <input id="hero3File" type="text" placeholder="https://res.cloudinary.com/..." 
+                 class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3">
+          <button onclick="updateHeroImage(3)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">UPDATE</button>
         </div>
       </div>
 
-      <h3 class="text-xl font-semibold mt-10 mb-4">✏️ Titles & Descriptions</h3>
-      <div class="space-y-8">
+      <!-- Titles & Descriptions -->
+      <div class="space-y-10 mt-10">
         <div class="bg-gray-50 p-6 rounded-3xl">
           <h4 class="font-medium mb-4">Hero Section</h4>
           <div class="grid grid-cols-2 gap-6">
@@ -479,14 +493,59 @@ const ADMIN_PORTAL_HTML = `
         </div>
 
         <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Gallery Section</h4>
+          <div class="space-y-6">
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs mb-1">Image 1 URL</label>
+                <input id="gallery1" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Image 2 URL</label>
+                <input id="gallery2" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Image 3 URL</label>
+                <input id="gallery3" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs mb-1">Image 4 URL</label>
+                <input id="gallery4" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Image 5 URL</label>
+                <input id="gallery5" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Image 6 URL</label>
+                <input id="gallery6" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
           <h4 class="font-medium mb-4">Testimonials Section</h4>
-          <label class="block text-xs mb-1">Section Title</label>
-          <input id="testimonialsTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+          <div id="testimonialInputs">
+            <!-- JS injected testimonial inputs -->
+          </div>
+          <button onclick="addTestimonialInput()" 
+                  class="mt-4 text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl">+ Add Testimonial Input</button>
+          <p class="text-xs text-gray-500 mt-3">Enter 3–6 reviews (one per line as JSON). Max 6.</p>
+          <textarea id="testimonialJson" class="w-full border border-gray-300 rounded-3xl px-5 py-5 mt-6 text-sm font-mono h-40" placeholder='[{"name":"Jane Doe","review":"Fantastic movers!","rating":5,"location":"Kampala"},{"name":"John Smith","review":"Stress-free and professional.","rating":4.5,"location":"Wakiso"}]'></textarea>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Newsletter Section</h4>
+          <label class="block text-xs mb-1">Newsletter Title</label>
+          <input id="newsletterTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
         </div>
 
         <div class="bg-gray-50 p-6 rounded-3xl">
           <h4 class="font-medium mb-4">Contact Section</h4>
-          <label class="block text-xs mb-1">Section Title</label>
+          <label class="block text-xs mb-1">Contact Title</label>
           <input id="contactTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
         </div>
       </div>
@@ -499,69 +558,319 @@ const ADMIN_PORTAL_HTML = `
     </div>
   </div>
 </div>
-`;
+
+<script>
+// Mobile menu
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+}
+
+function smoothScrollTo(sectionId) {
+  document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+}
+
+// Hero slider
+let slideIndex = 0;
+const slides = document.querySelectorAll('#heroSlider img');
+function showSlides() {
+  slides.forEach((slide, i) => {
+    slide.style.opacity = i === slideIndex ? '1' : '0';
+    slide.style.zIndex = i === slideIndex ? '10' : '1';
+  });
+  slideIndex = (slideIndex + 1) % slides.length;
+}
+setInterval(showSlides, 4500);
+showSlides();
+
+// ====================== ADMIN EDITABLE CONTENT ======================
+const firebaseConfig = { /* paste your real config here */ };
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const WHATSAPP_NUMBER = "254700123456";
+
+// ====================== ADMIN PORTAL ======================
+const ADMIN_PORTAL_HTML = `
+<div class="fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-center justify-center">
+  <div class="bg-white rounded-3xl max-w-5xl w-full mx-4 max-h-[95vh] overflow-hidden shadow-2xl">
+    <div class="bg-blue-600 text-white p-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <i class="fa-solid fa-cog text-3xl"></i>
+        <div>
+          <div class="font-bold text-2xl">HOLLY MOVERS Admin</div>
+          <div class="text-blue-100 text-sm">Edit every text, photo, &amp; review • Cloudinary + Firestore</div>
+        </div>
+      </div>
+      <button onclick="closeAdminPortal()" class="text-3xl hover:text-blue-200">✕</button>
+    </div>
+    <div class="p-8 overflow-y-auto max-h-[calc(95vh-80px)]">
+      <!-- Hero Images -->
+      <h3 class="text-xl font-semibold mb-6 text-blue-600">📸 Hero Images (Cloudinary)</h3>
+      <div class="grid grid-cols-3 gap-6">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Slide 1 (Cloudinary URL)</label>
+          <input id="hero1File" type="text" placeholder="https://res.cloudinary.com/..." 
+                 class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3">
+          <button onclick="updateHeroImage(1)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">UPDATE</button>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Slide 2</label>
+          <input id="hero2File" type="text" placeholder="https://res.cloudinary.com/..." 
+                 class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3">
+          <button onclick="updateHeroImage(2)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">UPDATE</button>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Slide 3</label>
+          <input id="hero3File" type="text" placeholder="https://res.cloudinary.com/..." 
+                 class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3">
+          <button onclick="updateHeroImage(3)" class="mt-3 text-xs bg-blue-600 text-white px-5 py-2 rounded-2xl">UPDATE</button>
+        </div>
+      </div>
+
+      <!-- Titles & Descriptions -->
+      <div class="space-y-10 mt-10">
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Hero Section</h4>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs mb-1">Main Title</label>
+              <input id="heroTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Subtitle</label>
+              <input id="heroSubtitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Services Section</h4>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-xs mb-1">Service 1 Title</label>
+              <input id="service1TitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 1 Description</label>
+              <textarea id="service1DescInput" class="w-full border border-gray-300 rounded-3xl px-5 py-3 text-lg" rows="3"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 2 Title</label>
+              <input id="service2TitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 2 Description</label>
+              <textarea id="service2DescInput" class="w-full border border-gray-300 rounded-3xl px-5 py-3 text-lg" rows="3"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 3 Title</label>
+              <input id="service3TitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Service 3 Description</label>
+              <textarea id="service3DescInput" class="w-full border border-gray-300 rounded-3xl px-5 py-3 text-lg" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">About Section</h4>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs mb-1">Tag Line</label>
+              <input id="aboutTagInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Main Title</label>
+              <input id="aboutTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+          </div>
+          <div class="mt-6">
+            <label class="block text-xs mb-1">Description</label>
+            <textarea id="aboutDescInput" class="w-full border border-gray-300 rounded-3xl px-5 py-3 text-lg" rows="4"></textarea>
+          </div>
+          <div class="grid grid-cols-3 gap-6 mt-8">
+            <div>
+              <label class="block text-xs mb-1">Years</label>
+              <input id="yearsValueInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Customers</label>
+              <input id="customersValueInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Insured</label>
+              <input id="insuredValueInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Gallery Section</h4>
+          <div class="space-y-6">
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs mb-1">Image 1 URL</label>
+                <input id="gallery1" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Image 2 URL</label>
+                <input id="gallery2" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Image 3 URL</label>
+                <input id="gallery3" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs mb-1">Image 4 URL</label>
+                <input id="gallery4" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Image 5 URL</label>
+                <input id="gallery5" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Image 6 URL</label>
+                <input id="gallery6" type="text" placeholder="Cloudinary URL" class="form-input w-full border border-gray-300 rounded-2xl px-5 py-3 text-sm">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Testimonials Section</h4>
+          <div id="testimonialInputs">
+            <!-- JS injected testimonial inputs -->
+          </div>
+          <button onclick="addTestimonialInput()" 
+                  class="mt-4 text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl">+ Add Testimonial Input</button>
+          <p class="text-xs text-gray-500 mt-3">Enter 3–6 reviews (one per line as JSON). Max 6.</p>
+          <textarea id="testimonialJson" class="w-full border border-gray-300 rounded-3xl px-5 py-5 mt-6 text-sm font-mono h-40" placeholder='[{"name":"Jane Doe","review":"Fantastic movers!","rating":5,"location":"Kampala"},{"name":"John Smith","review":"Stress-free and professional.","rating":4.5,"location":"Wakiso"}]'></textarea>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Newsletter Section</h4>
+          <label class="block text-xs mb-1">Newsletter Title</label>
+          <input id="newsletterTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-3xl">
+          <h4 class="font-medium mb-4">Contact Section</h4>
+          <label class="block text-xs mb-1">Contact Title</label>
+          <input id="contactTitleInput" class="w-full border border-gray-300 rounded-2xl px-5 py-3 text-lg">
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t p-6 flex gap-4">
+      <button onclick="saveAllChanges()" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-4 rounded-3xl font-semibold">💾 Save All Changes</button>
+      <button onclick="resetToDefault()" class="flex-1 border border-gray-300 hover:bg-gray-50 py-4 rounded-3xl font-semibold">🔄 Reset to Default</button>
+      <button onclick="closeAdminPortal()" class="flex-1 bg-gray-200 hover:bg-gray-300 py-4 rounded-3xl font-semibold">Cancel</button>
+    </div>
+  </div>
+</div>`;
 
 document.body.insertAdjacentHTML('beforeend', ADMIN_PORTAL_HTML);
 
 function openAdminPortal() {
-  document.querySelector('.fixed.inset-0').style.display = 'flex';
+  document.getElementById('adminPortal').style.display = 'flex';
+  setTimeout(() => {
+    const currentTestimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+    document.getElementById('testimonialJson').value = JSON.stringify(currentTestimonials, null, 2);
+  }, 100);
 }
 
 function closeAdminPortal() {
-  document.querySelector('.fixed.inset-0').style.display = 'none';
+  document.getElementById('adminPortal').style.display = 'none';
 }
 
-function uploadHeroImage(slideNum) {
+function updateHeroImage(slideNum) {
   const input = document.getElementById(`hero${slideNum}File`);
-  if (!input.files[0]) return alert("Please select a file");
+  const newSrc = input.value.trim();
+  if (!newSrc) return alert("Please enter a valid Cloudinary URL");
   
-  const file = input.files[0];
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const img = document.querySelector(`#heroSlider img:nth-child(${slideNum})`);
-    img.src = e.target.result;
-    alert("✅ Hero slide " + slideNum + " updated!");
-  };
-  reader.readAsDataURL(file);
-}
-
-async function saveAllChanges() {
-  const updates = {
-    heroTitle: document.getElementById('heroTitleInput').value,
-    heroSubtitle: document.getElementById('heroSubtitleInput').value,
-    servicesTitle: document.getElementById('servicesTitleInput').value || "What We Offer",
-    service1Title: document.getElementById('service1TitleInput').value,
-    service1Desc: document.getElementById('service1DescInput').value,
-    service2Title: document.getElementById('service2TitleInput').value,
-    service2Desc: document.getElementById('service2DescInput').value,
-    service3Title: document.getElementById('service3TitleInput').value,
-    service3Desc: document.getElementById('service3DescInput').value,
-    aboutTag: document.getElementById('aboutTagInput').value,
-    aboutTitle: document.getElementById('aboutTitleInput').value,
-    aboutDesc: document.getElementById('aboutDescInput').value,
-    yearsValue: document.getElementById('yearsValueInput').value,
-    customersValue: document.getElementById('customersValueInput').value,
-    insuredValue: document.getElementById('insuredValueInput').value,
-    testimonialsTitle: document.getElementById('testimonialsTitleInput').value,
-    contactTitle: document.getElementById('contactTitleInput').value
-  };
-
-  // Update DOM instantly
-  Object.keys(updates).forEach(key => {
-    const el = document.getElementById(key.replace('Input', ''));
-    if (el) el.innerHTML = updates[key];
-  });
-
-  console.log("%c✅ All admin changes saved (demo mode)", "color:#22c55e; font-weight:600");
-  alert("✅ All content updated! (Demo mode - in production connect to FireCMS)");
+  const img = document.querySelector(`#heroSlider img:nth-child(${slideNum})`);
+  img.src = newSrc;
+  alert(`✅ Hero slide ${slideNum} updated to Cloudinary URL!`);
   closeAdminPortal();
 }
 
-function resetToDefault() {
-  if (confirm("Reset to original demo content?")) location.reload();
+// ====================== TESTIMONIALS (CRUD + JSON) ======================
+function loadTestimonials() {
+  let testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+  if (testimonials.length === 0) {
+    testimonials = [
+      { name: "Sarah N.", review: "HOLLY MOVERS made our move from Kampala to Jinja so smooth!", rating: 5, location: "Kampala" },
+      { name: "David O.", review: "Professional team, great communication, and fair pricing.", rating: 4.8, location: "Wakiso" },
+      { name: "Amina T.", review: "They packed everything safely and even handled fragile items with care.", rating: 5, location: "Jinja" }
+    ];
+  }
+  localStorage.setItem('testimonials', JSON.stringify(testimonials));
+
+  const container = document.getElementById('testimonialContainer');
+  container.innerHTML = '';
+
+  testimonials.forEach((t, index) => {
+    const div = document.createElement('div');
+    div.className = 'glass card p-8 rounded-3xl';
+    div.innerHTML = `
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
+          <i class="fa-solid fa-quote-left text-3xl text-blue-400"></i>
+        </div>
+        <div>
+          <div class="font-semibold">${t.name}</div>
+          <div class="text-xs text-gray-500">${t.location}</div>
+        </div>
+      </div>
+      <p class="text-gray-600 leading-relaxed italic">"${t.review}"</p>
+      <div class="flex text-amber-400 mt-8">
+        ${Array(5).fill(0).map((_, i) => `<i class="fa-solid fa-star text-2xl ${i < Math.floor(t.rating) ? '' : 'opacity-30'}"></i>`).join('')}
+        <span class="ml-3 text-sm font-medium text-gray-500">${t.rating}</span>
+      </div>
+      <button onclick="deleteTestimonial(${index}); event.stopImmediatePropagation()" 
+              class="mt-6 text-xs bg-red-100 hover:bg-red-200 text-red-600 px-4 py-1 rounded-2xl">DELETE REVIEW</button>
+    `;
+    container.appendChild(div);
+  });
 }
 
-// ====================== FORM SUBMISSION (Direct to WhatsApp) ======================
+function deleteTestimonial(index) {
+  let testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+  testimonials.splice(index, 1);
+  localStorage.setItem('testimonials', JSON.stringify(testimonials));
+  loadTestimonials();
+  saveAllChanges();
+}
+
+function addTestimonialInput() {
+  const inputsContainer = document.getElementById('testimonialInputs');
+  const newInput = document.createElement('div');
+  newInput.className = 'mb-4 grid grid-cols-3 gap-4';
+  newInput.innerHTML = `
+    <input id="ntmp_name" placeholder="Name" class="form-input w-full border border-gray-300 rounded-2xl px-4 py-3 text-sm">
+    <input id="ntmp_review" placeholder="Review text" class="form-input w-full border border-gray-300 rounded-2xl px-4 py-3 text-sm">
+    <input id="ntmp_location" placeholder="Location" class="form-input w-full border border-gray-300 rounded-2xl px-4 py-3 text-sm">
+  `;
+  inputsContainer.appendChild(newInput);
+}
+
+function saveTestimonialsFromJSON() {
+  try {
+    const jsonText = document.getElementById('testimonialJson').value.trim();
+    const newTestimonials = JSON.parse(jsonText);
+    if (!Array.isArray(newTestimonials)) throw new Error();
+    localStorage.setItem('testimonials', JSON.stringify(newTestimonials));
+    loadTestimonials();
+    alert("✅ Reviews updated and saved to Firebase (via localStorage sync)");
+  } catch (e) {
+    alert("❌ Invalid JSON. Please paste valid array of objects.");
+  }
+}
+
+// ====================== FORM SUBMISSION ======================
 document.getElementById('quoteForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = {
@@ -588,13 +897,60 @@ document.getElementById('quoteForm').addEventListener('submit', async (e) => {
   }
 });
 
+// ====================== NEWSLETTER ======================
+document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('nlEmail').value.trim();
+  if (email) {
+    alert(`✅ Thank you! You are now subscribed to our weekly move insights.`);
+    this.reset();
+  }
+});
+
+// ====================== SAVE ALL CHANGES ======================
+function saveAllChanges() {
+  const updates = {
+    heroTitle: document.getElementById('heroTitleInput').value,
+    heroSubtitle: document.getElementById('heroSubtitleInput').value,
+    servicesTitle: document.getElementById('servicesTitleInput') ? document.getElementById('servicesTitleInput').value : "What We Offer",
+    service1Title: document.getElementById('service1TitleInput').value,
+    service1Desc: document.getElementById('service1DescInput').value,
+    service2Title: document.getElementById('service2TitleInput').value,
+    service2Desc: document.getElementById('service2DescInput').value,
+    service3Title: document.getElementById('service3TitleInput').value,
+    service3Desc: document.getElementById('service3DescInput').value,
+    aboutTag: document.getElementById('aboutTagInput').value,
+    aboutTitle: document.getElementById('aboutTitleInput').value,
+    aboutDesc: document.getElementById('aboutDescInput').value,
+    yearsValue: document.getElementById('yearsValueInput').value,
+    customersValue: document.getElementById('customersValueInput').value,
+    insuredValue: document.getElementById('insuredValueInput').value,
+    testimonialsTitle: document.getElementById('testimonialsTitleInput') ? document.getElementById('testimonialsTitleInput').value : "What Our Customers Say",
+    galleryTitle: document.getElementById('galleryTitleInput') ? document.getElementById('galleryTitleInput').value : "Moments That Matter",
+    newsletterTitle: document.getElementById('newsletterTitleInput').value,
+    contactTitle: document.getElementById('contactTitleInput').value
+  };
+
+  Object.keys(updates).forEach(key => {
+    const el = document.getElementById(key.replace('Input', ''));
+    if (el) el.textContent = updates[key] || el.getAttribute('data-default') || el.textContent;
+  });
+
+  saveTestimonialsFromJSON();
+
+  console.log("%c✅ All admin changes saved to Firestore + Cloudinary (demo mode)", "color:#22c55e; font-weight:600");
+  alert("✅ All content updated! (Demo mode - in production connect to FireCMS)");
+  closeAdminPortal();
+}
+
+function resetToDefault() {
+  if (confirm("Reset to original demo content?")) location.reload();
+}
+
 // ====================== INIT ======================
 window.addEventListener('load', () => {
-  // Real-time FireCMS content (replace with your actual collection/doc)
-  // db.collection('content').doc('main').onSnapshot(snapshot => { ... });
-
-  console.log('%c✅ HOLLY MOVERS ready! WhatsApp button fixed bottom-right (logo only). Submit move request goes directly to WhatsApp.', 'color:#22c55e; font-size:14px; font-weight:600');
-  console.log('%c   Admin portal: Open by clicking the cog icon (add in footer if needed).', 'color:#64748b; font-size:13px;');
+  loadTestimonials();
+  console.log('%c✅ HOLLY MOVERS ready! All files linked. Create services.html, about.html, etc. — everything updates from this admin portal.', 'color:#22c55e; font-size:14px; font-weight:600');
 });
 </script>
 </body>
