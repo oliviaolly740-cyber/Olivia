@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,10 @@
   >
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
+
+    @import url(
+      'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap'
+    );
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -28,6 +32,35 @@
     .heading {
       font-family: 'Playfair Display', serif;
     }
+
+    .gallery-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background: #000;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+
+    .gallery-media {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .description-box {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 28px 18px 16px;
+      color: white;
+      background: linear-gradient(
+        transparent,
+        rgba(0,0,0,.85)
+      );
+    }
+
   </style>
 
 </head>
@@ -37,19 +70,38 @@
   <div class="max-w-7xl mx-auto px-6 py-16">
 
 ```
+<!-- ================================================= -->
 <!-- HEADER -->
+<!-- ================================================= -->
+
 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-14">
 
-  <h1 class="heading text-4xl md:text-5xl">
-    Moments That Matter
-  </h1>
+  <div>
 
-  <div id="authArea" class="flex items-center gap-3"></div>
+    <h1 class="heading text-4xl md:text-5xl">
+      Moments That Matter
+    </h1>
+
+    <p class="text-gray-500 mt-2">
+      Memories from Holly Movers
+    </p>
+
+  </div>
+
+
+  <div
+    id="authArea"
+    class="flex items-center gap-3"
+  ></div>
 
 </div>
 
 
+
+<!-- ================================================= -->
 <!-- ADMIN LOGIN -->
+<!-- ================================================= -->
+
 <div
   id="loginSection"
   class="max-w-md mx-auto mb-16 bg-white p-8 rounded-2xl shadow-xl hidden"
@@ -64,13 +116,16 @@
     </h2>
 
     <p class="text-gray-500 text-sm mt-1">
-      Only administrators can upload
+      Sign in to upload photos and videos
     </p>
 
   </div>
 
 
-  <form id="loginForm" class="space-y-5">
+  <form
+    id="loginForm"
+    class="space-y-5"
+  >
 
     <div>
 
@@ -83,7 +138,9 @@
         id="loginEmail"
         required
         autocomplete="email"
-        class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        class="w-full rounded-xl border border-gray-300 px-4 py-3
+               focus:ring-2 focus:ring-indigo-500
+               focus:border-indigo-500"
       >
 
     </div>
@@ -100,7 +157,9 @@
         id="loginPassword"
         required
         autocomplete="current-password"
-        class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        class="w-full rounded-xl border border-gray-300 px-4 py-3
+               focus:ring-2 focus:ring-indigo-500
+               focus:border-indigo-500"
       >
 
     </div>
@@ -109,7 +168,8 @@
     <button
       type="submit"
       id="loginBtn"
-      class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition"
+      class="w-full bg-indigo-600 hover:bg-indigo-700
+             text-white font-semibold py-3 rounded-xl"
     >
       Sign In
     </button>
@@ -125,7 +185,11 @@
 </div>
 
 
-<!-- UPLOAD SECTION -->
+
+<!-- ================================================= -->
+<!-- ADMIN UPLOAD -->
+<!-- ================================================= -->
+
 <div
   id="uploadSection"
   class="max-w-2xl mx-auto mb-16 bg-white p-8 rounded-2xl shadow-xl hidden"
@@ -133,27 +197,39 @@
 
   <div class="text-center mb-8">
 
-    <i class="fa-solid fa-cloud-arrow-up text-5xl text-indigo-600 mb-4"></i>
+    <i
+      class="fa-solid fa-cloud-arrow-up
+             text-5xl text-indigo-600 mb-4"
+    ></i>
 
     <h2 class="heading text-3xl">
       Upload a Moment
     </h2>
 
     <p class="text-gray-600 mt-2">
-      Photos & videos → Cloudinary • Description → Firebase
+      Upload a photo or video for website visitors to see.
     </p>
 
   </div>
 
 
-  <form id="uploadForm" class="space-y-6">
+  <form
+    id="uploadForm"
+    class="space-y-6"
+  >
+
 
     <!-- FILE -->
+
     <div>
 
-      <label class="block text-sm font-medium text-gray-700 mb-2">
+      <label
+        class="block text-sm font-medium
+               text-gray-700 mb-2"
+      >
         Choose Photo or Video
       </label>
+
 
       <input
         type="file"
@@ -161,11 +237,16 @@
         accept="image/*,video/*"
         required
         class="block w-full text-sm text-gray-500
-               file:mr-4 file:py-3 file:px-6
-               file:rounded-full file:border-0
-               file:bg-indigo-600 file:text-white
+               file:mr-4
+               file:py-3
+               file:px-6
+               file:rounded-full
+               file:border-0
+               file:bg-indigo-600
+               file:text-white
                hover:file:bg-indigo-700"
       >
+
 
       <p
         id="fileInfo"
@@ -175,53 +256,80 @@
     </div>
 
 
+
     <!-- DESCRIPTION -->
+
     <div>
 
-      <label class="block text-sm font-medium text-gray-700 mb-2">
-        Description (optional)
+      <label
+        class="block text-sm font-medium
+               text-gray-700 mb-2"
+      >
+        Description
       </label>
+
 
       <textarea
         id="descriptionInput"
         rows="3"
-        class="block w-full rounded-xl border border-gray-300 shadow-sm
-               focus:border-indigo-500 focus:ring-indigo-500"
-        placeholder="A beautiful moment from last weekend..."
+        maxlength="1000"
+        class="block w-full rounded-xl
+               border border-gray-300
+               shadow-sm
+               focus:border-indigo-500
+               focus:ring-indigo-500"
+        placeholder="Write a description for this photo or video..."
       ></textarea>
+
+
+      <p class="text-xs text-gray-400 mt-1">
+        This description will be visible to website visitors.
+      </p>
 
     </div>
 
 
+
     <!-- PREVIEW -->
+
     <div
       id="mediaPreview"
-      class="hidden border-2 border-dashed border-gray-300 rounded-2xl overflow-hidden"
+      class="hidden border-2 border-dashed
+             border-gray-300 rounded-2xl
+             overflow-hidden"
     >
 
       <img
         id="previewImage"
-        class="w-full max-h-96 object-contain bg-black hidden"
+        class="w-full max-h-96 object-contain
+               bg-black hidden"
         alt="Preview"
       >
 
+
       <video
         id="previewVideo"
-        class="w-full max-h-96 object-contain bg-black hidden"
+        class="w-full max-h-96 object-contain
+               bg-black hidden"
         controls
       ></video>
 
     </div>
 
 
+
     <!-- UPLOAD BUTTON -->
+
     <button
       type="submit"
       id="uploadBtn"
-      class="w-full bg-indigo-600 hover:bg-indigo-700 text-white
-             font-semibold py-4 px-8 rounded-2xl
-             flex items-center justify-center gap-3
-             transition-all disabled:opacity-60
+      class="w-full bg-indigo-600
+             hover:bg-indigo-700
+             text-white font-semibold
+             py-4 px-8 rounded-2xl
+             flex items-center
+             justify-center gap-3
+             disabled:opacity-60
              disabled:cursor-not-allowed"
     >
 
@@ -237,10 +345,13 @@
     </button>
 
 
+
     <!-- STATUS -->
+
     <div
       id="uploadStatus"
-      class="hidden text-sm text-center p-4 rounded-xl"
+      class="hidden text-sm text-center
+             p-4 rounded-xl"
     ></div>
 
   </form>
@@ -248,18 +359,28 @@
 </div>
 
 
+
+<!-- ================================================= -->
 <!-- GALLERY -->
+<!-- ================================================= -->
+
 <div
-  class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
   id="galleryGrid"
+  class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
 ></div>
 
 
-<div class="text-center mt-16 text-sm text-gray-500">
+
+<!-- FOOTER -->
+
+<div
+  class="text-center mt-16
+         text-sm text-gray-500"
+>
 
   Built with
   <span class="text-indigo-600">
-    Tailwind + Firebase + Cloudinary
+    Firebase + Cloudinary
   </span>
 
 </div>
@@ -267,20 +388,33 @@
 
   </div>
 
-  <!-- FIREBASE -->
+  <!-- ================================================= -->
+
+  <!-- JAVASCRIPT -->
+
+  <!-- ================================================= -->
 
   <script type="module">
 
+
+    // =====================================================
+    // FIREBASE IMPORTS
+    // =====================================================
+
     import {
       initializeApp
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    }
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
 
     import {
       getAuth,
       signInWithEmailAndPassword,
       signOut,
       onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    }
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
 
     import {
       getFirestore,
@@ -290,112 +424,186 @@
       query,
       orderBy,
       serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    }
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 
 
     // =====================================================
-    // FIREBASE CONFIG
+    // FIREBASE CONFIGURATION
     // =====================================================
 
     const firebaseConfig = {
 
-      apiKey: "AIzaSyC9RLegycn1D7QkFshepdE5hj0KJFJF68M",
+      apiKey:
+        "AIzaSyC9RLegycn1D7QkFshepdE5hj0KJFJF68M",
 
-      authDomain: "olivia-a6e60.firebaseapp.com",
+      authDomain:
+        "olivia-a6e60.firebaseapp.com",
 
-      projectId: "olivia-a6e60",
+      projectId:
+        "olivia-a6e60",
 
-      storageBucket: "olivia-a6e60.firebasestorage.app",
+      storageBucket:
+        "olivia-a6e60.firebasestorage.app",
 
-      messagingSenderId: "184840699254",
+      messagingSenderId:
+        "184840699254",
 
-      appId: "1:184840699254:web:71f438ef2f7d04a3f8ce57",
+      appId:
+        "1:184840699254:web:71f438ef2f7d04a3f8ce57",
 
-      measurementId: "G-RBQCS16HP9"
+      measurementId:
+        "G-RBQCS16HP9"
 
     };
 
 
+
     // =====================================================
-    // CLOUDINARY CONFIG
+    // CLOUDINARY
     // =====================================================
 
-    const CLOUDINARY_CLOUD_NAME = "xb8j8gkd";
+    const CLOUDINARY_CLOUD_NAME =
+      "xb8j8gkd";
 
-    const CLOUDINARY_UPLOAD_PRESET = "olivia_uploads";
+
+    const CLOUDINARY_UPLOAD_PRESET =
+      "olivia_uploads";
+
 
 
     // =====================================================
     // ADMIN
     // =====================================================
 
-    const ADMIN_EMAIL = "admin@hollymovers.com";
+    const ADMIN_EMAIL =
+      "admin@hollymovers.com";
 
-
-    // =====================================================
-    // INITIALIZE FIREBASE
-    // =====================================================
-
-    const app = initializeApp(firebaseConfig);
-
-    const auth = getAuth(app);
-
-    const db = getFirestore(app);
 
 
     // =====================================================
-    // ELEMENTS
+    // INITIALIZE
     // =====================================================
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+
+    // =====================================================
+    // DOM ELEMENTS
+    // =====================================================
+
+    const loginSection =
+      document.getElementById("loginSection");
+
+
+    const uploadSection =
+      document.getElementById("uploadSection");
+
+
+    const authArea =
+      document.getElementById("authArea");
+
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+
+    const loginError =
+      document.getElementById("loginError");
+
+
+    const loginBtn =
+      document.getElementById("loginBtn");
+
 
     const mediaInput =
       document.getElementById("mediaInput");
 
+
     const descriptionInput =
       document.getElementById("descriptionInput");
 
-    const mediaPreview =
-      document.getElementById("mediaPreview");
-
-    const previewImage =
-      document.getElementById("previewImage");
-
-    const previewVideo =
-      document.getElementById("previewVideo");
 
     const uploadForm =
       document.getElementById("uploadForm");
 
+
     const uploadBtn =
       document.getElementById("uploadBtn");
 
-    const btnText =
-      document.getElementById("btnText");
 
     const uploadIcon =
       document.getElementById("uploadIcon");
 
+
+    const btnText =
+      document.getElementById("btnText");
+
+
     const uploadStatus =
       document.getElementById("uploadStatus");
+
+
+    const mediaPreview =
+      document.getElementById("mediaPreview");
+
+
+    const previewImage =
+      document.getElementById("previewImage");
+
+
+    const previewVideo =
+      document.getElementById("previewVideo");
+
 
     const fileInfo =
       document.getElementById("fileInfo");
 
 
+    const galleryGrid =
+      document.getElementById("galleryGrid");
+
+
+
     // =====================================================
-    // STATUS MESSAGE
+    // HELPER: IS ADMIN
     // =====================================================
 
-    function showStatus(message, type = "info") {
+    function isAdminUser(user) {
 
-      uploadStatus.classList.remove(
-        "hidden",
-        "bg-green-100",
-        "text-green-700",
-        "bg-red-100",
-        "text-red-700",
-        "bg-blue-100",
-        "text-blue-700"
+      return (
+        user &&
+        user.email &&
+        user.email.toLowerCase() ===
+          ADMIN_EMAIL.toLowerCase()
       );
+
+    }
+
+
+
+    // =====================================================
+    // STATUS
+    // =====================================================
+
+    function showStatus(
+      message,
+      type = "info"
+    ) {
+
+      uploadStatus.className =
+        "text-sm text-center p-4 rounded-xl";
 
 
       if (type === "success") {
@@ -405,14 +613,18 @@
           "text-green-700"
         );
 
-      } else if (type === "error") {
+      }
+
+      else if (type === "error") {
 
         uploadStatus.classList.add(
           "bg-red-100",
           "text-red-700"
         );
 
-      } else {
+      }
+
+      else {
 
         uploadStatus.classList.add(
           "bg-blue-100",
@@ -422,45 +634,36 @@
       }
 
 
-      uploadStatus.textContent = message;
+      uploadStatus.textContent =
+        message;
 
     }
+
 
 
     // =====================================================
     // CLOUDINARY UPLOAD
     // =====================================================
 
-    async function uploadToCloudinary(file) {
+    async function uploadToCloudinary(
+      file
+    ) {
 
-      if (!file) {
+      const formData =
+        new FormData();
 
-        throw new Error(
-          "No photo or video was selected."
-        );
-
-      }
-
-
-      console.log(
-        "Starting Cloudinary upload:",
-        file.name,
-        file.type,
-        file.size
-      );
-
-
-      const formData = new FormData();
 
       formData.append(
         "file",
         file
       );
 
+
       formData.append(
         "upload_preset",
         CLOUDINARY_UPLOAD_PRESET
       );
+
 
       formData.append(
         "folder",
@@ -468,25 +671,30 @@
       );
 
 
-      const response = await fetch(
+      const response =
+        await fetch(
 
-        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
+          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
 
-        {
-          method: "POST",
-          body: formData
-        }
+          {
+            method: "POST",
+            body: formData
+          }
 
-      );
+        );
 
 
       let data;
 
+
       try {
 
-        data = await response.json();
+        data =
+          await response.json();
 
-      } catch {
+      }
+
+      catch {
 
         throw new Error(
           "Cloudinary returned an invalid response."
@@ -514,87 +722,90 @@
       if (!data.secure_url) {
 
         throw new Error(
-          "Cloudinary uploaded the file but did not return a URL."
+          "Cloudinary did not return the uploaded file URL."
         );
 
       }
 
 
-      console.log(
-        "Cloudinary upload successful:",
-        data.secure_url
-      );
-
-
       return {
 
-        url: data.secure_url,
+        url:
+          data.secure_url,
 
-        resourceType: data.resource_type,
+        type:
+          data.resource_type === "video"
+            ? "video"
+            : "image",
 
-        publicId: data.public_id
+        publicId:
+          data.public_id || ""
 
       };
 
     }
 
 
+
     // =====================================================
-    // FIRESTORE
+    // SAVE TO FIRESTORE
     // =====================================================
 
-    async function saveToFirestore(media) {
+    async function saveToFirestore(
+      media,
+      description
+    ) {
 
-      if (!auth.currentUser) {
+      const user =
+        auth.currentUser;
+
+
+      if (!user) {
 
         throw new Error(
-          "You are no longer logged in."
+          "Your admin session has expired. Please log in again."
         );
 
       }
 
 
-      console.log(
-        "Saving media to Firestore..."
-      );
+      const docRef =
+        await addDoc(
 
+          collection(
+            db,
+            "gallery"
+          ),
 
-      const docRef = await addDoc(
+          {
 
-        collection(
-          db,
-          "gallery"
-        ),
+            url:
+              media.url,
 
-        {
+            type:
+              media.type,
 
-          url: media.url,
+            publicId:
+              media.publicId,
 
-          description: media.description || "",
+            description:
+              description || "",
 
-          type: media.resourceType,
+            uploadedBy:
+              user.email,
 
-          publicId: media.publicId || "",
+            timestamp:
+              serverTimestamp()
 
-          timestamp: serverTimestamp(),
+          }
 
-          uploadedBy:
-            auth.currentUser.email
-
-        }
-
-      );
-
-
-      console.log(
-        "Firestore document created:",
-        docRef.id
-      );
+        );
 
 
       return docRef.id;
 
     }
+
 
 
     // =====================================================
@@ -603,15 +814,18 @@
 
     async function loadGallery() {
 
-      const grid =
-        document.getElementById("galleryGrid");
+      galleryGrid.innerHTML = `
 
+        <div
+          class="col-span-full
+                 text-center py-16"
+        >
 
-      grid.innerHTML = `
-
-        <div class="col-span-full text-center py-16">
-
-          <i class="fa-solid fa-spinner fa-spin text-4xl text-indigo-600"></i>
+          <i
+            class="fa-solid fa-spinner
+                   fa-spin text-4xl
+                   text-indigo-600"
+          ></i>
 
           <p class="text-gray-500 mt-4">
             Loading gallery...
@@ -624,35 +838,46 @@
 
       try {
 
-        const q = query(
+        const q =
+          query(
 
-          collection(
-            db,
-            "gallery"
-          ),
+            collection(
+              db,
+              "gallery"
+            ),
 
-          orderBy(
-            "timestamp",
-            "desc"
-          )
+            orderBy(
+              "timestamp",
+              "desc"
+            )
 
-        );
+          );
 
 
         const snapshot =
           await getDocs(q);
 
 
+        galleryGrid.innerHTML = "";
+
+
         if (snapshot.empty) {
 
-          grid.innerHTML = `
+          galleryGrid.innerHTML = `
 
-            <div class="col-span-full text-center py-20">
+            <div
+              class="col-span-full
+                     text-center py-20"
+            >
 
-              <i class="fa-solid fa-image text-6xl text-gray-300 mb-4"></i>
+              <i
+                class="fa-solid fa-images
+                       text-6xl
+                       text-gray-300 mb-4"
+              ></i>
 
               <p class="text-gray-400">
-                No moments yet.
+                No moments have been uploaded yet.
               </p>
 
             </div>
@@ -664,142 +889,203 @@
         }
 
 
-        grid.innerHTML = "";
+        snapshot.forEach(
+          (doc) => {
+
+            const data =
+              doc.data();
 
 
-        snapshot.forEach((doc) => {
-
-          const data = doc.data();
-
-          const card =
-            document.createElement("div");
-
-
-          card.className =
-            "group relative overflow-hidden rounded-3xl aspect-square shadow-md bg-black";
-
-
-          const isVideo =
-            data.type === "video";
-
-
-          if (isVideo) {
-
-            const video =
-              document.createElement("video");
-
-            video.src = data.url;
-
-            video.className =
-              "w-full h-full object-cover";
-
-            video.muted = true;
-
-            video.loop = true;
-
-            video.playsInline = true;
-
-            video.controls = true;
-
-
-            card.appendChild(video);
-
-
-            const label =
-              document.createElement("div");
-
-            label.className =
-              "absolute top-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded-full";
-
-            label.innerHTML =
-              '<i class="fa-solid fa-video"></i> Video';
-
-            card.appendChild(label);
-
-          } else {
-
-            const img =
-              document.createElement("img");
-
-            img.src = data.url;
-
-            img.className =
-              "w-full h-full object-cover transition-transform group-hover:scale-110";
-
-            img.alt =
-              data.description ||
-              "Moment";
-
-            img.loading = "lazy";
-
-
-            img.onerror = function () {
-
-              console.error(
-                "Image failed to load:",
-                data.url
+            const card =
+              document.createElement(
+                "div"
               );
 
-              this.alt =
-                "Image failed to load";
 
-            };
+            card.className =
+              "gallery-card";
 
 
-            card.appendChild(img);
+            const type =
+              data.type === "video"
+                ? "video"
+                : "image";
+
+
+            // ---------------------------------------------
+            // MEDIA
+            // ---------------------------------------------
+
+            if (type === "video") {
+
+              const video =
+                document.createElement(
+                  "video"
+                );
+
+
+              video.src =
+                data.url || "";
+
+
+              video.className =
+                "gallery-media";
+
+
+              video.controls =
+                true;
+
+
+              video.playsInline =
+                true;
+
+
+              video.preload =
+                "metadata";
+
+
+              card.appendChild(
+                video
+              );
+
+
+              const badge =
+                document.createElement(
+                  "div"
+                );
+
+
+              badge.className =
+                "absolute top-3 right-3 " +
+                "bg-black/70 text-white " +
+                "text-xs px-3 py-1 " +
+                "rounded-full";
+
+
+              badge.innerHTML =
+                '<i class="fa-solid fa-video mr-1"></i> Video';
+
+
+              card.appendChild(
+                badge
+              );
+
+            }
+
+            else {
+
+              const image =
+                document.createElement(
+                  "img"
+                );
+
+
+              image.src =
+                data.url || "";
+
+
+              image.alt =
+                data.description ||
+                "Holly Movers";
+
+
+              image.className =
+                "gallery-media";
+
+
+              image.loading =
+                "lazy";
+
+
+              card.appendChild(
+                image
+              );
+
+            }
+
+
+
+            // ---------------------------------------------
+            // DESCRIPTION
+            // ---------------------------------------------
+
+            if (
+              data.description &&
+              data.description.trim()
+            ) {
+
+              const description =
+                document.createElement(
+                  "div"
+                );
+
+
+              description.className =
+                "description-box";
+
+
+              const text =
+                document.createElement(
+                  "p"
+                );
+
+
+              text.className =
+                "text-sm md:text-base font-medium";
+
+
+              text.textContent =
+                data.description;
+
+
+              description.appendChild(
+                text
+              );
+
+
+              card.appendChild(
+                description
+              );
+
+            }
 
           }
 
-
-          if (data.description) {
-
-            const overlay =
-              document.createElement("div");
-
-            overlay.className =
-              "absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-5";
+        );
 
 
-            const text =
-              document.createElement("p");
+      }
 
-            text.className =
-              "text-white text-sm font-medium";
-
-            text.textContent =
-              data.description;
-
-
-            overlay.appendChild(text);
-
-            card.appendChild(overlay);
-
-          }
-
-
-          grid.appendChild(card);
-
-        });
-
-      } catch (error) {
+      catch (error) {
 
         console.error(
-          "Gallery loading error:",
+          "Gallery error:",
           error
         );
 
 
-        grid.innerHTML = `
+        galleryGrid.innerHTML = `
 
-          <div class="col-span-full text-center py-10">
+          <div
+            class="col-span-full
+                   bg-red-50
+                   text-red-600
+                   p-6
+                   rounded-2xl
+                   text-center"
+          >
 
-            <i class="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-4"></i>
+            <i
+              class="fa-solid
+                     fa-triangle-exclamation
+                     text-3xl mb-3"
+            ></i>
 
-            <p class="text-red-500 font-medium">
-              Failed to load gallery
+            <p class="font-semibold">
+              Unable to load the gallery.
             </p>
 
-            <p class="text-gray-500 text-sm mt-2">
+            <p class="text-sm mt-2">
               ${error.message}
             </p>
 
@@ -812,38 +1098,36 @@
     }
 
 
+
     // =====================================================
     // AUTH UI
     // =====================================================
 
-    function updateAuthUI(user) {
-
-      const authArea =
-        document.getElementById("authArea");
-
-      const loginSection =
-        document.getElementById("loginSection");
-
-      const uploadSection =
-        document.getElementById("uploadSection");
-
+    function updateAuthUI(
+      user
+    ) {
 
       if (
-        user &&
-        user.email === ADMIN_EMAIL
+        isAdminUser(user)
       ) {
 
         authArea.innerHTML = `
 
-          <span class="text-sm text-gray-600">
+          <span
+            class="text-sm text-gray-600"
+          >
             Admin: ${user.email}
           </span>
 
           <button
             id="logoutBtn"
-            class="bg-gray-200 hover:bg-gray-300
-                   text-gray-800 px-4 py-2
-                   rounded-xl text-sm font-medium"
+            class="bg-gray-200
+                   hover:bg-gray-300
+                   text-gray-800
+                   px-4 py-2
+                   rounded-xl
+                   text-sm
+                   font-medium"
           >
             Logout
           </button>
@@ -851,29 +1135,38 @@
         `;
 
 
-        document
-          .getElementById("logoutBtn")
-          .onclick = () =>
-            signOut(auth);
-
-
         loginSection.classList.add(
           "hidden"
         );
+
 
         uploadSection.classList.remove(
           "hidden"
         );
 
-      } else {
+
+        document
+          .getElementById("logoutBtn")
+          .addEventListener(
+            "click",
+            () => signOut(auth)
+          );
+
+      }
+
+      else {
 
         authArea.innerHTML = `
 
           <button
             id="showLoginBtn"
-            class="bg-indigo-600 hover:bg-indigo-700
-                   text-white px-5 py-2.5
-                   rounded-xl text-sm font-medium"
+            class="bg-indigo-600
+                   hover:bg-indigo-700
+                   text-white
+                   px-5 py-2.5
+                   rounded-xl
+                   text-sm
+                   font-medium"
           >
             Admin Login
           </button>
@@ -881,131 +1174,140 @@
         `;
 
 
-        document
-          .getElementById("showLoginBtn")
-          .onclick = () => {
-
-            loginSection.classList.remove(
-              "hidden"
-            );
-
-            loginSection.scrollIntoView({
-              behavior: "smooth"
-            });
-
-          };
+        uploadSection.classList.add(
+          "hidden"
+        );
 
 
         loginSection.classList.add(
           "hidden"
         );
 
-        uploadSection.classList.add(
-          "hidden"
-        );
+
+        document
+          .getElementById("showLoginBtn")
+          .addEventListener(
+            "click",
+            () => {
+
+              loginSection.classList.remove(
+                "hidden"
+              );
+
+              loginSection.scrollIntoView({
+                behavior: "smooth"
+              });
+
+            }
+          );
 
       }
 
     }
 
 
+
     // =====================================================
     // LOGIN
     // =====================================================
 
-    document
-      .getElementById("loginForm")
-      .addEventListener(
-        "submit",
-        async (e) => {
+    loginForm.addEventListener(
+      "submit",
+      async (event) => {
 
-          e.preventDefault();
+        event.preventDefault();
 
 
-          const email =
-            document
-              .getElementById("loginEmail")
-              .value
-              .trim();
+        const email =
+          document
+            .getElementById(
+              "loginEmail"
+            )
+            .value
+            .trim();
 
 
-          const password =
-            document
-              .getElementById("loginPassword")
-              .value;
+        const password =
+          document
+            .getElementById(
+              "loginPassword"
+            )
+            .value;
 
 
-          const errorEl =
-            document
-              .getElementById("loginError");
+        loginError.classList.add(
+          "hidden"
+        );
 
 
-          const loginBtn =
-            document
-              .getElementById("loginBtn");
+        loginBtn.disabled =
+          true;
 
 
-          errorEl.classList.add(
-            "hidden"
-          );
+        loginBtn.textContent =
+          "Signing in...";
 
 
-          loginBtn.disabled = true;
+        try {
 
-          loginBtn.textContent =
-            "Signing in...";
-
-
-          try {
-
-            const cred =
-              await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-              );
-
-
-            if (
-              cred.user.email !==
-              ADMIN_EMAIL
-            ) {
-
-              await signOut(auth);
-
-              throw new Error(
-                "This account is not authorized as admin."
-              );
-
-            }
-
-          } catch (error) {
-
-            console.error(
-              "Login error:",
-              error
+          const credential =
+            await signInWithEmailAndPassword(
+              auth,
+              email,
+              password
             );
 
 
-            errorEl.textContent =
-              error.message;
+          if (
+            !isAdminUser(
+              credential.user
+            )
+          ) {
+
+            await signOut(auth);
 
 
-            errorEl.classList.remove(
-              "hidden"
+            throw new Error(
+              "This account is not authorized as the website administrator."
             );
-
-          } finally {
-
-            loginBtn.disabled = false;
-
-            loginBtn.textContent =
-              "Sign In";
 
           }
 
+
         }
-      );
+
+        catch (error) {
+
+          console.error(
+            "Login error:",
+            error
+          );
+
+
+          loginError.textContent =
+            error.message;
+
+
+          loginError.classList.remove(
+            "hidden"
+          );
+
+        }
+
+        finally {
+
+          loginBtn.disabled =
+            false;
+
+
+          loginBtn.textContent =
+            "Sign In";
+
+        }
+
+      }
+    );
+
 
 
     // =====================================================
@@ -1026,7 +1328,8 @@
             "hidden"
           );
 
-          fileInfo.textContent = "";
+          fileInfo.textContent =
+            "";
 
           return;
 
@@ -1037,43 +1340,54 @@
           `${file.name} • ${(file.size / 1024 / 1024).toFixed(2)} MB`;
 
 
-        const url =
-          URL.createObjectURL(file);
-
-
-        const isVideo =
-          file.type.startsWith(
-            "video/"
+        const previewURL =
+          URL.createObjectURL(
+            file
           );
 
 
-        if (isVideo) {
+        if (
+          file.type.startsWith(
+            "video/"
+          )
+        ) {
 
           previewImage.classList.add(
             "hidden"
           );
 
+
           previewVideo.classList.remove(
             "hidden"
           );
 
-          previewVideo.src = url;
 
-        } else {
+          previewVideo.src =
+            previewURL;
+
+        }
+
+        else {
 
           previewVideo.classList.add(
             "hidden"
           );
 
+
           previewVideo.pause();
 
-          previewVideo.src = "";
+
+          previewVideo.src =
+            "";
+
 
           previewImage.classList.remove(
             "hidden"
           );
 
-          previewImage.src = url;
+
+          previewImage.src =
+            previewURL;
 
         }
 
@@ -1086,27 +1400,32 @@
     );
 
 
+
     // =====================================================
     // UPLOAD
     // =====================================================
 
     uploadForm.addEventListener(
       "submit",
-      async (e) => {
+      async (event) => {
 
-        e.preventDefault();
+        event.preventDefault();
 
 
-        // CHECK LOGIN
+        const user =
+          auth.currentUser;
+
+
+        // -----------------------------------------------
+        // ADMIN CHECK
+        // -----------------------------------------------
 
         if (
-          !auth.currentUser ||
-          auth.currentUser.email !==
-          ADMIN_EMAIL
+          !isAdminUser(user)
         ) {
 
           showStatus(
-            "Please log in as the administrator first.",
+            "Please log in with the administrator account first.",
             "error"
           );
 
@@ -1114,8 +1433,6 @@
 
         }
 
-
-        // CHECK FILE
 
         const file =
           mediaInput.files[0];
@@ -1133,12 +1450,21 @@
         }
 
 
-        // DISABLE BUTTON
+        const description =
+          descriptionInput.value.trim();
 
-        uploadBtn.disabled = true;
+
+        // -----------------------------------------------
+        // DISABLE
+        // -----------------------------------------------
+
+        uploadBtn.disabled =
+          true;
+
 
         uploadIcon.className =
           "fa-solid fa-spinner fa-spin";
+
 
         btnText.textContent =
           "UPLOADING...";
@@ -1146,12 +1472,12 @@
 
         try {
 
-          // -----------------------------------------------
-          // STEP 1: CLOUDINARY
-          // -----------------------------------------------
+          // ---------------------------------------------
+          // CLOUDINARY
+          // ---------------------------------------------
 
           showStatus(
-            "Step 1 of 2: Uploading your photo/video...",
+            "Uploading your photo/video...",
             "info"
           );
 
@@ -1163,39 +1489,45 @@
 
 
           console.log(
-            "Cloudinary result:",
+            "Cloudinary upload successful:",
             media
           );
 
 
-          // -----------------------------------------------
-          // STEP 2: FIRESTORE
-          // -----------------------------------------------
+          // ---------------------------------------------
+          // FIRESTORE
+          // ---------------------------------------------
 
           showStatus(
-            "Step 2 of 2: Saving to gallery...",
+            "Saving your photo/video to the gallery...",
             "info"
           );
 
 
-          media.description =
-            descriptionInput.value.trim();
+          const documentId =
+            await saveToFirestore(
+              media,
+              description
+            );
 
 
-          await saveToFirestore(
-            media
+          console.log(
+            "Gallery document created:",
+            documentId
           );
 
 
-          // -----------------------------------------------
+          // ---------------------------------------------
           // SUCCESS
-          // -----------------------------------------------
+          // ---------------------------------------------
 
           showStatus(
-            "✓ Uploaded successfully! Your photo is now in the gallery.",
+            "✓ Upload successful! Visitors can now see it in the gallery.",
             "success"
           );
 
+
+          // Reset form
 
           uploadForm.reset();
 
@@ -1205,40 +1537,84 @@
           );
 
 
-          previewImage.src = "";
+          previewImage.src =
+            "";
+
 
           previewVideo.pause();
 
-          previewVideo.src = "";
 
-          fileInfo.textContent = "";
+          previewVideo.src =
+            "";
+
+
+          fileInfo.textContent =
+            "";
 
 
           // Reload gallery
 
           await loadGallery();
 
+        }
 
-        } catch (error) {
+        catch (error) {
 
           console.error(
-            "UPLOAD ERROR:",
+            "COMPLETE UPLOAD ERROR:",
             error
           );
 
 
+          let message =
+            error.message ||
+            "Unknown upload error.";
+
+
+          if (
+            message.includes(
+              "upload preset"
+            )
+          ) {
+
+            message =
+              "Cloudinary rejected the upload preset. Make sure 'olivia_uploads' is an UNSIGNED upload preset.";
+
+          }
+
+
+          else if (
+            message.includes(
+              "permission"
+            ) ||
+            message.includes(
+              "Missing or insufficient"
+            )
+          ) {
+
+            message =
+              "Firebase rejected the upload. Check your Firestore rules and make sure admin@hollymovers.com is authorized.";
+
+          }
+
+
           showStatus(
             "Upload failed: " +
-            error.message,
+            message,
             "error"
           );
 
-        } finally {
+        }
 
-          uploadBtn.disabled = false;
+        finally {
+
+          uploadBtn.disabled =
+            false;
+
 
           uploadIcon.className =
             "fa-solid fa-upload";
+
 
           btnText.textContent =
             "UPLOAD TO GALLERY";
@@ -1247,6 +1623,7 @@
 
       }
     );
+
 
 
     // =====================================================
@@ -1258,21 +1635,24 @@
       (user) => {
 
         console.log(
-          "Authentication state:",
+          "Current user:",
           user
             ? user.email
             : "Not logged in"
         );
 
 
-        updateAuthUI(user);
+        updateAuthUI(
+          user
+        );
 
       }
     );
 
 
+
     // =====================================================
-    // LOAD GALLERY
+    // START GALLERY
     // =====================================================
 
     loadGallery();
@@ -1280,4 +1660,5 @@
   </script>
 
 </body>
+
 </html>
