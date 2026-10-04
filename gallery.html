@@ -1,1664 +1,733 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Gallery - HOLLY MOVERS</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
-
-    @import url(
-      'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap'
-    );
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #f8fafc;
-      color: #1f2937;
-    }
-
-    h1,
-    h2,
-    .heading {
-      font-family: 'Playfair Display', serif;
-    }
-
-    .gallery-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 24px;
-      background: #000;
-      box-shadow: 0 8px 30px rgba(0,0,0,.08);
-    }
-
-    .gallery-media {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display: block;
-    }
-
-    .description-box {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 28px 18px 16px;
-      color: white;
-      background: linear-gradient(
-        transparent,
-        rgba(0,0,0,.85)
-      );
-    }
-
+    body { font-family: Inter, sans-serif; }
+    .hero { background: linear-gradient(135deg, #111827, #312e81); }
+    .gallery-card { min-height: 300px; }
+    .gallery-card img, .gallery-card video { transition: transform .3s ease; }
+    .gallery-card:hover img, .gallery-card:hover video { transform: scale(1.03); }
   </style>
-
 </head>
 
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-gray-50 text-gray-900">
 
-  <div class="max-w-7xl mx-auto px-6 py-16">
+  <!-- HEADER -->
+  <header class="bg-white border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+      <a href="#" class="text-2xl font-extrabold tracking-tight">
+        HOLLY <span class="text-indigo-600">MOVERS</span>
+      </a>
 
-```
-<!-- ================================================= -->
-<!-- HEADER -->
-<!-- ================================================= -->
-
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-14">
-
-  <div>
-
-    <h1 class="heading text-4xl md:text-5xl">
-      Moments That Matter
-    </h1>
-
-    <p class="text-gray-500 mt-2">
-      Memories from Holly Movers
-    </p>
-
-  </div>
-
-
-  <div
-    id="authArea"
-    class="flex items-center gap-3"
-  ></div>
-
-</div>
-
-
-
-<!-- ================================================= -->
-<!-- ADMIN LOGIN -->
-<!-- ================================================= -->
-
-<div
-  id="loginSection"
-  class="max-w-md mx-auto mb-16 bg-white p-8 rounded-2xl shadow-xl hidden"
->
-
-  <div class="text-center mb-6">
-
-    <i class="fa-solid fa-lock text-4xl text-indigo-600 mb-3"></i>
-
-    <h2 class="heading text-2xl">
-      Admin Login
-    </h2>
-
-    <p class="text-gray-500 text-sm mt-1">
-      Sign in to upload photos and videos
-    </p>
-
-  </div>
-
-
-  <form
-    id="loginForm"
-    class="space-y-5"
-  >
-
-    <div>
-
-      <label class="block text-sm font-medium mb-1">
-        Email
-      </label>
-
-      <input
-        type="email"
-        id="loginEmail"
-        required
-        autocomplete="email"
-        class="w-full rounded-xl border border-gray-300 px-4 py-3
-               focus:ring-2 focus:ring-indigo-500
-               focus:border-indigo-500"
-      >
-
+      <div id="authArea" class="flex items-center gap-3">
+        <button id="showLoginBtn"
+          class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">
+          <i class="fa-solid fa-lock mr-2"></i>Admin Login
+        </button>
+      </div>
     </div>
+  </header>
 
-
-    <div>
-
-      <label class="block text-sm font-medium mb-1">
-        Password
-      </label>
-
-      <input
-        type="password"
-        id="loginPassword"
-        required
-        autocomplete="current-password"
-        class="w-full rounded-xl border border-gray-300 px-4 py-3
-               focus:ring-2 focus:ring-indigo-500
-               focus:border-indigo-500"
-      >
-
-    </div>
-
-
-    <button
-      type="submit"
-      id="loginBtn"
-      class="w-full bg-indigo-600 hover:bg-indigo-700
-             text-white font-semibold py-3 rounded-xl"
-    >
-      Sign In
-    </button>
-
-
-    <p
-      id="loginError"
-      class="text-red-500 text-sm text-center hidden"
-    ></p>
-
-  </form>
-
-</div>
-
-
-
-<!-- ================================================= -->
-<!-- ADMIN UPLOAD -->
-<!-- ================================================= -->
-
-<div
-  id="uploadSection"
-  class="max-w-2xl mx-auto mb-16 bg-white p-8 rounded-2xl shadow-xl hidden"
->
-
-  <div class="text-center mb-8">
-
-    <i
-      class="fa-solid fa-cloud-arrow-up
-             text-5xl text-indigo-600 mb-4"
-    ></i>
-
-    <h2 class="heading text-3xl">
-      Upload a Moment
-    </h2>
-
-    <p class="text-gray-600 mt-2">
-      Upload a photo or video for website visitors to see.
-    </p>
-
-  </div>
-
-
-  <form
-    id="uploadForm"
-    class="space-y-6"
-  >
-
-
-    <!-- FILE -->
-
-    <div>
-
-      <label
-        class="block text-sm font-medium
-               text-gray-700 mb-2"
-      >
-        Choose Photo or Video
-      </label>
-
-
-      <input
-        type="file"
-        id="mediaInput"
-        accept="image/*,video/*"
-        required
-        class="block w-full text-sm text-gray-500
-               file:mr-4
-               file:py-3
-               file:px-6
-               file:rounded-full
-               file:border-0
-               file:bg-indigo-600
-               file:text-white
-               hover:file:bg-indigo-700"
-      >
-
-
-      <p
-        id="fileInfo"
-        class="text-xs text-gray-500 mt-2"
-      ></p>
-
-    </div>
-
-
-
-    <!-- DESCRIPTION -->
-
-    <div>
-
-      <label
-        class="block text-sm font-medium
-               text-gray-700 mb-2"
-      >
-        Description
-      </label>
-
-
-      <textarea
-        id="descriptionInput"
-        rows="3"
-        maxlength="1000"
-        class="block w-full rounded-xl
-               border border-gray-300
-               shadow-sm
-               focus:border-indigo-500
-               focus:ring-indigo-500"
-        placeholder="Write a description for this photo or video..."
-      ></textarea>
-
-
-      <p class="text-xs text-gray-400 mt-1">
-        This description will be visible to website visitors.
+  <!-- HERO -->
+  <section class="hero text-white">
+    <div class="max-w-7xl mx-auto px-5 py-20 text-center">
+      <p class="uppercase tracking-[.25em] text-indigo-200 text-sm font-semibold mb-4">
+        Holly Movers Gallery
       </p>
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-5">Moments That Matter</h1>
+      <p class="max-w-2xl mx-auto text-indigo-100 text-lg">
+        Explore our latest moving moments, happy clients and behind-the-scenes memories.
+      </p>
+    </div>
+  </section>
 
+  <!-- LOGIN -->
+  <section id="loginSection" class="hidden max-w-xl mx-auto px-5 py-12">
+    <div class="bg-white rounded-3xl shadow-lg border p-7">
+      <div class="text-center mb-7">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <h2 class="text-2xl font-bold mt-4">Admin Login</h2>
+        <p class="text-gray-500 mt-1">Sign in to upload gallery photos and videos.</p>
+      </div>
+
+      <form id="loginForm" class="space-y-5">
+        <div>
+          <label for="emailInput" class="block text-sm font-semibold mb-2">Admin Email</label>
+          <input id="emailInput" type="email" required
+            value="admin@hollymovers.com"
+            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="admin@hollymovers.com">
+        </div>
+
+        <div>
+          <label for="passwordInput" class="block text-sm font-semibold mb-2">Password</label>
+          <input id="passwordInput" type="password" required
+            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter your Firebase password">
+        </div>
+
+        <button id="loginBtn" type="submit"
+          class="w-full py-3.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700">
+          <i class="fa-solid fa-right-to-bracket mr-2"></i>
+          Sign In
+        </button>
+
+        <p id="loginError" class="hidden p-3 rounded-xl bg-red-100 text-red-700 text-sm"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ADMIN UPLOAD -->
+  <section id="uploadSection" class="hidden max-w-4xl mx-auto px-5 py-12">
+    <div class="bg-white rounded-3xl shadow-lg border overflow-hidden">
+      <div class="bg-gray-900 text-white px-7 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <p class="text-indigo-300 text-sm font-semibold uppercase tracking-wider">Admin Panel</p>
+          <h2 class="text-2xl font-bold">Upload Gallery Media</h2>
+        </div>
+        <span id="adminEmailDisplay" class="text-sm text-gray-300"></span>
+      </div>
+
+      <form id="uploadForm" class="p-7 space-y-6">
+
+        <!-- MEDIA FILE -->
+        <div>
+          <label for="mediaInput" class="block text-sm font-bold mb-2">
+            Photo or Video
+          </label>
+
+          <input id="mediaInput"
+            type="file"
+            accept="image/*,video/*"
+            required
+            class="block w-full rounded-xl border border-gray-300 bg-white p-3 text-sm">
+
+          <p id="fileInfo" class="text-xs text-gray-500 mt-2">
+            Select an image or video to upload.
+          </p>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div>
+          <label for="descriptionInput" class="block text-sm font-bold mb-2">
+            Description
+          </label>
+
+          <textarea id="descriptionInput"
+            rows="4"
+            maxlength="500"
+            placeholder="Write a description for this photo or video..."
+            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+
+          <p class="text-xs text-gray-500 mt-2">
+            This description will appear below the uploaded media in the public gallery.
+          </p>
+        </div>
+
+        <!-- PREVIEW -->
+        <div id="mediaPreview" class="hidden">
+          <p class="text-sm font-bold mb-2">Preview</p>
+
+          <div class="rounded-2xl overflow-hidden bg-black max-h-[450px]">
+            <img id="previewImage" class="hidden w-full max-h-[450px] object-contain" alt="Preview">
+            <video id="previewVideo" class="hidden w-full max-h-[450px] object-contain"
+              controls playsinline></video>
+          </div>
+        </div>
+
+        <button id="uploadBtn" type="submit"
+          class="w-full py-4 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 disabled:opacity-60 disabled:cursor-not-allowed">
+          <i id="uploadIcon" class="fa-solid fa-cloud-arrow-up mr-2"></i>
+          <span id="btnText">Upload Media</span>
+        </button>
+
+        <div id="uploadStatus" class="hidden text-sm text-center p-4 rounded-xl"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- PUBLIC GALLERY -->
+  <main class="max-w-7xl mx-auto px-5 py-14">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+      <div>
+        <p class="text-indigo-600 font-bold uppercase tracking-wider text-sm">Our Gallery</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-1">Latest Moments</h2>
+      </div>
+      <p id="galleryCount" class="text-gray-500"></p>
     </div>
 
-
-
-    <!-- PREVIEW -->
-
-    <div
-      id="mediaPreview"
-      class="hidden border-2 border-dashed
-             border-gray-300 rounded-2xl
-             overflow-hidden"
-    >
-
-      <img
-        id="previewImage"
-        class="w-full max-h-96 object-contain
-               bg-black hidden"
-        alt="Preview"
-      >
-
-
-      <video
-        id="previewVideo"
-        class="w-full max-h-96 object-contain
-               bg-black hidden"
-        controls
-      ></video>
-
+    <div id="galleryGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+      <div class="col-span-full text-center py-16">
+        <i class="fa-solid fa-spinner fa-spin text-4xl text-indigo-600"></i>
+        <p class="text-gray-500 mt-4">Loading gallery...</p>
+      </div>
     </div>
+  </main>
 
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-400 py-8 mt-10">
+    <div class="max-w-7xl mx-auto px-5 text-center">
+      <p>&copy; <span id="year"></span> HOLLY MOVERS. All rights reserved.</p>
+    </div>
+  </footer>
 
-
-    <!-- UPLOAD BUTTON -->
-
-    <button
-      type="submit"
-      id="uploadBtn"
-      class="w-full bg-indigo-600
-             hover:bg-indigo-700
-             text-white font-semibold
-             py-4 px-8 rounded-2xl
-             flex items-center
-             justify-center gap-3
-             disabled:opacity-60
-             disabled:cursor-not-allowed"
-    >
-
-      <i
-        id="uploadIcon"
-        class="fa-solid fa-upload"
-      ></i>
-
-      <span id="btnText">
-        UPLOAD TO GALLERY
-      </span>
-
-    </button>
-
-
-
-    <!-- STATUS -->
-
-    <div
-      id="uploadStatus"
-      class="hidden text-sm text-center
-             p-4 rounded-xl"
-    ></div>
-
-  </form>
-
-</div>
-
-
-
-<!-- ================================================= -->
-<!-- GALLERY -->
-<!-- ================================================= -->
-
-<div
-  id="galleryGrid"
-  class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
-></div>
-
-
-
-<!-- FOOTER -->
-
-<div
-  class="text-center mt-16
-         text-sm text-gray-500"
->
-
-  Built with
-  <span class="text-indigo-600">
-    Firebase + Cloudinary
-  </span>
-
-</div>
-```
-
-  </div>
-
-  <!-- ================================================= -->
-
-  <!-- JAVASCRIPT -->
-
-  <!-- ================================================= -->
-
+  <!-- FIREBASE + APP -->
   <script type="module">
-
-
-    // =====================================================
-    // FIREBASE IMPORTS
-    // =====================================================
-
-    import {
-      initializeApp
-    }
-    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
     import {
       getAuth,
       signInWithEmailAndPassword,
       signOut,
       onAuthStateChanged
-    }
-    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     import {
       getFirestore,
       collection,
       addDoc,
       getDocs,
-      query,
-      orderBy,
       serverTimestamp
-    }
-    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
-
-    // =====================================================
-    // FIREBASE CONFIGURATION
-    // =====================================================
-
+    // =========================================================
+    // FIREBASE CONFIG
+    // =========================================================
     const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyC9RLegycn1D7QkFshepdE5hj0KJFJF68M",
-
-      authDomain:
-        "olivia-a6e60.firebaseapp.com",
-
-      projectId:
-        "olivia-a6e60",
-
-      storageBucket:
-        "olivia-a6e60.firebasestorage.app",
-
-      messagingSenderId:
-        "184840699254",
-
-      appId:
-        "1:184840699254:web:71f438ef2f7d04a3f8ce57",
-
-      measurementId:
-        "G-RBQCS16HP9"
-
+      apiKey: "AIzaSyC9RLegycn1D7QkFshepdE5hj0KJFJF68M",
+      authDomain: "olivia-a6e60.firebaseapp.com",
+      projectId: "olivia-a6e60",
+      storageBucket: "olivia-a6e60.firebasestorage.app",
+      messagingSenderId: "184840699254",
+      appId: "1:184840699254:web:71f438ef2f7d04a3f8ce57",
+      measurementId: "G-RBQCS16HP9"
     };
 
 
-
-    // =====================================================
-    // CLOUDINARY
-    // =====================================================
-
-    const CLOUDINARY_CLOUD_NAME =
-      "xb8j8gkd";
+    // =========================================================
+    // CLOUDINARY CONFIG
+    // =========================================================
+    const CLOUDINARY_CLOUD_NAME = "xb8j8gkd";
+    const CLOUDINARY_UPLOAD_PRESET = "olivia_uploads";
 
 
-    const CLOUDINARY_UPLOAD_PRESET =
-      "olivia_uploads";
+    // =========================================================
+    // ADMIN EMAIL
+    // =========================================================
+    const ADMIN_EMAIL = "admin@hollymovers.com";
 
 
-
-    // =====================================================
-    // ADMIN
-    // =====================================================
-
-    const ADMIN_EMAIL =
-      "admin@hollymovers.com";
-
-
-
-    // =====================================================
+    // =========================================================
     // INITIALIZE
-    // =====================================================
-
-    const app =
-      initializeApp(firebaseConfig);
-
-
-    const auth =
-      getAuth(app);
+    // =========================================================
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
 
-    const db =
-      getFirestore(app);
+    // =========================================================
+    // DOM
+    // =========================================================
+    const authArea = document.getElementById("authArea");
+    const showLoginBtn = document.getElementById("showLoginBtn");
+
+    const loginSection = document.getElementById("loginSection");
+    const loginForm = document.getElementById("loginForm");
+    const emailInput = document.getElementById("emailInput");
+    const passwordInput = document.getElementById("passwordInput");
+    const loginBtn = document.getElementById("loginBtn");
+    const loginError = document.getElementById("loginError");
+
+    const uploadSection = document.getElementById("uploadSection");
+    const adminEmailDisplay = document.getElementById("adminEmailDisplay");
+    const uploadForm = document.getElementById("uploadForm");
+    const mediaInput = document.getElementById("mediaInput");
+    const descriptionInput = document.getElementById("descriptionInput");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const uploadIcon = document.getElementById("uploadIcon");
+    const btnText = document.getElementById("btnText");
+    const uploadStatus = document.getElementById("uploadStatus");
+
+    const mediaPreview = document.getElementById("mediaPreview");
+    const previewImage = document.getElementById("previewImage");
+    const previewVideo = document.getElementById("previewVideo");
+    const fileInfo = document.getElementById("fileInfo");
+
+    const galleryGrid = document.getElementById("galleryGrid");
+    const galleryCount = document.getElementById("galleryCount");
 
 
-
-    // =====================================================
-    // DOM ELEMENTS
-    // =====================================================
-
-    const loginSection =
-      document.getElementById("loginSection");
-
-
-    const uploadSection =
-      document.getElementById("uploadSection");
-
-
-    const authArea =
-      document.getElementById("authArea");
-
-
-    const loginForm =
-      document.getElementById("loginForm");
-
-
-    const loginError =
-      document.getElementById("loginError");
-
-
-    const loginBtn =
-      document.getElementById("loginBtn");
-
-
-    const mediaInput =
-      document.getElementById("mediaInput");
-
-
-    const descriptionInput =
-      document.getElementById("descriptionInput");
-
-
-    const uploadForm =
-      document.getElementById("uploadForm");
-
-
-    const uploadBtn =
-      document.getElementById("uploadBtn");
-
-
-    const uploadIcon =
-      document.getElementById("uploadIcon");
-
-
-    const btnText =
-      document.getElementById("btnText");
-
-
-    const uploadStatus =
-      document.getElementById("uploadStatus");
-
-
-    const mediaPreview =
-      document.getElementById("mediaPreview");
-
-
-    const previewImage =
-      document.getElementById("previewImage");
-
-
-    const previewVideo =
-      document.getElementById("previewVideo");
-
-
-    const fileInfo =
-      document.getElementById("fileInfo");
-
-
-    const galleryGrid =
-      document.getElementById("galleryGrid");
-
-
-
-    // =====================================================
-    // HELPER: IS ADMIN
-    // =====================================================
-
+    // =========================================================
+    // ADMIN CHECK
+    // =========================================================
     function isAdminUser(user) {
-
-      return (
+      return !!(
         user &&
         user.email &&
-        user.email.toLowerCase() ===
-          ADMIN_EMAIL.toLowerCase()
+        user.email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase()
       );
-
     }
 
 
+    // =========================================================
+    // LOGIN UI
+    // =========================================================
+    showLoginBtn.addEventListener("click", () => {
+      loginSection.classList.toggle("hidden");
+      loginSection.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
 
-    // =====================================================
+
+    // =========================================================
+    // LOGIN
+    // =========================================================
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      loginError.classList.add("hidden");
+      loginBtn.disabled = true;
+      loginBtn.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Signing in...';
+
+      try {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        const credential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        if (!isAdminUser(credential.user)) {
+          await signOut(auth);
+          throw new Error(
+            "This account is not authorized as the Holly Movers administrator."
+          );
+        }
+
+        loginForm.reset();
+        emailInput.value = ADMIN_EMAIL;
+        loginSection.classList.add("hidden");
+
+      } catch (error) {
+        console.error("Login error:", error);
+
+        let message = "Unable to sign in.";
+
+        if (
+          error.code === "auth/invalid-credential" ||
+          error.code === "auth/wrong-password" ||
+          error.code === "auth/user-not-found"
+        ) {
+          message = "Incorrect admin email or password.";
+        } else if (error.code === "auth/too-many-requests") {
+          message = "Too many login attempts. Please try again later.";
+        } else if (error.message) {
+          message = error.message;
+        }
+
+        loginError.textContent = message;
+        loginError.classList.remove("hidden");
+
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.innerHTML =
+          '<i class="fa-solid fa-right-to-bracket mr-2"></i>Sign In';
+      }
+    });
+
+
+    // =========================================================
+    // AUTH STATE
+    // =========================================================
+    onAuthStateChanged(auth, (user) => {
+      if (isAdminUser(user)) {
+        authArea.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="hidden sm:inline text-sm text-gray-600">
+              <i class="fa-solid fa-user-shield text-indigo-600 mr-1"></i>
+              Admin
+            </span>
+            <button id="logoutBtn"
+              class="px-4 py-2 rounded-xl bg-gray-900 text-white font-semibold hover:bg-black">
+              <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
+            </button>
+          </div>
+        `;
+
+        uploadSection.classList.remove("hidden");
+        adminEmailDisplay.textContent = user.email;
+
+        document.getElementById("logoutBtn").addEventListener("click", async () => {
+          await signOut(auth);
+        });
+
+      } else {
+        uploadSection.classList.add("hidden");
+
+        authArea.innerHTML = `
+          <button id="showLoginBtn"
+            class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">
+            <i class="fa-solid fa-lock mr-2"></i>Admin Login
+          </button>
+        `;
+
+        document.getElementById("showLoginBtn").addEventListener("click", () => {
+          loginSection.classList.remove("hidden");
+          loginSection.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      }
+    });
+
+
+    // =========================================================
+    // FILE PREVIEW
+    // =========================================================
+    mediaInput.addEventListener("change", () => {
+      const file = mediaInput.files[0];
+
+      previewImage.classList.add("hidden");
+      previewVideo.classList.add("hidden");
+      mediaPreview.classList.add("hidden");
+
+      if (!file) {
+        fileInfo.textContent = "Select an image or video to upload.";
+        return;
+      }
+
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+
+      fileInfo.textContent =
+        `${file.name} • ${sizeMB} MB • ${file.type || "media file"}`;
+
+      const objectUrl = URL.createObjectURL(file);
+
+      if (file.type.startsWith("video/")) {
+        previewVideo.src = objectUrl;
+        previewVideo.classList.remove("hidden");
+      } else if (file.type.startsWith("image/")) {
+        previewImage.src = objectUrl;
+        previewImage.classList.remove("hidden");
+      } else {
+        fileInfo.textContent = "Please choose a valid image or video file.";
+        return;
+      }
+
+      mediaPreview.classList.remove("hidden");
+    });
+
+
+    // =========================================================
     // STATUS
-    // =====================================================
-
-    function showStatus(
-      message,
-      type = "info"
-    ) {
-
+    // =========================================================
+    function showUploadStatus(message, type = "info") {
       uploadStatus.className =
         "text-sm text-center p-4 rounded-xl";
 
-
       if (type === "success") {
-
-        uploadStatus.classList.add(
-          "bg-green-100",
-          "text-green-700"
-        );
-
+        uploadStatus.classList.add("bg-green-100", "text-green-700");
+      } else if (type === "error") {
+        uploadStatus.classList.add("bg-red-100", "text-red-700");
+      } else {
+        uploadStatus.classList.add("bg-blue-100", "text-blue-700");
       }
 
-      else if (type === "error") {
-
-        uploadStatus.classList.add(
-          "bg-red-100",
-          "text-red-700"
-        );
-
-      }
-
-      else {
-
-        uploadStatus.classList.add(
-          "bg-blue-100",
-          "text-blue-700"
-        );
-
-      }
-
-
-      uploadStatus.textContent =
-        message;
-
+      uploadStatus.textContent = message;
+      uploadStatus.classList.remove("hidden");
     }
 
 
-
-    // =====================================================
+    // =========================================================
     // CLOUDINARY UPLOAD
-    // =====================================================
-
-    async function uploadToCloudinary(
-      file
-    ) {
-
-      const formData =
-        new FormData();
-
-
-      formData.append(
-        "file",
-        file
-      );
-
-
-      formData.append(
-        "upload_preset",
-        CLOUDINARY_UPLOAD_PRESET
-      );
-
-
-      formData.append(
-        "folder",
-        "holly-movers-gallery"
-      );
-
-
-      const response =
-        await fetch(
-
-          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
-
-          {
-            method: "POST",
-            body: formData
-          }
-
-        );
-
-
-      let data;
-
-
-      try {
-
-        data =
-          await response.json();
-
+    // =========================================================
+    async function uploadToCloudinary(file) {
+      if (!file) {
+        throw new Error("Please select a photo or video.");
       }
 
-      catch {
+      const formData = new FormData();
 
-        throw new Error(
-          "Cloudinary returned an invalid response."
-        );
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+      formData.append("folder", "holly-movers-gallery");
 
-      }
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
+        {
+          method: "POST",
+          body: formData
+        }
+      );
 
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-
-        console.error(
-          "Cloudinary error:",
-          data
-        );
-
-
         throw new Error(
-          data?.error?.message ||
-          "Cloudinary upload failed."
+          data?.error?.message || "Cloudinary upload failed."
         );
-
       }
-
 
       if (!data.secure_url) {
-
-        throw new Error(
-          "Cloudinary did not return the uploaded file URL."
-        );
-
+        throw new Error("Cloudinary did not return a media URL.");
       }
-
 
       return {
-
-        url:
-          data.secure_url,
-
-        type:
-          data.resource_type === "video"
-            ? "video"
-            : "image",
-
-        publicId:
-          data.public_id || ""
-
+        url: data.secure_url,
+        type: data.resource_type === "video" ? "video" : "image",
+        publicId: data.public_id || ""
       };
-
     }
 
 
+    // =========================================================
+    // SAVE MEDIA + DESCRIPTION TO FIRESTORE
+    // =========================================================
+    async function saveToFirestore(media, description) {
+      const user = auth.currentUser;
 
-    // =====================================================
-    // SAVE TO FIRESTORE
-    // =====================================================
-
-    async function saveToFirestore(
-      media,
-      description
-    ) {
-
-      const user =
-        auth.currentUser;
-
-
-      if (!user) {
-
-        throw new Error(
-          "Your admin session has expired. Please log in again."
-        );
-
+      if (!isAdminUser(user)) {
+        throw new Error("You must be logged in as the administrator.");
       }
 
-
-      const docRef =
-        await addDoc(
-
-          collection(
-            db,
-            "gallery"
-          ),
-
-          {
-
-            url:
-              media.url,
-
-            type:
-              media.type,
-
-            publicId:
-              media.publicId,
-
-            description:
-              description || "",
-
-            uploadedBy:
-              user.email,
-
-            timestamp:
-              serverTimestamp()
-
-          }
-
-        );
-
-
-      return docRef.id;
-
+      await addDoc(collection(db, "gallery"), {
+        url: media.url,
+        type: media.type,
+        publicId: media.publicId,
+        description: description.trim(),
+        uploadedBy: user.email,
+        timestamp: serverTimestamp()
+      });
     }
 
 
+    // =========================================================
+    // UPLOAD FORM
+    // =========================================================
+    uploadForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-    // =====================================================
-    // LOAD GALLERY
-    // =====================================================
+      const user = auth.currentUser;
+      const file = mediaInput.files[0];
+      const description = descriptionInput.value.trim();
 
-    async function loadGallery() {
+      if (!isAdminUser(user)) {
+        showUploadStatus(
+          "Please log in with admin@hollymovers.com first.",
+          "error"
+        );
+        return;
+      }
 
-      galleryGrid.innerHTML = `
+      if (!file) {
+        showUploadStatus("Please choose a photo or video.", "error");
+        return;
+      }
 
-        <div
-          class="col-span-full
-                 text-center py-16"
-        >
+      if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
+        showUploadStatus("Only images and videos are allowed.", "error");
+        return;
+      }
 
-          <i
-            class="fa-solid fa-spinner
-                   fa-spin text-4xl
-                   text-indigo-600"
-          ></i>
-
-          <p class="text-gray-500 mt-4">
-            Loading gallery...
-          </p>
-
-        </div>
-
-      `;
-
+      uploadBtn.disabled = true;
+      uploadIcon.className = "fa-solid fa-spinner fa-spin mr-2";
+      btnText.textContent = "Uploading...";
 
       try {
+        showUploadStatus("Uploading your media...", "info");
 
-        const q =
-          query(
+        const media = await uploadToCloudinary(file);
 
-            collection(
-              db,
-              "gallery"
-            ),
+        showUploadStatus(
+          "Media uploaded. Saving the description...",
+          "info"
+        );
 
-            orderBy(
-              "timestamp",
-              "desc"
-            )
+        await saveToFirestore(media, description);
 
-          );
+        uploadForm.reset();
+
+        previewImage.src = "";
+        previewVideo.src = "";
+        previewImage.classList.add("hidden");
+        previewVideo.classList.add("hidden");
+        mediaPreview.classList.add("hidden");
+        fileInfo.textContent = "Select an image or video to upload.";
+
+        showUploadStatus(
+          "Success! The media and description are now in the gallery.",
+          "success"
+        );
+
+        await loadGallery();
+
+      } catch (error) {
+        console.error("Upload error:", error);
+
+        showUploadStatus(
+          error.message || "Upload failed. Please try again.",
+          "error"
+        );
+
+      } finally {
+        uploadBtn.disabled = false;
+        uploadIcon.className = "fa-solid fa-cloud-arrow-up mr-2";
+        btnText.textContent = "Upload Media";
+      }
+    });
 
 
-        const snapshot =
-          await getDocs(q);
+    // =========================================================
+    // LOAD PUBLIC GALLERY
+    // =========================================================
+    async function loadGallery() {
+      galleryGrid.innerHTML = `
+        <div class="col-span-full text-center py-16">
+          <i class="fa-solid fa-spinner fa-spin text-4xl text-indigo-600"></i>
+          <p class="text-gray-500 mt-4">Loading gallery...</p>
+        </div>
+      `;
 
+      try {
+        // No orderBy query is used here, so old gallery documents
+        // without timestamps will not break the public gallery.
+        const snapshot = await getDocs(collection(db, "gallery"));
+
+        const items = [];
+
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          items.push({
+            id: doc.id,
+            ...data
+          });
+        });
+
+        items.sort((a, b) => {
+          const aTime = a.timestamp?.toMillis
+            ? a.timestamp.toMillis()
+            : 0;
+
+          const bTime = b.timestamp?.toMillis
+            ? b.timestamp.toMillis()
+            : 0;
+
+          return bTime - aTime;
+        });
+
+        galleryCount.textContent =
+          `${items.length} ${items.length === 1 ? "item" : "items"}`;
+
+        if (items.length === 0) {
+          galleryGrid.innerHTML = `
+            <div class="col-span-full text-center py-20">
+              <div class="w-20 h-20 mx-auto rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fa-solid fa-images text-3xl text-gray-400"></i>
+              </div>
+              <h3 class="text-xl font-bold mt-5">No moments yet</h3>
+              <p class="text-gray-500 mt-2">
+                Admin uploads will appear here.
+              </p>
+            </div>
+          `;
+          return;
+        }
 
         galleryGrid.innerHTML = "";
 
-
-        if (snapshot.empty) {
-
-          galleryGrid.innerHTML = `
-
-            <div
-              class="col-span-full
-                     text-center py-20"
-            >
-
-              <i
-                class="fa-solid fa-images
-                       text-6xl
-                       text-gray-300 mb-4"
-              ></i>
-
-              <p class="text-gray-400">
-                No moments have been uploaded yet.
-              </p>
-
-            </div>
-
-          `;
-
-          return;
-
-        }
-
-
-        snapshot.forEach(
-          (doc) => {
-
-            const data =
-              doc.data();
-
-
-            const card =
-              document.createElement(
-                "div"
-              );
-
-
-            card.className =
-              "gallery-card";
-
-
-            const type =
-              data.type === "video"
-                ? "video"
-                : "image";
-
-
-            // ---------------------------------------------
-            // MEDIA
-            // ---------------------------------------------
-
-            if (type === "video") {
-
-              const video =
-                document.createElement(
-                  "video"
-                );
-
-
-              video.src =
-                data.url || "";
-
-
-              video.className =
-                "gallery-media";
-
-
-              video.controls =
-                true;
-
-
-              video.playsInline =
-                true;
-
-
-              video.preload =
-                "metadata";
-
-
-              card.appendChild(
-                video
-              );
-
-
-              const badge =
-                document.createElement(
-                  "div"
-                );
-
-
-              badge.className =
-                "absolute top-3 right-3 " +
-                "bg-black/70 text-white " +
-                "text-xs px-3 py-1 " +
-                "rounded-full";
-
-
-              badge.innerHTML =
-                '<i class="fa-solid fa-video mr-1"></i> Video';
-
-
-              card.appendChild(
-                badge
-              );
-
-            }
-
-            else {
-
-              const image =
-                document.createElement(
-                  "img"
-                );
-
-
-              image.src =
-                data.url || "";
-
-
-              image.alt =
-                data.description ||
-                "Holly Movers";
-
-
-              image.className =
-                "gallery-media";
-
-
-              image.loading =
-                "lazy";
-
-
-              card.appendChild(
-                image
-              );
-
-            }
-
-
-
-            // ---------------------------------------------
-            // DESCRIPTION
-            // ---------------------------------------------
-
-            if (
-              data.description &&
-              data.description.trim()
-            ) {
-
-              const description =
-                document.createElement(
-                  "div"
-                );
-
-
-              description.className =
-                "description-box";
-
-
-              const text =
-                document.createElement(
-                  "p"
-                );
-
-
-              text.className =
-                "text-sm md:text-base font-medium";
-
-
-              text.textContent =
-                data.description;
-
-
-              description.appendChild(
-                text
-              );
-
-
-              card.appendChild(
-                description
-              );
-
-            }
-
+        items.forEach((data) => {
+          const card = document.createElement("article");
+          card.className =
+            "gallery-card group bg-white rounded-3xl overflow-hidden shadow-md border";
+
+          const mediaWrap = document.createElement("div");
+          mediaWrap.className =
+            "relative bg-black aspect-[4/3] overflow-hidden";
+
+          if (data.type === "video") {
+            const video = document.createElement("video");
+            video.src = data.url;
+            video.controls = true;
+            video.playsInline = true;
+            video.preload = "metadata";
+            video.className = "w-full h-full object-cover";
+            mediaWrap.appendChild(video);
+
+            const badge = document.createElement("span");
+            badge.className =
+              "absolute top-3 right-3 bg-black/70 text-white text-xs px-3 py-1.5 rounded-full";
+            badge.innerHTML =
+              '<i class="fa-solid fa-video mr-1"></i> Video';
+            mediaWrap.appendChild(badge);
+
+          } else {
+            const image = document.createElement("img");
+            image.src = data.url;
+            image.alt = data.description || "Holly Movers gallery";
+            image.loading = "lazy";
+            image.className = "w-full h-full object-cover";
+            mediaWrap.appendChild(image);
           }
 
-        );
+          const content = document.createElement("div");
+          content.className = "p-5";
 
+          const description = document.createElement("p");
+          description.className =
+            "text-gray-700 leading-relaxed";
 
-      }
+          description.textContent =
+            data.description || "Holly Movers moment.";
 
-      catch (error) {
+          content.appendChild(description);
 
-        console.error(
-          "Gallery error:",
-          error
-        );
+          card.appendChild(mediaWrap);
+          card.appendChild(content);
 
+          galleryGrid.appendChild(card);
+        });
+
+      } catch (error) {
+        console.error("Gallery error:", error);
 
         galleryGrid.innerHTML = `
-
-          <div
-            class="col-span-full
-                   bg-red-50
-                   text-red-600
-                   p-6
-                   rounded-2xl
-                   text-center"
-          >
-
-            <i
-              class="fa-solid
-                     fa-triangle-exclamation
-                     text-3xl mb-3"
-            ></i>
-
-            <p class="font-semibold">
-              Unable to load the gallery.
+          <div class="col-span-full text-center py-16">
+            <div class="w-16 h-16 mx-auto rounded-full bg-red-100 flex items-center justify-center">
+              <i class="fa-solid fa-triangle-exclamation text-red-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mt-5">Gallery could not load</h3>
+            <p class="text-gray-500 mt-2 max-w-xl mx-auto">
+              Check your Firebase Firestore rules and make sure the
+              <strong>gallery</strong> collection is readable.
             </p>
-
-            <p class="text-sm mt-2">
-              ${error.message}
-            </p>
-
           </div>
-
         `;
-
       }
-
     }
 
 
-
-    // =====================================================
-    // AUTH UI
-    // =====================================================
-
-    function updateAuthUI(
-      user
-    ) {
-
-      if (
-        isAdminUser(user)
-      ) {
-
-        authArea.innerHTML = `
-
-          <span
-            class="text-sm text-gray-600"
-          >
-            Admin: ${user.email}
-          </span>
-
-          <button
-            id="logoutBtn"
-            class="bg-gray-200
-                   hover:bg-gray-300
-                   text-gray-800
-                   px-4 py-2
-                   rounded-xl
-                   text-sm
-                   font-medium"
-          >
-            Logout
-          </button>
-
-        `;
-
-
-        loginSection.classList.add(
-          "hidden"
-        );
-
-
-        uploadSection.classList.remove(
-          "hidden"
-        );
-
-
-        document
-          .getElementById("logoutBtn")
-          .addEventListener(
-            "click",
-            () => signOut(auth)
-          );
-
-      }
-
-      else {
-
-        authArea.innerHTML = `
-
-          <button
-            id="showLoginBtn"
-            class="bg-indigo-600
-                   hover:bg-indigo-700
-                   text-white
-                   px-5 py-2.5
-                   rounded-xl
-                   text-sm
-                   font-medium"
-          >
-            Admin Login
-          </button>
-
-        `;
-
-
-        uploadSection.classList.add(
-          "hidden"
-        );
-
-
-        loginSection.classList.add(
-          "hidden"
-        );
-
-
-        document
-          .getElementById("showLoginBtn")
-          .addEventListener(
-            "click",
-            () => {
-
-              loginSection.classList.remove(
-                "hidden"
-              );
-
-              loginSection.scrollIntoView({
-                behavior: "smooth"
-              });
-
-            }
-          );
-
-      }
-
-    }
-
-
-
-    // =====================================================
-    // LOGIN
-    // =====================================================
-
-    loginForm.addEventListener(
-      "submit",
-      async (event) => {
-
-        event.preventDefault();
-
-
-        const email =
-          document
-            .getElementById(
-              "loginEmail"
-            )
-            .value
-            .trim();
-
-
-        const password =
-          document
-            .getElementById(
-              "loginPassword"
-            )
-            .value;
-
-
-        loginError.classList.add(
-          "hidden"
-        );
-
-
-        loginBtn.disabled =
-          true;
-
-
-        loginBtn.textContent =
-          "Signing in...";
-
-
-        try {
-
-          const credential =
-            await signInWithEmailAndPassword(
-              auth,
-              email,
-              password
-            );
-
-
-          if (
-            !isAdminUser(
-              credential.user
-            )
-          ) {
-
-            await signOut(auth);
-
-
-            throw new Error(
-              "This account is not authorized as the website administrator."
-            );
-
-          }
-
-
-        }
-
-        catch (error) {
-
-          console.error(
-            "Login error:",
-            error
-          );
-
-
-          loginError.textContent =
-            error.message;
-
-
-          loginError.classList.remove(
-            "hidden"
-          );
-
-        }
-
-        finally {
-
-          loginBtn.disabled =
-            false;
-
-
-          loginBtn.textContent =
-            "Sign In";
-
-        }
-
-      }
-    );
-
-
-
-    // =====================================================
-    // FILE PREVIEW
-    // =====================================================
-
-    mediaInput.addEventListener(
-      "change",
-      () => {
-
-        const file =
-          mediaInput.files[0];
-
-
-        if (!file) {
-
-          mediaPreview.classList.add(
-            "hidden"
-          );
-
-          fileInfo.textContent =
-            "";
-
-          return;
-
-        }
-
-
-        fileInfo.textContent =
-          `${file.name} • ${(file.size / 1024 / 1024).toFixed(2)} MB`;
-
-
-        const previewURL =
-          URL.createObjectURL(
-            file
-          );
-
-
-        if (
-          file.type.startsWith(
-            "video/"
-          )
-        ) {
-
-          previewImage.classList.add(
-            "hidden"
-          );
-
-
-          previewVideo.classList.remove(
-            "hidden"
-          );
-
-
-          previewVideo.src =
-            previewURL;
-
-        }
-
-        else {
-
-          previewVideo.classList.add(
-            "hidden"
-          );
-
-
-          previewVideo.pause();
-
-
-          previewVideo.src =
-            "";
-
-
-          previewImage.classList.remove(
-            "hidden"
-          );
-
-
-          previewImage.src =
-            previewURL;
-
-        }
-
-
-        mediaPreview.classList.remove(
-          "hidden"
-        );
-
-      }
-    );
-
-
-
-    // =====================================================
-    // UPLOAD
-    // =====================================================
-
-    uploadForm.addEventListener(
-      "submit",
-      async (event) => {
-
-        event.preventDefault();
-
-
-        const user =
-          auth.currentUser;
-
-
-        // -----------------------------------------------
-        // ADMIN CHECK
-        // -----------------------------------------------
-
-        if (
-          !isAdminUser(user)
-        ) {
-
-          showStatus(
-            "Please log in with the administrator account first.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        const file =
-          mediaInput.files[0];
-
-
-        if (!file) {
-
-          showStatus(
-            "Please select a photo or video.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        const description =
-          descriptionInput.value.trim();
-
-
-        // -----------------------------------------------
-        // DISABLE
-        // -----------------------------------------------
-
-        uploadBtn.disabled =
-          true;
-
-
-        uploadIcon.className =
-          "fa-solid fa-spinner fa-spin";
-
-
-        btnText.textContent =
-          "UPLOADING...";
-
-
-        try {
-
-          // ---------------------------------------------
-          // CLOUDINARY
-          // ---------------------------------------------
-
-          showStatus(
-            "Uploading your photo/video...",
-            "info"
-          );
-
-
-          const media =
-            await uploadToCloudinary(
-              file
-            );
-
-
-          console.log(
-            "Cloudinary upload successful:",
-            media
-          );
-
-
-          // ---------------------------------------------
-          // FIRESTORE
-          // ---------------------------------------------
-
-          showStatus(
-            "Saving your photo/video to the gallery...",
-            "info"
-          );
-
-
-          const documentId =
-            await saveToFirestore(
-              media,
-              description
-            );
-
-
-          console.log(
-            "Gallery document created:",
-            documentId
-          );
-
-
-          // ---------------------------------------------
-          // SUCCESS
-          // ---------------------------------------------
-
-          showStatus(
-            "✓ Upload successful! Visitors can now see it in the gallery.",
-            "success"
-          );
-
-
-          // Reset form
-
-          uploadForm.reset();
-
-
-          mediaPreview.classList.add(
-            "hidden"
-          );
-
-
-          previewImage.src =
-            "";
-
-
-          previewVideo.pause();
-
-
-          previewVideo.src =
-            "";
-
-
-          fileInfo.textContent =
-            "";
-
-
-          // Reload gallery
-
-          await loadGallery();
-
-        }
-
-        catch (error) {
-
-          console.error(
-            "COMPLETE UPLOAD ERROR:",
-            error
-          );
-
-
-          let message =
-            error.message ||
-            "Unknown upload error.";
-
-
-          if (
-            message.includes(
-              "upload preset"
-            )
-          ) {
-
-            message =
-              "Cloudinary rejected the upload preset. Make sure 'olivia_uploads' is an UNSIGNED upload preset.";
-
-          }
-
-
-          else if (
-            message.includes(
-              "permission"
-            ) ||
-            message.includes(
-              "Missing or insufficient"
-            )
-          ) {
-
-            message =
-              "Firebase rejected the upload. Check your Firestore rules and make sure admin@hollymovers.com is authorized.";
-
-          }
-
-
-          showStatus(
-            "Upload failed: " +
-            message,
-            "error"
-          );
-
-        }
-
-        finally {
-
-          uploadBtn.disabled =
-            false;
-
-
-          uploadIcon.className =
-            "fa-solid fa-upload";
-
-
-          btnText.textContent =
-            "UPLOAD TO GALLERY";
-
-        }
-
-      }
-    );
-
-
-
-    // =====================================================
-    // AUTH STATE
-    // =====================================================
-
-    onAuthStateChanged(
-      auth,
-      (user) => {
-
-        console.log(
-          "Current user:",
-          user
-            ? user.email
-            : "Not logged in"
-        );
-
-
-        updateAuthUI(
-          user
-        );
-
-      }
-    );
-
-
-
-    // =====================================================
-    // START GALLERY
-    // =====================================================
+    // =========================================================
+    // START
+    // =========================================================
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
     loadGallery();
-
   </script>
 
 </body>
-
 </html>
