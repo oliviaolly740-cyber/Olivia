@@ -4,85 +4,123 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Holly Movers • Weekly Insights</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <!-- Firebase Compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
-    
-    :root {
-      --uganda: #006400;
+
+    :root { --uganda:#006400; }
+
+    body {
+      font-family:'Inter',system-ui,sans-serif;
+      background:linear-gradient(135deg,#f8fafc 0%,#e0f2fe 100%);
+      color:#1f2937;
+      min-height:100vh;
     }
-    
-    body { 
-      font-family: 'Inter', system-ui, sans-serif; 
-      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-      color: #1f2937;
-      min-height: 100vh;
-    }
-    
-    h1, h2, .heading { font-family: 'Playfair Display', serif; }
-    
+
+    h1,h2,.heading { font-family:'Playfair Display',serif; }
+
     .hero {
-      background: linear-gradient(rgba(0, 100, 0, 0.92), rgba(0, 100, 0, 0.92)), url('https://via.placeholder.com/2000x1200?text=Uganda+Newsletter+Hero') center/cover no-repeat;
-      color: white;
-      padding: 5rem 1.5rem;
-      border-radius: 3rem 3rem 0 0;
+      background:
+        linear-gradient(rgba(0,100,0,.88),rgba(0,100,0,.92)),
+        url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85')
+        center/cover no-repeat;
+      color:white;
+      padding:5rem 1.5rem;
+      border-radius:3rem 3rem 0 0;
     }
-    
+
     .admin-panel {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 9999;
-      padding: 2rem;
-      overflow-y: auto;
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.85);
+      z-index:9999;
+      padding:2rem;
+      overflow-y:auto;
     }
-    
-    .admin-panel.active {
-      display: block;
+
+    .admin-panel.active { display:block; }
+    .admin-login {
+      max-width: 480px;
+      margin: 8vh auto;
     }
-    
-    .admin-panel h2 {
-      color: white;
+    .admin-content { display:none; }
+    .admin-content.active { display:block; }
+    .auth-status {
+      min-height: 24px;
+      font-size: .9rem;
     }
-    
-    .admin-panel button {
-      transition: all 0.3s ease;
-    }
-    
+
     .newsletter-card {
-      background: white;
-      border-radius: 2.5rem;
-      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
-      overflow: hidden;
+      background:white;
+      border-radius:2.5rem;
+      box-shadow:0 25px 50px -12px rgb(0 0 0 / .15);
+      overflow:hidden;
+      transition:transform .3s ease,box-shadow .3s ease;
     }
-    
-    .newsletter-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 35px 60px -15px rgb(0 0 0 / 0.25);
-    }
-    
+
     .newsletter-img {
-      height: 420px;
-      object-fit: cover;
-      transition: transform 0.4s ease;
+      height:420px;
+      object-fit:cover;
+      transition:transform .4s ease;
     }
-    
-    .newsletter-card:hover .newsletter-img {
-      transform: scale(1.03);
-    }
-    
+
+    .newsletter-card:hover .newsletter-img { transform:scale(1.03); }
+
     .btn-blue {
-      background: linear-gradient(to right, #006400, #15803d);
-      color: white;
+      background:linear-gradient(to right,#006400,#15803d);
+      color:white;
+    }
+
+    .issue-badge {
+      background:#dcfce7;
+      color:#166534;
+      padding:.5rem 1rem;
+      border-radius:999px;
+      font-size:.8rem;
+      font-weight:700;
+      letter-spacing:.08em;
+    }
+
+    .progress {
+      display:none;
+      margin-top:1rem;
+      height:8px;
+      border-radius:999px;
+      background:#e5e7eb;
+      overflow:hidden;
+    }
+
+    .progress-bar {
+      height:100%;
+      width:0;
+      background:#16a34a;
+      transition:width .2s ease;
+    }
+
+    .admin-note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      color:#1e40af;
+      border-radius:1rem;
+      padding:1rem;
+      font-size:.9rem;
     }
   </style>
 </head>
+
 <body class="bg-gray-100 text-gray-900">
 
   <!-- ADMIN BUTTON -->
-  <button onclick="toggleAdminPanel()" 
+  <button onclick="toggleAdminPanel()"
           class="fixed top-6 right-6 bg-white shadow-xl px-6 py-3 rounded-3xl font-medium flex items-center gap-3 z-50 hover:shadow-2xl transition-all">
     <i class="fa-solid fa-shield-halved"></i>
     <span>ADMIN DASHBOARD</span>
@@ -90,63 +128,125 @@
 
   <!-- ADMIN PANEL -->
   <div id="adminPanel" class="admin-panel">
-    <div class="max-w-2xl mx-auto bg-white rounded-3xl p-8">
+    <!-- Login is shown to visitors; the upload dashboard stays hidden until the
+         authenticated Firebase account is exactly admin@hollymovers.com. -->
+    <div id="adminLogin" class="admin-login bg-white rounded-3xl p-8 shadow-2xl">
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold">Admin Dashboard</h2>
-        <button onclick="toggleAdminPanel()" class="text-gray-400 hover:text-gray-600">
+        <div>
+          <p class="text-sm font-semibold tracking-widest text-blue-600">HOLLY MOVERS</p>
+          <h2 class="text-3xl font-bold text-gray-900 mt-1">Admin Login</h2>
+        </div>
+        <button onclick="closeAdminPanel()" class="text-gray-400 hover:text-gray-600">
           <i class="fa-solid fa-xmark text-4xl"></i>
         </button>
       </div>
 
+      <p class="text-gray-600 mb-6">
+        Sign in with the authorized Holly Movers administrator account to upload or delete newsletters.
+      </p>
+
+      <form onsubmit="adminLogin(event)" class="space-y-4">
+        <input id="adminEmail" type="email" autocomplete="username"
+               value="admin@hollymovers.com"
+               class="w-full border border-gray-300 rounded-2xl px-5 py-4"
+               placeholder="Admin email" required>
+
+        <input id="adminPassword" type="password" autocomplete="current-password"
+               class="w-full border border-gray-300 rounded-2xl px-5 py-4"
+               placeholder="Admin password" required>
+
+        <button id="adminLoginBtn" type="submit"
+                class="btn-blue w-full py-5 rounded-2xl font-semibold text-lg">
+          <i class="fa-solid fa-right-to-bracket mr-2"></i>
+          SIGN IN AS ADMIN
+        </button>
+
+        <p id="adminLoginStatus" class="auth-status text-center text-red-500"></p>
+      </form>
+
+      <p class="text-xs text-gray-400 mt-6 text-center">
+        Authorized account: admin@hollymovers.com
+      </p>
+    </div>
+
+    <div id="adminContent" class="admin-content max-w-3xl mx-auto bg-white rounded-3xl p-8">
+      <div class="flex justify-between items-center mb-8">
+        <div>
+          <p class="text-sm font-semibold tracking-widest text-green-600">ADMIN VERIFIED</p>
+          <h2 class="text-3xl font-bold text-gray-900 mt-1">Admin Dashboard</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="adminLogout()" class="text-sm bg-gray-100 px-4 py-2 rounded-xl hover:bg-gray-200">
+            <i class="fa-solid fa-right-from-bracket mr-1"></i> Sign out
+          </button>
+          <button onclick="closeAdminPanel()" class="text-gray-400 hover:text-gray-600">
+            <i class="fa-solid fa-xmark text-4xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-note mb-8">
+        <strong>Admin-only publishing:</strong> the selected image or video is uploaded directly to
+        <strong>Cloudinary</strong>. The newsletter title, description, discount information,
+        and Cloudinary URL are then saved in <strong>Firebase Realtime Database</strong>.
+        Visitors can only read published newsletters; only the authorized admin can create or delete them.
+      </div>
+
       <!-- Upload New Issue -->
       <div class="mb-12">
-        <h3 class="heading text-2xl mb-6">Upload New Weekly Issue</h3>
+        <h3 class="heading text-2xl mb-6 text-gray-900">Upload New Weekly Issue</h3>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium mb-2">Image / Cover</label>
-            <input type="file" id="issueImage" accept="image/*" class="w-full border border-gray-300 rounded-2xl px-4 py-4">
+            <input type="file" id="issueImage" accept="image/*"
+                   class="w-full border border-gray-300 rounded-2xl px-4 py-4">
           </div>
+
           <div>
             <label class="block text-sm font-medium mb-2">Video (optional)</label>
-            <input type="file" id="issueVideo" accept="video/*" class="w-full border border-gray-300 rounded-2xl px-4 py-4">
+            <input type="file" id="issueVideo" accept="video/*"
+                   class="w-full border border-gray-300 rounded-2xl px-4 py-4">
           </div>
         </div>
-        
-        <input type="text" id="issueTitle" placeholder="Issue Title" class="w-full mt-6 border border-gray-300 rounded-2xl px-6 py-5 text-lg">
-        <textarea id="issueDesc" rows="4" placeholder="Issue Description" 
+
+        <input type="text" id="issueTitle" placeholder="Issue Title"
+               class="w-full mt-6 border border-gray-300 rounded-2xl px-6 py-5 text-lg">
+
+        <textarea id="issueDesc" rows="5" placeholder="Issue Description"
                   class="w-full mt-4 border border-gray-300 rounded-2xl px-6 py-5 text-lg"></textarea>
-        
-        <div class="grid grid-cols-2 gap-6 mt-6">
-          <input type="text" id="issueDiscountCode" placeholder="Discount Code" class="border border-gray-300 rounded-2xl px-6 py-5">
-          <input type="text" id="issueDiscountAmount" placeholder="Discount Amount (e.g. €49 off)" class="border border-gray-300 rounded-2xl px-6 py-5">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <input type="text" id="issueDiscountCode" placeholder="Discount Code"
+                 class="border border-gray-300 rounded-2xl px-6 py-5">
+
+          <input type="text" id="issueDiscountAmount" placeholder="Discount Amount (e.g. UGX 49,000 off)"
+                 class="border border-gray-300 rounded-2xl px-6 py-5">
         </div>
-        
-        <button onclick="uploadNewIssue()" 
+
+        <div id="uploadProgress" class="progress">
+          <div id="uploadProgressBar" class="progress-bar"></div>
+        </div>
+
+        <p id="uploadStatus" class="text-sm text-gray-500 mt-3"></p>
+
+        <button id="uploadBtn" onclick="uploadNewIssue()"
                 class="btn-blue mt-8 w-full py-6 rounded-3xl font-semibold text-xl flex items-center justify-center gap-3">
-          <i class="fa-solid fa-upload"></i>
-          UPLOAD NEW ISSUE TO FIREBASE
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          UPLOAD NEWSLETTER
         </button>
       </div>
 
-      <!-- Delete Issue -->
+      <!-- Existing Issues -->
       <div>
-        <h3 class="heading text-2xl mb-6">Delete Existing Issue</h3>
-        <div class="bg-gray-50 rounded-2xl p-6">
-          <div class="flex gap-4">
-            <input type="text" id="deleteIssueKey" placeholder="Issue Key (e.g. issue1)" 
-                   class="flex-1 border border-gray-300 rounded-2xl px-6 py-5 text-lg">
-            <button onclick="deleteIssue()" 
-                    class="btn-blue px-10 rounded-3xl font-semibold flex items-center gap-3">
-              <i class="fa-solid fa-trash"></i>
-              DELETE
-            </button>
-          </div>
-          <p class="text-xs text-gray-500 mt-4">Get the key from the URL when you open the page (e.g. /newsletter?issue=issue1)</p>
+        <h3 class="heading text-2xl mb-6 text-gray-900">Published Newsletter Issues</h3>
+        <div id="adminIssuesList" class="space-y-3">
+          <p class="text-gray-400">Loading issues...</p>
         </div>
       </div>
 
       <div class="text-center text-xs text-gray-400 mt-12">
-        Uploaded via Firebase Realtime Database • Cloudinary for images/videos
+        Media: Cloudinary • Newsletter data: Firebase Realtime Database
       </div>
     </div>
   </div>
@@ -161,30 +261,42 @@
         </span>
         <span class="text-white/80 text-xs">Uganda • 2018</span>
       </div>
-      <h1 class="heading text-7xl md:text-8xl leading-none font-bold mb-6">Weekly<br>Movers<br>Insights</h1>
+
+      <h1 class="heading text-7xl md:text-8xl leading-none font-bold mb-6">
+        Weekly<br>Movers<br>Insights
+      </h1>
+
       <p class="text-2xl md:text-3xl text-white/90 max-w-lg mx-auto mb-12">
         Expert tips, real discounts, and fresh routes — straight to your inbox every week.
       </p>
-      
+
       <form id="newsletterForm" class="max-w-xl mx-auto flex flex-col md:flex-row gap-4">
-        <input type="email" id="nlEmail" placeholder="Enter your email" 
+        <input type="email" id="nlEmail" placeholder="Enter your email" required
                class="flex-1 border border-white/30 focus:border-white rounded-3xl px-8 py-6 text-lg text-gray-900 placeholder:text-gray-500 outline-none">
-        <button type="submit" class="btn-blue px-12 rounded-3xl font-semibold text-xl shadow-lg">
+
+        <button id="subscribeBtn" type="submit"
+                class="btn-blue px-12 rounded-3xl font-semibold text-xl shadow-lg">
           SUBSCRIBE FREE
         </button>
       </form>
+
+      <p id="subscribeStatus" class="mt-4 text-white font-medium"></p>
     </div>
   </div>
 
   <!-- NEWSLETTER CONTENT -->
-  <div class="max-w-4xl mx-auto px-6 -mt-20 relative z-10">
-    <div id="newsletterContent" class="newsletter-card">
-      <!-- Populated by JS from Firebase -->
+  <div class="max-w-4xl mx-auto px-6 -mt-20 relative z-10 pb-20">
+    <div id="newsletterContent">
+      <div class="newsletter-card text-center py-20 text-gray-400">
+        Loading the latest newsletter...
+      </div>
     </div>
   </div>
 
   <script>
-    // ====================== FIREBASE CONFIG ======================
+    // ============================================================
+    // FIREBASE CONFIG
+    // ============================================================
     const firebaseConfig = {
       apiKey: "AIzaSyC9RLegycn1D7QkFshepdE5hj0KJFJF68M",
       authDomain: "olivia-a6e60.firebaseapp.com",
@@ -197,58 +309,215 @@
     };
 
     firebase.initializeApp(firebaseConfig);
+
     const db = firebase.database();
     const auth = firebase.auth();
 
-    let currentUser = null;
-    let isAdminMode = false;
+    // IMPORTANT:
+    // The UI is protected here, but Firebase Realtime Database rules MUST
+    // also restrict newsletter writes/deletes to ADMIN_EMAIL. Never rely
+    // on hiding the admin panel as the only security measure.
 
-    // ====================== TAILWIND ======================
-    tailwind.config = {
-      content: [],
-      theme: {
-        extend: {
-          fontFamily: { heading: ['Playfair Display', 'serif'] }
-        }
-      }
-    };
+    // ============================================================
+    // CLOUDINARY CONFIG
+    // ============================================================
+    const CLOUDINARY_CLOUD_NAME = "xb8j8gkd";
+    const CLOUDINARY_UPLOAD_PRESET = "olivia_uploads";
+    const CLOUDINARY_FOLDER = "holly-movers-newsletter";
 
-    // ====================== SUBSCRIPTION ======================
+    // ============================================================
+    // SUBSCRIPTION
+    // ============================================================
     document.getElementById('newsletterForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = document.getElementById('nlEmail').value.trim().toLowerCase();
-      if (!email) return alert('Please enter a valid email');
 
-      const btn = document.querySelector('button[type="submit"]');
-      const original = btn.textContent;
+      const emailInput = document.getElementById('nlEmail');
+      const btn = document.getElementById('subscribeBtn');
+      const status = document.getElementById('subscribeStatus');
+      const email = emailInput.value.trim().toLowerCase();
+
+      if (!email || !emailInput.checkValidity()) {
+        status.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
       btn.disabled = true;
       btn.textContent = 'SUBSCRIBING...';
+      status.textContent = '';
 
       try {
-        await auth.signInAnonymously();
+        // Reuse the current Firebase session when an admin is signed in.
+        // Otherwise use an anonymous session for a public subscriber.
+        if (!auth.currentUser) {
+          await auth.signInAnonymously();
+        }
+
         await db.ref('subscriptions').push({
-          email: email,
+          email,
           subscribedAt: firebase.database.ServerValue.TIMESTAMP
         });
-        document.getElementById('nlEmail').value = '';
-        document.getElementById('nlEmail').placeholder = '🎉 Subscribed!';
-        setTimeout(() => document.getElementById('nlEmail').placeholder = 'Enter your email', 2000);
+
+        emailInput.value = '';
+        status.textContent = '🎉 You are successfully subscribed!';
       } catch (err) {
-        alert('Subscription failed. Try again.');
+        console.error('Subscription error:', err);
+        status.textContent = 'Subscription failed. Please try again.';
       } finally {
         btn.disabled = false;
-        btn.textContent = original;
+        btn.textContent = 'SUBSCRIBE FREE';
       }
     });
 
-    // ====================== ADMIN PANEL ======================
-    function toggleAdminPanel() {
-      const panel = document.getElementById('adminPanel');
-      isAdminMode = !isAdminMode;
-      panel.classList.toggle('active');
+    // ============================================================
+    // ADMIN AUTHENTICATION / PROTECTION
+    // ============================================================
+    const ADMIN_EMAIL = "admin@hollymovers.com";
+
+    function isAuthorizedAdmin(user) {
+      return !!user && (user.email || '').toLowerCase() === ADMIN_EMAIL;
     }
 
-    // ====================== UPLOAD NEW ISSUE ======================
+    function showAdminLogin(message = '') {
+      document.getElementById('adminLogin').style.display = 'block';
+      document.getElementById('adminContent').classList.remove('active');
+      document.getElementById('adminLoginStatus').textContent = message;
+    }
+
+    function showAdminDashboard() {
+      document.getElementById('adminLogin').style.display = 'none';
+      document.getElementById('adminContent').classList.add('active');
+      document.getElementById('adminLoginStatus').textContent = '';
+      loadAdminIssues();
+    }
+
+    function toggleAdminPanel() {
+      const panel = document.getElementById('adminPanel');
+      panel.classList.toggle('active');
+
+      if (panel.classList.contains('active')) {
+        if (isAuthorizedAdmin(auth.currentUser)) {
+          showAdminDashboard();
+        } else {
+          showAdminLogin();
+        }
+      }
+    }
+
+    function closeAdminPanel() {
+      document.getElementById('adminPanel').classList.remove('active');
+    }
+
+    async function adminLogin(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('adminEmail').value.trim().toLowerCase();
+      const password = document.getElementById('adminPassword').value;
+      const button = document.getElementById('adminLoginBtn');
+      const status = document.getElementById('adminLoginStatus');
+
+      if (email !== ADMIN_EMAIL) {
+        status.textContent = 'Access denied. Use the authorized Holly Movers admin account.';
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = 'Signing in...';
+
+      try {
+        const credential = await auth.signInWithEmailAndPassword(email, password);
+
+        if (!isAuthorizedAdmin(credential.user)) {
+          await auth.signOut();
+          throw new Error('This Firebase account is not authorized as the Holly Movers admin.');
+        }
+
+        document.getElementById('adminPassword').value = '';
+        showAdminDashboard();
+      } catch (error) {
+        console.error('Admin login error:', error);
+        status.textContent = 'Login failed. Check the admin email/password and Firebase Authentication setup.';
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function adminLogout() {
+      try {
+        await auth.signOut();
+        showAdminLogin('You have been signed out.');
+      } catch (error) {
+        console.error('Admin logout error:', error);
+      }
+    }
+
+    auth.onAuthStateChanged((user) => {
+      if (isAuthorizedAdmin(user)) {
+        if (document.getElementById('adminPanel').classList.contains('active')) {
+          showAdminDashboard();
+        }
+      } else {
+        document.getElementById('adminContent').classList.remove('active');
+        document.getElementById('adminLogin').style.display = 'block';
+      }
+    });
+
+    // ============================================================
+    // CLOUDINARY UPLOAD
+    // ============================================================
+    function uploadToCloudinary(file, onProgress) {
+      return new Promise((resolve, reject) => {
+        if (!file) {
+          resolve(null);
+          return;
+        }
+
+        const isVideo = file.type.startsWith('video/');
+        const resourceType = isVideo ? 'video' : 'image';
+
+        const url =
+          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+        formData.append('folder', CLOUDINARY_FOLDER);
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('POST', url);
+
+        xhr.upload.addEventListener('progress', (event) => {
+          if (event.lengthComputable && onProgress) {
+            onProgress(Math.round((event.loaded / event.total) * 100));
+          }
+        });
+
+        xhr.onload = () => {
+          try {
+            const result = JSON.parse(xhr.responseText);
+
+            if (xhr.status >= 200 && xhr.status < 300 && result.secure_url) {
+              resolve({
+                url: result.secure_url,
+                publicId: result.public_id || '',
+                resourceType
+              });
+            } else {
+              reject(new Error(result.error?.message || 'Cloudinary upload failed.'));
+            }
+          } catch (error) {
+            reject(new Error('Invalid response from Cloudinary.'));
+          }
+        };
+
+        xhr.onerror = () => reject(new Error('Could not connect to Cloudinary.'));
+        xhr.send(formData);
+      });
+    }
+
+    // ============================================================
+    // UPLOAD NEW NEWSLETTER
+    // ============================================================
     async function uploadNewIssue() {
       const title = document.getElementById('issueTitle').value.trim();
       const desc = document.getElementById('issueDesc').value.trim();
@@ -258,130 +527,298 @@
       const imageFile = document.getElementById('issueImage').files[0];
       const videoFile = document.getElementById('issueVideo').files[0];
 
+      const button = document.getElementById('uploadBtn');
+      const progress = document.getElementById('uploadProgress');
+      const progressBar = document.getElementById('uploadProgressBar');
+      const status = document.getElementById('uploadStatus');
+
       if (!title || !desc) {
-        alert('Please fill title and description');
+        alert('Please enter the newsletter title and description.');
         return;
       }
 
-      const newsletterRef = db.ref('newsletter');
-      const newIssueRef = newsletterRef.push();
+      if (!imageFile && !videoFile) {
+        alert('Please select an image or video for the newsletter.');
+        return;
+      }
+
+      if (imageFile && videoFile) {
+        alert('Please upload either an image OR a video for one newsletter issue.');
+        return;
+      }
+
+      button.disabled = true;
+      button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> UPLOADING...';
+      progress.style.display = 'block';
+      progressBar.style.width = '0%';
+      status.textContent = 'Preparing upload...';
 
       try {
-        if (imageFile) {
-          const imageRef = firebase.storage().ref('newsletter/' + Date.now() + '_' + imageFile.name);
-          await imageRef.put(imageFile);
-          const imageUrl = await imageRef.getDownloadURL();
-          await newIssueRef.update({ imageUrl: imageUrl });
+        if (!isAuthorizedAdmin(auth.currentUser)) {
+          throw new Error('Admin authentication required. Please sign in as admin@hollymovers.com.');
         }
 
-        if (videoFile) {
-          const videoRef = firebase.storage().ref('newsletter/' + Date.now() + '_' + videoFile.name);
-          await videoRef.put(videoFile);
-          const videoUrl = await videoRef.getDownloadURL();
-          await newIssueRef.update({ videoUrl: videoUrl });
-        }
+        const mediaFile = imageFile || videoFile;
 
-        await newIssueRef.update({
-          title: title,
-          description: desc,
-          discountCode: discountCode,
-          discountAmount: discountAmount,
-          date: new Date().toISOString().split('T')[0]
+        status.textContent = 'Uploading media to Cloudinary...';
+
+        const media = await uploadToCloudinary(mediaFile, (percent) => {
+          progressBar.style.width = percent + '%';
+          status.textContent = `Uploading to Cloudinary... ${percent}%`;
         });
 
-        alert('✅ Issue uploaded successfully to Firebase!');
+        status.textContent = 'Saving newsletter information to Firebase...';
+
+        const issueRef = db.ref('newsletter').push();
+
+        await issueRef.set({
+          title,
+          description: desc,
+          discountCode: discountCode || '',
+          discountAmount: discountAmount || '',
+          mediaUrl: media.url,
+          mediaType: media.resourceType,
+          cloudinaryPublicId: media.publicId,
+          date: new Date().toISOString().split('T')[0],
+          createdAt: firebase.database.ServerValue.TIMESTAMP,
+          published: true
+        });
+
+        progressBar.style.width = '100%';
+        status.textContent = '✅ Newsletter uploaded and published successfully!';
+
+        document.getElementById('issueImage').value = '';
+        document.getElementById('issueVideo').value = '';
         document.getElementById('issueTitle').value = '';
         document.getElementById('issueDesc').value = '';
         document.getElementById('issueDiscountCode').value = '';
         document.getElementById('issueDiscountAmount').value = '';
-      } catch (err) {
-        console.error(err);
-        alert('Upload failed. Check permissions.');
+
+        await loadNewsletter();
+        await loadAdminIssues();
+
+      } catch (error) {
+        console.error('Newsletter upload error:', error);
+        status.textContent = '❌ Upload failed: ' + error.message;
+        alert('Upload failed. Make sure you are signed in as admin@hollymovers.com and that Firebase rules allow only this admin to write newsletter data.');
+      } finally {
+        button.disabled = false;
+        button.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD NEWSLETTER';
+
+        setTimeout(() => {
+          progress.style.display = 'none';
+        }, 2500);
       }
     }
 
-    // ====================== DELETE ISSUE ======================
-    async function deleteIssue() {
-      const key = document.getElementById('deleteIssueKey').value.trim();
-      if (!key) return alert('Enter an issue key');
+    // ============================================================
+    // DELETE ISSUE
+    // ============================================================
+    async function deleteIssue(key) {
+      if (!key) return;
 
-      const confirmDelete = confirm(`Delete issue "${key}" from Firebase?`);
-      if (!confirmDelete) return;
+      const confirmed = confirm('Delete this newsletter from Firebase?');
+      if (!confirmed) return;
 
       try {
+        if (!isAuthorizedAdmin(auth.currentUser)) {
+          throw new Error('Admin authentication required.');
+        }
+
         await db.ref('newsletter/' + key).remove();
-        alert('✅ Issue deleted!');
-      } catch (err) {
-        console.error(err);
-        alert('Delete failed.');
+
+        alert('✅ Newsletter deleted.');
+        await loadNewsletter();
+        await loadAdminIssues();
+
+      } catch (error) {
+        console.error(error);
+        alert('Delete failed. Check Firebase permissions.');
       }
     }
 
-    // ====================== FETCH & DISPLAY NEWSLETTER ======================
-    async function loadNewsletter() {
-      const contentDiv = document.getElementById('newsletterContent');
-      const snapshot = await db.ref('newsletter').once('value');
-      
-      if (!snapshot.exists()) {
-        contentDiv.innerHTML = `<div class="text-center py-20 text-gray-400">No newsletter content yet. Upload one in the admin panel.</div>`;
+    // ============================================================
+    // LOAD NEWSLETTERS FOR ADMIN
+    // ============================================================
+    async function loadAdminIssues() {
+      const list = document.getElementById('adminIssuesList');
+
+      if (!isAuthorizedAdmin(auth.currentUser)) {
+        list.innerHTML = '<p class="text-gray-400">Admin authentication required.</p>';
         return;
       }
 
-      const issues = snapshot.val();
-      let html = '';
+      try {
+        const snapshot = await db.ref('newsletter').once('value');
 
-      for (let key in issues) {
-        const issue = issues[key];
-        const isImage = issue.imageUrl;
-        const isVideo = issue.videoUrl;
+        if (!snapshot.exists()) {
+          list.innerHTML = '<p class="text-gray-400">No published newsletters yet.</p>';
+          return;
+        }
 
-        html += `
-          <div class="p-8 pb-0">
-            <div class="flex justify-between items-center mb-6">
-              <span class="issue-badge">ISSUE • ${issue.date || 'New'}</span>
+        const issues = snapshot.val();
+
+        const rows = Object.entries(issues)
+          .sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
+
+        list.innerHTML = rows.map(([key, issue]) => `
+          <div class="flex items-center justify-between gap-4 bg-gray-50 rounded-2xl p-4">
+            <div class="min-w-0">
+              <p class="font-semibold truncate">${escapeHtml(issue.title || 'Untitled')}</p>
+              <p class="text-xs text-gray-500">${escapeHtml(issue.date || '')}</p>
             </div>
-            <h2 class="heading text-4xl md:text-5xl leading-tight font-bold mb-8">${issue.title}</h2>
+            <button onclick="deleteIssue('${key}')"
+                    class="shrink-0 bg-red-600 text-white px-4 py-2 rounded-xl hover:bg-red-700">
+              <i class="fa-solid fa-trash"></i>
+            </button>
           </div>
+        `).join('');
 
-          <div class="relative">
-            ${isImage ? `
-              <img src="${issue.imageUrl}" class="newsletter-img w-full" alt="${issue.title}">
-            ` : ''}
-            ${isVideo ? `
-              <video controls class="w-full" style="height:420px;object-fit:cover">
-                <source src="${issue.videoUrl}" type="video/mp4">
+      } catch (error) {
+        console.error(error);
+        list.innerHTML = '<p class="text-red-500">Could not load newsletter issues.</p>';
+      }
+    }
+
+    // ============================================================
+    // LOAD NEWSLETTERS FOR VISITORS
+    // ============================================================
+    async function loadNewsletter() {
+      const contentDiv = document.getElementById('newsletterContent');
+
+      try {
+        const snapshot = await db.ref('newsletter')
+          .orderByChild('createdAt')
+          .once('value');
+
+        if (!snapshot.exists()) {
+          contentDiv.innerHTML = `
+            <div class="newsletter-card text-center py-20 px-8 text-gray-400">
+              <i class="fa-regular fa-newspaper text-5xl mb-5"></i>
+              <p class="text-xl">No newsletter content yet.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const issues = snapshot.val();
+
+        const rows = Object.entries(issues)
+          .filter(([key, issue]) => issue.published !== false)
+          .sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
+
+        if (!rows.length) {
+          contentDiv.innerHTML = `
+            <div class="newsletter-card text-center py-20 px-8 text-gray-400">
+              No published newsletter issues yet.
+            </div>
+          `;
+          return;
+        }
+
+        contentDiv.innerHTML = rows.map(([key, issue]) => {
+          const title = escapeHtml(issue.title || 'Weekly Movers Insights');
+          const description = escapeHtml(issue.description || '');
+          const date = escapeHtml(issue.date || 'New');
+          const code = escapeHtml(issue.discountCode || 'SAVE10');
+          const amount = escapeHtml(issue.discountAmount || 'Special offer available');
+
+          let mediaHtml = '';
+
+          if (issue.mediaType === 'video' && issue.mediaUrl) {
+            mediaHtml = `
+              <video controls playsinline class="w-full" style="height:420px;object-fit:cover">
+                <source src="${escapeAttribute(issue.mediaUrl)}" type="video/mp4">
                 Your browser does not support video.
               </video>
-            ` : ''}
-          </div>
+            `;
+          } else if (issue.mediaUrl) {
+            mediaHtml = `
+              <img src="${escapeAttribute(issue.mediaUrl)}"
+                   class="newsletter-img w-full"
+                   alt="${escapeAttribute(issue.title || 'Holly Movers Newsletter')}">
+            `;
+          }
 
-          <div class="p-8 pt-8">
-            <p class="text-2xl leading-relaxed text-gray-600">${issue.description}</p>
+          return `
+            <article class="newsletter-card mb-10">
+              <div class="p-8 pb-0">
+                <div class="flex justify-between items-center mb-6">
+                  <span class="issue-badge">ISSUE • ${date}</span>
+                </div>
 
-            <div class="mt-10 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-3xl p-8 flex items-center justify-between">
-              <div>
-                <p class="text-sm tracking-widest font-medium">SPECIAL OFFER THIS WEEK</p>
-                <p class="text-4xl font-bold leading-none mt-1">Use code <span class="font-mono text-black">${issue.discountCode || 'SAVE10'}</span></p>
-                <p class="mt-3 text-xl">${issue.discountAmount || 'Save up to 35% off'}</p>
+                <h2 class="heading text-4xl md:text-5xl leading-tight font-bold mb-8">
+                  ${title}
+                </h2>
               </div>
-            </div>
 
-            <div class="mt-10 text-center">
-              <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2 justify-center">
-                Read full newsletter <i class="fa-solid fa-arrow-right"></i>
-              </a>
-            </div>
+              <div class="relative">
+                ${mediaHtml}
+              </div>
+
+              <div class="p-8">
+                <p class="text-xl md:text-2xl leading-relaxed text-gray-600 whitespace-pre-line">
+                  ${description}
+                </p>
+
+                <div class="mt-10 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-3xl p-8">
+                  <p class="text-sm tracking-widest font-medium">SPECIAL OFFER THIS WEEK</p>
+                  <p class="text-3xl md:text-4xl font-bold leading-tight mt-1">
+                    Use code <span class="font-mono text-black">${code}</span>
+                  </p>
+                  <p class="mt-3 text-xl">${amount}</p>
+                </div>
+
+                <div class="mt-8 text-center text-sm text-gray-400">
+                  <i class="fa-solid fa-calendar-days mr-2"></i>
+                  Published ${date}
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+      } catch (error) {
+        console.error('Newsletter loading error:', error);
+
+        contentDiv.innerHTML = `
+          <div class="newsletter-card text-center py-20 px-8">
+            <i class="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-5"></i>
+            <p class="text-xl font-semibold text-gray-700">
+              We could not load the newsletter right now.
+            </p>
+            <p class="text-gray-500 mt-2">
+              Please check the Firebase Realtime Database rules.
+            </p>
           </div>
         `;
       }
-
-      contentDiv.innerHTML = html;
     }
 
-    // ====================== INIT ======================
-    window.onload = () => {
+    // ============================================================
+    // SECURITY HELPERS FOR DISPLAYING FIREBASE DATA
+    // ============================================================
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+      }[char]));
+    }
+
+    function escapeAttribute(value) {
+      return escapeHtml(value);
+    }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    window.addEventListener('load', () => {
       loadNewsletter();
-    };
+    });
   </script>
+
 </body>
 </html>
