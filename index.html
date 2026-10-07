@@ -644,9 +644,13 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
   
   <p>Expert tips, discounts, and new routes delivered to your inbox.</p>
   
-<form class="nl" id="nf">
+<form class="nl" id="nf" action="https://formsubmit.co/ollymovers@gmail.com" method="POST">
  
- <input id="nlE" type="email" placeholder="Your email address" aria-label="Email address" required>
+ <input id="nlE" name="email" type="email" placeholder="Your email address" aria-label="Email address" required>
+ <input type="hidden" name="_subject" value="HOLLY MOVERS Newsletter Subscription">
+ <input type="hidden" name="_template" value="table">
+ <input type="hidden" name="_captcha" value="false">
+ <input type="hidden" name="_next" value="./index.html#newsletter">
  
  <button class="btn" type="submit">Subscribe</button>
  
@@ -771,7 +775,7 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
    <label for="to">Moving to</label><input id="to" placeholder="e.g. Kira, Wakiso" required>
 
     <label for="items">Things you want to carry</label>
-    <select id="items" class="items-select" multiple required aria-describedby="itemsHelp">
+    <select id="items" class="items-select" required aria-describedby="itemsHelp">
       <option value="Household furniture">Household furniture</option>
       <option value="Sofas & chairs">Sofas & chairs</option>
       <option value="Beds & mattresses">Beds & mattresses</option>
@@ -787,7 +791,7 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
       <option value="Fragile items">Fragile items</option>
       <option value="Other">Other</option>
     </select>
-    <p id="itemsHelp" style="font-size:14px;margin:8px 0 0">Hold Ctrl (Windows) or Command (Mac) to select more than one category.</p>
+    <p id="itemsHelp" style="font-size:14px;margin:8px 0 0">Select one category that best describes the main items you want us to carry.</p>
 
     <label for="m">Message</label><textarea id="m" placeholder="Tell us more about your move"></textarea>
    
@@ -1116,15 +1120,15 @@ function resetAdmin(){if(confirm('Reset all edits to the original content?')){tr
 $('f').addEventListener('submit',function(e){
   e.preventDefault();
   var g=function(i){return $(i).value.trim()};
-  var items=Array.from($('items').selectedOptions).map(function(o){return o.value});
-  if(!items.length){$('fs').textContent='Please select at least one category of items to move.';return;}
+  var item=$('items').value.trim();
+  if(!item){$('fs').textContent='Please select the main category of items you want us to carry.';return;}
   wa('*New Move Request – HOLLY MOVERS*\n\nName: '+g('n')+
      '\nPhone: '+g('p')+
      '\nEmail: '+(g('e')||'-')+
      '\nFrom: '+g('fr')+
      '\nTo: '+g('to')+
      '\nDate: '+g('d')+
-     '\nItems to carry: '+items.join(', ')+
+     '\nItem to carry: '+item+
      '\nMessage: '+(g('m')||'-'),$('fs'));
   e.target.reset();
 });
@@ -1135,7 +1139,7 @@ $('rf').addEventListener('submit',function(e){e.preventDefault();var r={name:$('
                                               
 wa('*New review for HOLLY MOVERS (pending approval)*\n\nName: '+r.name+'\nLocation: '+(r.location||'-')+'\nRating: '+r.rating+'/5\nReview: '+r.review,$('rm'));e.target.reset()});
  
-$('nf').addEventListener('submit',function(e){e.preventDefault();location.href='mailto:ollymovers@gmail.com?subject='+encodeURIComponent('Newsletter signup')+'&body='+encodeURIComponent('Please subscribe: '+$('nlE').value)});
+
  
 document.querySelectorAll('#menu a').forEach(function(a){a.addEventListener('click',function(){$('menu').classList.remove('open')})});
  
