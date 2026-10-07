@@ -3,46 +3,563 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services - HOLLY MOVERS</title>
+  <title>Services - HOLLY MOVERS | Uganda</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; color: #1f2937; }
-    h1, h2, .heading { font-family: 'Playfair Display', serif; }
-    .glass { background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); }
-    .card { transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1); }
-    .card:hover { transform: translateY(-16px) scale(1.03); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f8fafc;
+      color: #1f2937;
+    }
+
+    h1, h2, h3, .heading {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, .92), rgba(30, 64, 175, .82)),
+        url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+    }
+
+    .card {
+      transition: all .45s cubic-bezier(.4, 0, .2, 1);
+      border: 1px solid rgba(226, 232, 240, .9);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / .20);
+    }
+
+    .icon-box {
+      transition: transform .4s ease;
+    }
+
+    .card:hover .icon-box {
+      transform: rotate(-5deg) scale(1.08);
+    }
+
+    .service-list li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: .55rem;
+    }
+
+    .service-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      font-weight: 800;
+      color: #2563eb;
+    }
+
+    .route {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+    }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-  <div class="max-w-7xl mx-auto px-6 py-20">
-    <h1 class="heading text-5xl md:text-6xl text-center mb-16">Our Services</h1>
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Same 3 service cards as in main index -->
-      <div class="glass card p-8 rounded-3xl">
-        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
-          <i class="fa-solid fa-house text-4xl text-blue-600"></i>
-        </div>
-        <h3 class="text-2xl font-semibold mb-3">Residential Moving</h3>
-        <p class="text-gray-600 leading-relaxed">Careful packing, climate-controlled transport, and expert unpacking for your home.</p>
-      </div>
-      <!-- Add the other two services similarly -->
-      <div class="glass card p-8 rounded-3xl">
-        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
-          <i class="fa-solid fa-briefcase text-4xl text-blue-600"></i>
-        </div>
-        <h3 class="text-2xl font-semibold mb-3">Office Relocation</h3>
-        <p class="text-gray-600 leading-relaxed">Minimize downtime with our professional office moving service and furniture handling.</p>
-      </div>
-      <div class="glass card p-8 rounded-3xl">
-        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8">
-          <i class="fa-solid fa-boxes-packing text-4xl text-blue-600"></i>
-        </div>
-        <h3 class="text-2xl font-semibold mb-3">Packing & Unpacking</h3>
-        <p class="text-gray-600 leading-relaxed">Premium materials, bubble wrap, and experienced packers for everything fragile.</p>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero text-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
+      <span class="inline-flex items-center gap-2 bg-white/15 border border-white/20 px-5 py-2 rounded-full text-sm font-semibold mb-6">
+        <i class="fa-solid fa-location-dot"></i>
+        Proudly serving Uganda
+      </span>
+
+      <h1 class="heading text-5xl md:text-7xl mb-6">
+        Moving You With Care
+      </h1>
+
+      <p class="max-w-3xl mx-auto text-lg md:text-xl text-blue-50 leading-relaxed">
+        Reliable moving, packing and relocation services designed for homes,
+        businesses, students and families across Kampala and beyond.
+      </p>
+
+      <div class="mt-9 flex flex-col sm:flex-row justify-center gap-4">
+        <a href="index.html#contact"
+           class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-bold hover:bg-blue-50 transition">
+          <i class="fa-solid fa-truck-moving mr-2"></i>
+          Request a Move
+        </a>
+
+        <a href="https://wa.me/256757263020?text=Hello%20Holly%20Movers%2C%20I%20would%20like%20to%20inquire%20about%20your%20moving%20services."
+           target="_blank"
+           rel="noopener"
+           class="border border-white/50 bg-white/10 px-8 py-4 rounded-2xl font-bold hover:bg-white/20 transition">
+          <i class="fa-brands fa-whatsapp mr-2"></i>
+          Chat on WhatsApp
+        </a>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="max-w-5xl mx-auto px-6 py-16 text-center">
+    <p class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-3">
+      Our Services
+    </p>
+
+    <h2 class="heading text-4xl md:text-5xl mb-6">
+      Moving Solutions Built for Uganda
+    </h2>
+
+    <p class="text-gray-600 text-lg leading-relaxed">
+      Whether you are moving within Kampala, relocating your office, changing
+      accommodation as a student, transporting furniture to another town, or
+      moving into your first home, HOLLY MOVERS provides practical and
+      professional solutions. We understand Uganda's roads, residential areas,
+      apartments, offices and the everyday challenges involved in relocating.
+    </p>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="max-w-7xl mx-auto px-6 pb-20">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Residential -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-house text-3xl text-blue-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Residential Moving</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          We help families, couples and individuals move safely from one home
+          to another, whether you are changing houses within Kampala or
+          relocating to another part of Uganda.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>House-to-house relocation</li>
+          <li>Apartment and rental moves</li>
+          <li>Furniture loading and unloading</li>
+          <li>Careful handling of household belongings</li>
+          <li>Moving within Kampala and upcountry</li>
+        </ul>
+      </article>
+
+      <!-- Office -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-building text-3xl text-indigo-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Office Relocation</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          Relocating an office requires planning and care. Our team assists
+          businesses with moving office furniture, equipment, documents and
+          other items while helping reduce disruption to daily operations.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>Office furniture relocation</li>
+          <li>Desks, chairs and cabinets</li>
+          <li>Computer and office equipment handling</li>
+          <li>Document and box transportation</li>
+          <li>Planned business relocation</li>
+        </ul>
+      </article>
+
+      <!-- Packing -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-boxes-packing text-3xl text-cyan-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Packing & Unpacking</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          Not sure where to start with packing? Our team can help organize,
+          protect and prepare your belongings before transport and assist with
+          unpacking when you arrive at your new destination.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>Household packing</li>
+          <li>Fragile-item protection</li>
+          <li>Boxes and packed-item organization</li>
+          <li>Furniture preparation</li>
+          <li>Unpacking assistance</li>
+        </ul>
+      </article>
+
+      <!-- Furniture -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-couch text-3xl text-green-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Furniture Transport</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          We transport furniture and large household items with attention to
+          safe loading, positioning and unloading. This is ideal when you are
+          buying, selling, replacing or moving individual pieces.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>Sofas and chairs</li>
+          <li>Beds and mattresses</li>
+          <li>Wardrobes and cabinets</li>
+          <li>Tables and desks</li>
+          <li>Careful loading and unloading</li>
+        </ul>
+      </article>
+
+      <!-- Student -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-graduation-cap text-3xl text-purple-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Student Moves</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          Moving between hostels, halls of residence, rentals or home?
+          We provide convenient moving support for students with smaller
+          loads, boxes, bedding, electronics and personal belongings.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>Hostel and rental moves</li>
+          <li>Boxes and personal belongings</li>
+          <li>Bedding and small furniture</li>
+          <li>Student-friendly moving solutions</li>
+          <li>Moves around Kampala and nearby areas</li>
+        </ul>
+      </article>
+
+      <!-- Appliance -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-tv text-3xl text-orange-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Appliance & Electronics Moving</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          Large appliances and electronics require careful handling during
+          relocation. We assist with transporting household and office
+          equipment while reducing unnecessary handling and damage risks.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>Fridges and freezers</li>
+          <li>Washing machines</li>
+          <li>Televisions and entertainment systems</li>
+          <li>Office electronics</li>
+          <li>Careful loading and positioning</li>
+        </ul>
+      </article>
+
+      <!-- Commercial -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-store text-3xl text-yellow-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Business & Commercial Moves</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          From shops and small businesses to larger commercial spaces, we
+          provide organized transportation support for furniture, stock,
+          equipment and other business belongings.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>Shop and business relocation</li>
+          <li>Stock and equipment transportation</li>
+          <li>Furniture and display units</li>
+          <li>Office and commercial equipment</li>
+          <li>Planned relocation support</li>
+        </ul>
+      </article>
+
+      <!-- Long Distance -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-road text-3xl text-red-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Long-Distance & Upcountry Moving</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          Relocating outside Kampala? We can help organize the transportation
+          of your belongings to destinations in different parts of Uganda,
+          subject to route and load requirements.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>Kampala to upcountry destinations</li>
+          <li>Upcountry to Kampala moves</li>
+          <li>Household and furniture transportation</li>
+          <li>Pre-move planning and coordination</li>
+          <li>Safe loading and unloading</li>
+        </ul>
+      </article>
+
+      <!-- Special Items -->
+      <article class="glass card p-8 rounded-3xl">
+        <div class="icon-box w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mb-7">
+          <i class="fa-solid fa-shield-heart text-3xl text-pink-600"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4">Fragile & Special Items</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-6">
+          Some belongings need extra attention. We help clients plan the
+          handling and transportation of delicate household and office items.
+        </p>
+
+        <ul class="service-list text-gray-600 text-sm">
+          <li>Glass and delicate household items</li>
+          <li>Mirrors and selected décor</li>
+          <li>Electronics</li>
+          <li>Careful wrapping and placement</li>
+          <li>Special handling arrangements</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- UGANDA ROUTES -->
+  <section class="route py-20 border-y border-blue-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-3">
+          Uganda Moving Coverage
+        </p>
+
+        <h2 class="heading text-4xl md:text-5xl mb-5">
+          From Kampala to Your Next Destination
+        </h2>
+
+        <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Tell us your pickup location, destination and what you are moving.
+          We will help you determine the most suitable moving arrangement for
+          your journey.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-3xl p-7 shadow-sm">
+          <i class="fa-solid fa-city text-3xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Kampala & Greater Kampala</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Moving support around Kampala and surrounding residential and
+            business areas.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-7 shadow-sm">
+          <i class="fa-solid fa-map-location-dot text-3xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Upcountry Uganda</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Planned relocation and furniture transportation to destinations
+            outside Kampala, depending on the route and requirements.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-7 shadow-sm">
+          <i class="fa-solid fa-route text-3xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Customized Routes</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Every move is different. Share your exact pickup and delivery
+            points so our team can help plan the move around your needs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY HOLLY MOVERS -->
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-3">
+          Why Choose Us
+        </p>
+
+        <h2 class="heading text-4xl md:text-5xl mb-6">
+          A Moving Partner You Can Rely On
+        </h2>
+
+        <p class="text-gray-600 leading-relaxed mb-8">
+          Moving in Uganda can involve narrow access roads, apartment stairs,
+          busy urban traffic, different property layouts and long distances.
+          HOLLY MOVERS focuses on planning each move around the actual
+          requirements of the customer.
+        </p>
+
+        <div class="space-y-5">
+          <div class="flex gap-4">
+            <div class="w-11 h-11 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-clock text-blue-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">Planned & Organized</h3>
+              <p class="text-gray-600 text-sm">
+                We coordinate pickup, loading, transport and delivery around
+                the details of your move.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-11 h-11 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-hand-holding-heart text-blue-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">Careful Handling</h3>
+              <p class="text-gray-600 text-sm">
+                We treat household, office and personal belongings with care
+                throughout the moving process.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-11 h-11 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-comments text-blue-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">Clear Communication</h3>
+              <p class="text-gray-600 text-sm">
+                We encourage customers to share their pickup location,
+                destination, items and special requirements before moving day.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 text-white rounded-3xl p-8 md:p-10 shadow-2xl">
+        <span class="text-blue-300 font-bold text-sm uppercase tracking-widest">
+          Get a Moving Quote
+        </span>
+
+        <h2 class="heading text-3xl md:text-4xl mt-3 mb-5">
+          Tell Us What You Need to Move
+        </h2>
+
+        <p class="text-slate-300 leading-relaxed mb-8">
+          For an accurate quotation, tell us your pickup location, destination,
+          type and approximate quantity of items, preferred moving date and
+          any special handling requirements.
+        </p>
+
+        <div class="space-y-4 text-sm text-slate-200 mb-8">
+          <p><i class="fa-solid fa-location-dot text-blue-300 w-6"></i> Pickup & delivery locations</p>
+          <p><i class="fa-solid fa-box text-blue-300 w-6"></i> Items you want to move</p>
+          <p><i class="fa-solid fa-calendar text-blue-300 w-6"></i> Preferred moving date</p>
+          <p><i class="fa-solid fa-truck text-blue-300 w-6"></i> Special transport requirements</p>
+        </div>
+
+        <a href="https://wa.me/256757263020?text=Hello%20Holly%20Movers%2C%20I%20would%20like%20a%20moving%20quotation.%20My%20pickup%20location%20is%20%2C%20my%20destination%20is%20%2C%20and%20I%20would%20like%20to%20move%20."
+           target="_blank"
+           rel="noopener"
+           class="inline-flex items-center justify-center w-full bg-blue-600 hover:bg-blue-500 px-6 py-4 rounded-2xl font-bold transition">
+          <i class="fa-brands fa-whatsapp text-xl mr-2"></i>
+          Request a Quote on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-blue-700 text-white">
+    <div class="max-w-5xl mx-auto px-6 py-20 text-center">
+      <h2 class="heading text-4xl md:text-5xl mb-5">
+        Ready for a Stress-Free Move?
+      </h2>
+
+      <p class="text-blue-100 text-lg max-w-2xl mx-auto mb-8">
+        Whether you are moving across Kampala or relocating elsewhere in
+        Uganda, HOLLY MOVERS is ready to help you plan the next step.
+      </p>
+
+      <a href="index.html#contact"
+         class="inline-flex items-center bg-white text-blue-700 px-9 py-4 rounded-2xl font-bold hover:bg-blue-50 transition">
+        <i class="fa-solid fa-truck-moving mr-2"></i>
+        Request Your Move
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 text-slate-300">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-3 gap-10">
+
+        <div>
+          <h3 class="heading text-2xl text-white mb-4">HOLLY MOVERS</h3>
+          <p class="text-sm leading-relaxed">
+            Professional moving and relocation solutions for homes, businesses
+            and individuals across Uganda.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white mb-4">Our Services</h4>
+          <ul class="space-y-2 text-sm">
+            <li>Residential Moving</li>
+            <li>Office Relocation</li>
+            <li>Packing & Unpacking</li>
+            <li>Furniture Transport</li>
+            <li>Student Moves</li>
+            <li>Upcountry Moving</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white mb-4">Contact Us</h4>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <i class="fa-solid fa-phone mr-2"></i>
+              +256 789 373 533
+            </li>
+            <li>
+              <i class="fa-brands fa-whatsapp mr-2"></i>
+              +256 757 263 020
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope mr-2"></i>
+              ollymovers@gmail.com
+            </li>
+            <li>
+              <i class="fa-solid fa-location-dot mr-2"></i>
+              Kira Municipal Council, Kampala, Uganda
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-slate-800 mt-10 pt-6 text-center text-sm">
+        © 2026 HOLLY MOVERS. All Rights Reserved.
+        <span class="block mt-1 italic">"Moving You With Care"</span>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
