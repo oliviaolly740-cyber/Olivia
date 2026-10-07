@@ -3,27 +3,444 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - HOLLY MOVERS</title>
+  <title>Contact Us - HOLLY MOVERS | Uganda</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; color: #1f2937; }
-    h1, h2, .heading { font-family: 'Playfair Display', serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+    body { font-family:'Inter',system-ui,sans-serif; background:#f8fafc; color:#1f2937; }
+    h1,h2,h3,.heading { font-family:'Playfair Display',serif; }
+    .hero {
+      background:linear-gradient(135deg,rgba(15,23,42,.94),rgba(30,64,175,.84)),
+      url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85');
+      background-size:cover; background-position:center;
+    }
+    .glass { background:rgba(255,255,255,.97); backdrop-filter:blur(20px); }
+    .contact-card { transition:.35s ease; border:1px solid #e5e7eb; }
+    .contact-card:hover { transform:translateY(-6px); box-shadow:0 20px 45px rgba(15,23,42,.12); }
+    .form-input,.form-select,.form-textarea {
+      width:100%; border:1px solid #d1d5db; border-radius:1rem;
+      padding:.95rem 1.1rem; outline:none; background:white; transition:.2s;
+    }
+    .form-input:focus,.form-select:focus,.form-textarea:focus {
+      border-color:#2563eb; box-shadow:0 0 0 4px rgba(37,99,235,.10);
+    }
+    .faq { border-bottom:1px solid #e5e7eb; }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-  <div class="max-w-2xl mx-auto px-6 py-20">
-    <h1 class="heading text-5xl md:text-6xl">Send Us a Message</h1>
-    <form id="quoteForm" class="glass p-10 rounded-3xl space-y-7">
-      <!-- Same form fields as in index.html -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <input type="text" id="name" placeholder="Full Name" required class="form-input w-full border border-gray-300 focus:border-blue-600 rounded-2xl px-7 py-4">
-        <input type="tel" id="phone" placeholder="Telephone (with country code)" required class="form-input w-full border border-gray-300 focus:border-blue-600 rounded-2xl px-7 py-4">
-      </div>
-      <!-- ... rest of the form fields ... -->
-      <button type="submit" class="btn-blue w-full py-6 rounded-3xl text-lg font-semibold">SUBMIT MOVE REQUEST</button>
-    </form>
+
+<body>
+
+<!-- HERO -->
+<section class="hero text-white">
+  <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
+    <span class="inline-flex items-center gap-2 bg-white/15 border border-white/20 px-5 py-2 rounded-full text-sm font-semibold mb-6">
+      <i class="fa-solid fa-location-dot"></i> Kampala, Uganda
+    </span>
+    <h1 class="heading text-5xl md:text-7xl mb-6">Let's Get You Moving</h1>
+    <p class="max-w-3xl mx-auto text-lg md:text-xl text-blue-50 leading-relaxed">
+      Tell HOLLY MOVERS where you are moving from, where you are going and what
+      you need moved. Our team will help you plan a practical moving solution
+      for your home, office or business.
+    </p>
+    <div class="mt-9 flex flex-col sm:flex-row justify-center gap-4">
+      <a href="#quote" class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-bold hover:bg-blue-50 transition">
+        <i class="fa-solid fa-file-invoice mr-2"></i>Request a Quote
+      </a>
+      <a href="https://wa.me/256757263020" target="_blank" rel="noopener"
+         class="border border-white/50 bg-white/10 px-8 py-4 rounded-2xl font-bold hover:bg-white/20 transition">
+        <i class="fa-brands fa-whatsapp mr-2"></i>WhatsApp Us
+      </a>
+    </div>
   </div>
+</section>
+
+<!-- CONTACT OPTIONS -->
+<section class="max-w-7xl mx-auto px-6 py-16">
+  <div class="text-center mb-12">
+    <p class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-3">Get In Touch</p>
+    <h2 class="heading text-4xl md:text-5xl mb-5">We're Ready to Hear From You</h2>
+    <p class="max-w-3xl mx-auto text-gray-600 leading-relaxed">
+      Whether you are planning a house move, office relocation, furniture
+      delivery or an upcountry move, contact us with your requirements and
+      we'll guide you on the next step.
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <a href="tel:+256789373533" class="contact-card bg-white rounded-3xl p-7">
+      <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mb-5">
+        <i class="fa-solid fa-phone text-2xl text-blue-600"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">Call Us</h3>
+      <p class="text-gray-500 text-sm mb-3">Speak directly with our team.</p>
+      <strong class="text-blue-700">+256 789 373 533</strong>
+    </a>
+
+    <a href="https://wa.me/256757263020" target="_blank" rel="noopener" class="contact-card bg-white rounded-3xl p-7">
+      <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center mb-5">
+        <i class="fa-brands fa-whatsapp text-2xl text-green-600"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">WhatsApp</h3>
+      <p class="text-gray-500 text-sm mb-3">Send your move details quickly.</p>
+      <strong class="text-green-700">+256 757 263 020</strong>
+    </a>
+
+    <a href="mailto:ollymovers@gmail.com" class="contact-card bg-white rounded-3xl p-7">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-100 flex items-center justify-center mb-5">
+        <i class="fa-solid fa-envelope text-2xl text-indigo-600"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">Email Us</h3>
+      <p class="text-gray-500 text-sm mb-3">For enquiries and business requests.</p>
+      <strong class="text-indigo-700 break-all">ollymovers@gmail.com</strong>
+    </a>
+
+    <div class="contact-card bg-white rounded-3xl p-7">
+      <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5">
+        <i class="fa-solid fa-location-dot text-2xl text-orange-600"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">Our Location</h3>
+      <p class="text-gray-500 text-sm mb-3">Serving clients from our Kampala base.</p>
+      <strong class="text-gray-800">Kira Municipal Council, Kampala, Uganda</strong>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS HOURS + COVERAGE -->
+<section class="bg-slate-900 text-white">
+  <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div>
+        <p class="text-blue-300 font-bold uppercase tracking-widest text-sm mb-3">Where We Move</p>
+        <h2 class="heading text-4xl mb-5">Moving Services Across Uganda</h2>
+        <p class="text-slate-300 leading-relaxed mb-7">
+          HOLLY MOVERS is Uganda-based and focused on practical relocation
+          solutions for customers in Kampala and other destinations around the
+          country. Tell us your exact pickup and delivery locations so we can
+          plan the appropriate transport arrangement.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-white/10 rounded-2xl p-5">
+            <i class="fa-solid fa-city text-blue-300 text-2xl mb-3"></i>
+            <h3 class="font-bold mb-1">Kampala & Greater Kampala</h3>
+            <p class="text-sm text-slate-300">Home, apartment, office and business moves.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-5">
+            <i class="fa-solid fa-road text-blue-300 text-2xl mb-3"></i>
+            <h3 class="font-bold mb-1">Upcountry Uganda</h3>
+            <p class="text-sm text-slate-300">Planned moves between Kampala and other destinations.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white text-gray-900 rounded-3xl p-8 md:p-10">
+        <p class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-3">Contact Information</p>
+        <h2 class="heading text-3xl mb-6">When to Reach Us</h2>
+
+        <div class="space-y-5">
+          <div class="flex gap-4">
+            <i class="fa-solid fa-phone text-blue-600 mt-1"></i>
+            <div><strong class="block">Telephone</strong><span class="text-gray-600">+256 789 373 533</span></div>
+          </div>
+          <div class="flex gap-4">
+            <i class="fa-brands fa-whatsapp text-green-600 mt-1"></i>
+            <div><strong class="block">WhatsApp</strong><span class="text-gray-600">+256 757 263 020</span></div>
+          </div>
+          <div class="flex gap-4">
+            <i class="fa-solid fa-envelope text-indigo-600 mt-1"></i>
+            <div><strong class="block">Email</strong><span class="text-gray-600">ollymovers@gmail.com</span></div>
+          </div>
+          <div class="flex gap-4">
+            <i class="fa-solid fa-location-dot text-orange-600 mt-1"></i>
+            <div><strong class="block">Base</strong><span class="text-gray-600">Kira Municipal Council, Kampala, Uganda</span></div>
+          </div>
+        </div>
+
+        <p class="text-sm text-gray-500 mt-7 pt-6 border-t">
+          For urgent enquiries, WhatsApp is the quickest way to share your
+          moving details and receive guidance on your request.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section id="quote" class="max-w-6xl mx-auto px-6 py-20">
+  <div class="text-center mb-12">
+    <p class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-3">Move Request</p>
+    <h2 class="heading text-4xl md:text-5xl mb-5">Send Us Your Moving Details</h2>
+    <p class="max-w-3xl mx-auto text-gray-600">
+      Complete the form below. When you submit, your request will be prepared
+      as a WhatsApp message to the HOLLY MOVERS team.
+    </p>
+  </div>
+
+  <form id="quoteForm" class="glass p-7 md:p-10 rounded-3xl shadow-xl border border-gray-200">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <div>
+        <label class="font-semibold block mb-2">Full Name *</label>
+        <input type="text" id="name" required placeholder="Your full name" class="form-input">
+      </div>
+
+      <div>
+        <label class="font-semibold block mb-2">Phone / WhatsApp *</label>
+        <input type="tel" id="phone" required placeholder="+256..." class="form-input">
+      </div>
+
+      <div>
+        <label class="font-semibold block mb-2">Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" class="form-input">
+      </div>
+
+      <div>
+        <label class="font-semibold block mb-2">Type of Move *</label>
+        <select id="moveType" required class="form-select">
+          <option value="">Select type of move</option>
+          <option>Residential / House Move</option>
+          <option>Apartment Move</option>
+          <option>Office Relocation</option>
+          <option>Student / Hostel Move</option>
+          <option>Business / Shop Move</option>
+          <option>Furniture Transport</option>
+          <option>Upcountry Move</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="font-semibold block mb-2">What Are You Moving? *</label>
+        <select id="items" required class="form-select">
+          <option value="">Select one category</option>
+          <option>Household furniture</option>
+          <option>Sofas & chairs</option>
+          <option>Beds & mattresses</option>
+          <option>Wardrobes & cabinets</option>
+          <option>Tables & desks</option>
+          <option>Kitchen items</option>
+          <option>Fridges & freezers</option>
+          <option>Washing machines & appliances</option>
+          <option>Televisions & electronics</option>
+          <option>Clothes & personal belongings</option>
+          <option>Boxes & packed items</option>
+          <option>Office equipment</option>
+          <option>Fragile items</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="font-semibold block mb-2">Preferred Moving Date *</label>
+        <input type="date" id="moveDate" required class="form-input">
+      </div>
+
+      <div>
+        <label class="font-semibold block mb-2">Pickup Location *</label>
+        <input type="text" id="pickup" required placeholder="Area, town or district" class="form-input">
+      </div>
+
+      <div>
+        <label class="font-semibold block mb-2">Destination *</label>
+        <input type="text" id="destination" required placeholder="Area, town or district" class="form-input">
+      </div>
+
+      <div>
+        <label class="font-semibold block mb-2">Property / Access Details</label>
+        <select id="access" class="form-select">
+          <option value="">Select access situation</option>
+          <option>Ground floor / easy access</option>
+          <option>Apartment with stairs</option>
+          <option>Apartment with lift</option>
+          <option>Narrow / difficult access</option>
+          <option>Not sure</option>
+        </select>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="font-semibold block mb-2">Additional Details</label>
+        <textarea id="details" rows="5" placeholder="Tell us approximately how many items you have, any fragile items, stairs, parking/access concerns, packing needs or anything else we should know." class="form-textarea"></textarea>
+      </div>
+
+    </div>
+
+    <div class="mt-8 bg-blue-50 border border-blue-100 rounded-2xl p-5 text-sm text-blue-900">
+      <i class="fa-solid fa-circle-info mr-2"></i>
+      For a more accurate quotation, include the exact pickup and destination
+      areas, approximate number of items and any access or packing requirements.
+    </div>
+
+    <button type="submit" class="mt-7 w-full bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-2xl text-lg font-bold transition">
+      <i class="fa-brands fa-whatsapp mr-2"></i>
+      SEND MOVE REQUEST ON WHATSAPP
+    </button>
+
+    <p id="formStatus" class="text-center text-sm mt-4 min-h-5"></p>
+  </form>
+</section>
+
+<!-- FAQ -->
+<section class="bg-white border-y border-gray-200">
+  <div class="max-w-5xl mx-auto px-6 py-20">
+    <div class="text-center mb-12">
+      <p class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-3">Need To Know</p>
+      <h2 class="heading text-4xl md:text-5xl">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="space-y-0">
+      <details class="faq py-6 group">
+        <summary class="cursor-pointer list-none flex justify-between gap-5 font-bold text-lg">
+          How do I request a quotation?
+          <i class="fa-solid fa-plus text-blue-600 group-open:rotate-45 transition"></i>
+        </summary>
+        <p class="text-gray-600 leading-relaxed mt-4">
+          Complete the move-request form above or contact us directly on
+          WhatsApp. Share your pickup location, destination, moving date,
+          items and any special requirements.
+        </p>
+      </details>
+
+      <details class="faq py-6 group">
+        <summary class="cursor-pointer list-none flex justify-between gap-5 font-bold text-lg">
+          Do you move outside Kampala?
+          <i class="fa-solid fa-plus text-blue-600 group-open:rotate-45 transition"></i>
+        </summary>
+        <p class="text-gray-600 leading-relaxed mt-4">
+          Yes. HOLLY MOVERS is Uganda-based and can discuss planned moves to
+          destinations outside Kampala, depending on the route, load and
+          transport requirements.
+        </p>
+      </details>
+
+      <details class="faq py-6 group">
+        <summary class="cursor-pointer list-none flex justify-between gap-5 font-bold text-lg">
+          Can you help with packing?
+          <i class="fa-solid fa-plus text-blue-600 group-open:rotate-45 transition"></i>
+        </summary>
+        <p class="text-gray-600 leading-relaxed mt-4">
+          Yes. Packing and unpacking can be arranged depending on the needs of
+          your move. Tell us what needs to be packed when requesting your quote.
+        </p>
+      </details>
+
+      <details class="faq py-6 group">
+        <summary class="cursor-pointer list-none flex justify-between gap-5 font-bold text-lg">
+          What information should I provide for a quote?
+          <i class="fa-solid fa-plus text-blue-600 group-open:rotate-45 transition"></i>
+        </summary>
+        <p class="text-gray-600 leading-relaxed mt-4">
+          Provide your name and contact, pickup and destination areas,
+          preferred date, type of move, the main category of items being moved,
+          approximate quantity and any stairs, access or special handling
+          considerations.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="bg-blue-700 text-white">
+  <div class="max-w-5xl mx-auto px-6 py-20 text-center">
+    <h2 class="heading text-4xl md:text-5xl mb-5">Planning a Move in Uganda?</h2>
+    <p class="text-blue-100 text-lg max-w-2xl mx-auto mb-8">
+      Don't carry the stress alone. Tell HOLLY MOVERS what you need moved and
+      where you need it delivered.
+    </p>
+    <a href="https://wa.me/256757263020?text=Hello%20HOLLY%20MOVERS%2C%20I%20would%20like%20to%20request%20a%20moving%20quote."
+       target="_blank" rel="noopener"
+       class="inline-flex items-center bg-white text-blue-700 px-9 py-4 rounded-2xl font-bold hover:bg-blue-50 transition">
+      <i class="fa-brands fa-whatsapp text-xl mr-2"></i>Chat With HOLLY MOVERS
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-950 text-slate-300">
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+      <div>
+        <h3 class="heading text-2xl text-white mb-4">HOLLY MOVERS</h3>
+        <p class="text-sm leading-relaxed">
+          Uganda-based moving and relocation solutions for homes, offices,
+          students and businesses.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white mb-4">Contact</h4>
+        <ul class="space-y-3 text-sm">
+          <li><i class="fa-solid fa-phone mr-2"></i>+256 789 373 533</li>
+          <li><i class="fa-brands fa-whatsapp mr-2"></i>+256 757 263 020</li>
+          <li><i class="fa-solid fa-envelope mr-2"></i>ollymovers@gmail.com</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white mb-4">Location</h4>
+        <p class="text-sm leading-relaxed">
+          <i class="fa-solid fa-location-dot mr-2"></i>
+          Kira Municipal Council, Kampala, Uganda
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-slate-800 mt-10 pt-6 text-center text-sm">
+      © 2026 HOLLY MOVERS. All Rights Reserved.
+      <span class="block mt-1 italic">"Moving You With Care"</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const quoteForm = document.getElementById('quoteForm');
+  const formStatus = document.getElementById('formStatus');
+
+  quoteForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const moveType = document.getElementById('moveType').value;
+    const items = document.getElementById('items').value;
+    const moveDate = document.getElementById('moveDate').value;
+    const pickup = document.getElementById('pickup').value.trim();
+    const destination = document.getElementById('destination').value.trim();
+    const access = document.getElementById('access').value;
+    const details = document.getElementById('details').value.trim();
+
+    const message =
+`Hello HOLLY MOVERS, I would like to request a moving quotation.
+
+CUSTOMER DETAILS
+Name: ${name}
+Phone/WhatsApp: ${phone}
+Email: ${email || 'Not provided'}
+
+MOVE DETAILS
+Type of move: ${moveType}
+What I am moving: ${items}
+Preferred date: ${moveDate}
+Pickup location: ${pickup}
+Destination: ${destination}
+Access situation: ${access || 'Not specified'}
+
+Additional details:
+${details || 'None provided'}
+
+Please advise me on the quotation and next steps. Thank you.`;
+
+    const url = 'https://wa.me/256757263020?text=' + encodeURIComponent(message);
+
+    formStatus.className = 'text-center text-sm mt-4 min-h-5 text-green-700 font-semibold';
+    formStatus.textContent = 'Opening WhatsApp with your move request...';
+
+    window.open(url, '_blank', 'noopener');
+  });
+</script>
+
 </body>
 </html>
