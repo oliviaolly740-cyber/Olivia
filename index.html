@@ -62,7 +62,7 @@ section{padding:84px 0}
  
 p{color:var(--mute);margin:0 0 16px}
  
-.hero{position:relative;min-height:100vh;padding:150px 0 70px;color:#fff;background:linear-gradient(180deg,rgba(3,18,31,.82),rgba(3,18,31,.96)),linear-gradient(120deg,#31465c,#0a1a2a);display:flex;align-items:center}
+.hero{position:relative;min-height:100vh;overflow:hidden;padding:150px 0 70px;color:#fff;background-image:linear-gradient(180deg,rgba(3,18,31,.78),rgba(3,18,31,.94)),url("https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85");background-size:cover;background-position:center;display:flex;align-items:center}
  
 .hero p{color:#c9d3df;max-width:600px;font-size:19px}
  
@@ -204,9 +204,9 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
  
 .hero .wrap{position:relative;z-index:2}
  
-.sl{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s}.sl.on{opacity:1}
+.sl{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s;pointer-events:none}.sl.on{opacity:1}
  
-.ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,18,31,.8),rgba(3,18,31,.95))}
+.ov{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(3,18,31,.8),rgba(3,18,31,.95))}
  
 .fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:60;width:62px;height:62px;border-radius:20px;background:#22c55e;color:#fff;display:grid;place-items:center;font-size:34px;box-shadow:0 10px 25px rgba(34,197,94,.4)}
 
@@ -228,7 +228,7 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
  
 .dots{display:flex;gap:10px;margin-top:34px}.dots button{width:36px;height:6px;border-radius:9px;border:0;background:rgba(255,255,255,.35);cursor:pointer}.dots button.on{background:var(--blue)}
  
-.sl:nth-child(1){background-image:linear-gradient(135deg,#1d4f91,#03121f)}.sl:nth-child(2){background-image:linear-gradient(135deg,#0f6a74,#03121f)}.sl:nth-child(3){background-image:linear-gradient(135deg,#5a3a8f,#03121f)}
+.sl:nth-child(1){background-image:linear-gradient(180deg,rgba(3,18,31,.38),rgba(3,18,31,.72)),url("https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85")}.sl:nth-child(2){background-image:linear-gradient(180deg,rgba(3,18,31,.38),rgba(3,18,31,.72)),url("https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=2000&q=85")}.sl:nth-child(3){background-image:linear-gradient(180deg,rgba(3,18,31,.38),rgba(3,18,31,.72)),url("https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=2000&q=85")}.sl:nth-child(4){background-image:linear-gradient(180deg,rgba(3,18,31,.38),rgba(3,18,31,.72)),url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=85")}.sl:nth-child(5){background-image:linear-gradient(180deg,rgba(3,18,31,.38),rgba(3,18,31,.72)),url("https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=2000&q=85")}
  
 .qb{margin-top:-56px;position:relative;z-index:3;display:grid;gap:12px;box-shadow:0 18px 40px rgba(3,18,31,.2)}.qb h3{font-size:24px}
  
@@ -236,6 +236,11 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
  
 .ico b{font-weight:800}
  
+
+.hero-slides-link{position:absolute;inset:0;z-index:1;display:block;cursor:pointer}
+.hero-slides-link .sl{pointer-events:none}
+.hero-gallery-note{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:#dbe5f2;font-size:14px}
+.items-select{min-height:150px}
 </style>
  
 </head>
@@ -389,22 +394,13 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
 <main id="top">
  
 <section class="hero">
- 
- <div>
-  
- <div class="sl">
- 
-</div>
-  
- <div class="sl">
- 
-</div>
-  
- <div class="sl">
- 
-</div>
-  
-</div>
+ <a class="hero-slides-link" href="gallery.html" aria-label="View the Holly Movers gallery">
+  <div class="sl"></div>
+  <div class="sl"></div>
+  <div class="sl"></div>
+  <div class="sl"></div>
+  <div class="sl"></div>
+ </a>
  
  <div class="ov">
  
@@ -437,7 +433,7 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
  
   </div>
  
-  <div class="badges"><span><svg class="i"><use href="#sh"/></svg>Fully Insured</span><span><svg class="i"><use href="#ck2"/></svg>Careful Handling</span><span><svg class="i"><use href="#bm"/></svg>5-Star Rated</span></div><div class="dots" id="dots"></div>
+  <div class="badges"><span><svg class="i"><use href="#sh"/></svg>Fully Insured</span><span><svg class="i"><use href="#ck2"/></svg>Careful Handling</span><span><svg class="i"><use href="#bm"/></svg>5-Star Rated</span></div><div class="dots" id="dots"></div><a class="hero-gallery-note" href="gallery.html">View more moving moments in our Gallery →</a>
 
  </div>
 
@@ -624,69 +620,15 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
    
   </div>
   
-  <div class="gal">
-   
-   <div class="gt">
-    
-    <svg class="i">
-     
-     <use href="#box"/>
-     
-    </svg>
-    
+  <div class="gal" id="homeGallery">
+    <a class="gt" href="gallery.html" aria-label="Open gallery"></a>
+    <a class="gt" href="gallery.html" aria-label="Open gallery"></a>
+    <a class="gt" href="gallery.html" aria-label="Open gallery"></a>
+    <a class="gt" href="gallery.html" aria-label="Open gallery"></a>
+    <a class="gt" href="gallery.html" aria-label="Open gallery"></a>
+    <a class="gt" href="gallery.html" aria-label="Open gallery"></a>
    </div>
-   
-   <div class="gt">
-    
-    <svg class="i">
-     
-     <use href="#box"/>
-     
-    </svg>
-    
-   </div>
-   
-   <div class="gt">
-    
-    <svg class="i">
-     
-     <use href="#box"/>
-     
-    </svg>
-    
-   </div>
-   
-   <div class="gt">
-    
-    <svg class="i">
-     
-     <use href="#box"/>
-     
-    </svg>
-    
-   </div>
-   
-   <div class="gt">
-    
-    <svg class="i">
-     
-     <use href="#box"/>
-     
-    </svg>
-    
-   </div>
-   
-   <div class="gt">
-    
-    <svg class="i">
-     
-     <use href="#box"/>
-     
-    </svg>
-    
-   </div>
-   
-  </div>
+   <div class="cta"><a class="btn" href="gallery.html">View Full Gallery</a></div>
   
  </div>
  
@@ -827,8 +769,27 @@ footer .cols{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
    <label for="fr">Moving from</label><input id="fr" placeholder="e.g. Ntinda, Kampala" required>
    
    <label for="to">Moving to</label><input id="to" placeholder="e.g. Kira, Wakiso" required>
-   
-   <label for="m">Message</label><textarea id="m" placeholder="Tell us more about your move"></textarea>
+
+    <label for="items">Things you want to carry</label>
+    <select id="items" class="items-select" multiple required aria-describedby="itemsHelp">
+      <option value="Household furniture">Household furniture</option>
+      <option value="Sofas & chairs">Sofas & chairs</option>
+      <option value="Beds & mattresses">Beds & mattresses</option>
+      <option value="Wardrobes & cabinets">Wardrobes & cabinets</option>
+      <option value="Tables & desks">Tables & desks</option>
+      <option value="Kitchen items">Kitchen items</option>
+      <option value="Fridges & freezers">Fridges & freezers</option>
+      <option value="Washing machines & appliances">Washing machines & appliances</option>
+      <option value="Televisions & electronics">Televisions & electronics</option>
+      <option value="Clothes & personal belongings">Clothes & personal belongings</option>
+      <option value="Boxes & packed items">Boxes & packed items</option>
+      <option value="Office equipment">Office equipment</option>
+      <option value="Fragile items">Fragile items</option>
+      <option value="Other">Other</option>
+    </select>
+    <p id="itemsHelp" style="font-size:14px;margin:8px 0 0">Hold Ctrl (Windows) or Command (Mac) to select more than one category.</p>
+
+    <label for="m">Message</label><textarea id="m" placeholder="Tell us more about your move"></textarea>
    
    <button class="btn" type="submit">Send Move Request on WhatsApp</button>
    
@@ -1019,16 +980,91 @@ function revs(){var s='';(C.r||defRev).forEach(function(t){var n=Math.max(0,Math
  function bg(el,u){el.style.backgroundImage=u?'url("'+u.replace(/"/g,'%22')+'")':'';el.classList.toggle('has',!!u)}
 
  var si=0,sl=document.querySelectorAll('.sl');
+ var gallerySlides=[];
 
- function show(){var s=S(),d=$('dots');sl.forEach(function(x,i){x.classList.toggle('on',i===si)});$('hH').textContent=s[si].h;$('hS').textContent=s[si].s;d.innerHTML='';
+ function getGalleryItemsFromStorage(){
+   var keys=['hm_gallery','hollyMoversGallery','galleryItems','gallery'];
+   for(var k=0;k<keys.length;k++){
+     try{
+       var raw=localStorage.getItem(keys[k]);
+       if(!raw) continue;
+       var data=JSON.parse(raw);
+       if(Array.isArray(data)) return data;
+       if(data && Array.isArray(data.items)) return data.items;
+     }catch(e){}
+   }
+   return [];
+ }
 
-                sl.forEach(function(_,i){var b=document.createElement('button');b.setAttribute('aria-label','Slide '+(i+1));b.className=i===si?'on':'';b.onclick=function(){si=i;show()};d.appendChild(b)})}
+ function show(){
+   var s=S(),d=$('dots');
+   sl.forEach(function(x,i){x.classList.toggle('on',i===si)});
+   var current=gallerySlides[si];
+   $('hH').textContent=current ? (current.description||'Moving You With Care') : s[si%s.length].h;
+   $('hS').textContent=current ? 'Real Holly Movers moments from our gallery. Click the slide to view the full gallery.' : s[si%s.length].s;
+   d.innerHTML='';
+   sl.forEach(function(_,i){
+     var b=document.createElement('button');
+     b.setAttribute('aria-label','Slide '+(i+1));
+     b.className=i===si?'on':'';
+     b.onclick=function(e){e.preventDefault();si=i;show()};
+     d.appendChild(b);
+   });
+ }
 
- function apply(){document.querySelectorAll('[data-k]').forEach(function(el){var v=C.t[el.dataset.k];if(v)el.textContent=v});
+ function apply(){
+   document.querySelectorAll('[data-k]').forEach(function(el){var v=C.t[el.dataset.k];if(v)el.textContent=v});
+   sl.forEach(function(s,i){bg(s,C.i['h'+(i+1)])});
+   document.querySelectorAll('.gt').forEach(function(g,i){bg(g,C.i['g'+(i+1)])});
+   revs();show();
+ }
 
-                 sl.forEach(function(s,i){bg(s,C.i['h'+(i+1)])});document.querySelectorAll('.gt').forEach(function(g,i){bg(g,C.i['g'+(i+1)])});revs();show()}
+ function renderGalleryMedia(items){
+   var images=items.filter(function(x){return x && x.url && (x.type==='image'||x.resourceType==='image'||!x.type);});
+   gallerySlides=images.slice(0,sl.length);
+   if(gallerySlides.length){
+     sl.forEach(function(s,i){bg(s,gallerySlides[i] ? gallerySlides[i].url : '');});
+     document.querySelectorAll('.gt').forEach(function(g,i){bg(g,images[i] ? images[i].url : '');});
+     si=0;show();
+   }
+ }
 
- apply();if(!matchMedia('(prefers-reduced-motion:reduce)').matches)setInterval(function(){si=(si+1)%sl.length;show()},5500);
+ async function loadGalleryFromFirestore(){
+   try{
+     var fb=await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+     var fs=await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+     var app;
+     try{app=fb.getApp();}catch(e){
+       app=fb.initializeApp({
+         apiKey:'AIzaSyC9RLegycn1D7QkFshepdE5hj0KJFJF68M',
+         authDomain:'olivia-a6e60.firebaseapp.com',
+         projectId:'olivia-a6e60',
+         storageBucket:'olivia-a6e60.firebasestorage.app',
+         messagingSenderId:'184840699254',
+         appId:'1:184840699254:web:71f438ef2f7d04a3f8ce57',
+         measurementId:'G-RBQCS16HP9'
+       });
+     }
+     var snap=await fs.getDocs(fs.collection(app,'gallery'));
+     var items=[];
+     snap.forEach(function(doc){var x=doc.data();if(x && x.url)items.push(x);});
+     items.sort(function(a,b){
+       function ms(x){if(!x)return 0;if(typeof x.toMillis==='function')return x.toMillis();if(x.seconds)return x.seconds*1000;if(typeof x==='number')return x;var n=Date.parse(x);return isNaN(n)?0:n;}
+       return ms(b.timestamp)-ms(a.timestamp);
+     });
+     renderGalleryMedia(items);
+   }catch(e){
+     renderGalleryMedia(getGalleryItemsFromStorage());
+   }
+ }
+
+ apply();
+ renderGalleryMedia(getGalleryItemsFromStorage());
+ loadGalleryFromFirestore();
+ if(!matchMedia('(prefers-reduced-motion:reduce)').matches)setInterval(function(){
+   if(!sl.length)return;
+   si=(si+1)%sl.length;show();
+ },5500);
 
  function up(f,cb){if(!CLOUD||!PRESET){alert('Add your Cloudinary cloud name and upload preset at the top of the script first.');return}
 
@@ -1077,9 +1113,21 @@ function expo(){if(!collect())return;$('admX').value=JSON.stringify({t:C.t,i:C.i
  
 function resetAdmin(){if(confirm('Reset all edits to the original content?')){try{localStorage.removeItem(K)}catch(e){}location.reload()}}
  
-$('f').addEventListener('submit',function(e){e.preventDefault();var g=function(i){return $(i).value.trim()};
-                                             
-wa('*New Move Request – HOLLY MOVERS*\n\nName: '+g('n')+'\nPhone: '+g('p')+'\nEmail: '+(g('e')||'-')+'\nFrom: '+g('fr')+'\nTo: '+g('to')+'\nDate: '+g('d')+'\nMessage: '+(g('m')||'-'),$('fs'));e.target.reset()});
+$('f').addEventListener('submit',function(e){
+  e.preventDefault();
+  var g=function(i){return $(i).value.trim()};
+  var items=Array.from($('items').selectedOptions).map(function(o){return o.value});
+  if(!items.length){$('fs').textContent='Please select at least one category of items to move.';return;}
+  wa('*New Move Request – HOLLY MOVERS*\n\nName: '+g('n')+
+     '\nPhone: '+g('p')+
+     '\nEmail: '+(g('e')||'-')+
+     '\nFrom: '+g('fr')+
+     '\nTo: '+g('to')+
+     '\nDate: '+g('d')+
+     '\nItems to carry: '+items.join(', ')+
+     '\nMessage: '+(g('m')||'-'),$('fs'));
+  e.target.reset();
+});
  
 $('qb').addEventListener('submit',function(e){e.preventDefault();wa('*Quote request – HOLLY MOVERS*\n\nFrom: '+$('qf').value.trim()+'\nTo: '+$('qo').value.trim()+'\nDate: '+$('qd').value,$('qm'));e.target.reset()});
  
@@ -1087,33 +1135,7 @@ $('rf').addEventListener('submit',function(e){e.preventDefault();var r={name:$('
                                               
 wa('*New review for HOLLY MOVERS (pending approval)*\n\nName: '+r.name+'\nLocation: '+(r.location||'-')+'\nRating: '+r.rating+'/5\nReview: '+r.review,$('rm'));e.target.reset()});
  
-$('nf').addEventListener('submit',async function(e){
-  e.preventDefault();
-  var email=$('nlE').value.trim();
-  if(!email || !email.includes('@')){alert('Please enter a valid email address.');return;}
-  var btn=this.querySelector('button[type=submit]');
-  var original=btn?btn.innerHTML:'';
-  if(btn){btn.disabled=true;btn.innerHTML='Sending...';}
-  try{
-    var response=await fetch('https://formsubmit.co/ajax/ollymovers@gmail.com',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({
-        email:email,
-        _subject:'New HOLLY MOVERS Newsletter Subscriber',
-        message:'New newsletter subscription from: '+email,
-        _captcha:'false'
-      })
-    });
-    if(!response.ok) throw new Error('Subscription could not be sent.');
-    alert('Thank you for subscribing! Your email has been sent to ollymovers@gmail.com.');
-    e.target.reset();
-  }catch(err){
-    alert('We could not send your subscription right now. Please try again.');
-  }finally{
-    if(btn){btn.disabled=false;btn.innerHTML=original;}
-  }
-});
+$('nf').addEventListener('submit',function(e){e.preventDefault();location.href='mailto:ollymovers@gmail.com?subject='+encodeURIComponent('Newsletter signup')+'&body='+encodeURIComponent('Please subscribe: '+$('nlE').value)});
  
 document.querySelectorAll('#menu a').forEach(function(a){a.addEventListener('click',function(){$('menu').classList.remove('open')})});
  
