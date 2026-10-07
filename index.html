@@ -1087,7 +1087,33 @@ $('rf').addEventListener('submit',function(e){e.preventDefault();var r={name:$('
                                               
 wa('*New review for HOLLY MOVERS (pending approval)*\n\nName: '+r.name+'\nLocation: '+(r.location||'-')+'\nRating: '+r.rating+'/5\nReview: '+r.review,$('rm'));e.target.reset()});
  
-$('nf').addEventListener('submit',function(e){e.preventDefault();location.href='mailto:ollymovers@gmail.com?subject='+encodeURIComponent('Newsletter signup')+'&body='+encodeURIComponent('Please subscribe: '+$('nlE').value)});
+$('nf').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var email=$('nlE').value.trim();
+  if(!email || !email.includes('@')){alert('Please enter a valid email address.');return;}
+  var btn=this.querySelector('button[type=submit]');
+  var original=btn?btn.innerHTML:'';
+  if(btn){btn.disabled=true;btn.innerHTML='Sending...';}
+  try{
+    var response=await fetch('https://formsubmit.co/ajax/ollymovers@gmail.com',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        email:email,
+        _subject:'New HOLLY MOVERS Newsletter Subscriber',
+        message:'New newsletter subscription from: '+email,
+        _captcha:'false'
+      })
+    });
+    if(!response.ok) throw new Error('Subscription could not be sent.');
+    alert('Thank you for subscribing! Your email has been sent to ollymovers@gmail.com.');
+    e.target.reset();
+  }catch(err){
+    alert('We could not send your subscription right now. Please try again.');
+  }finally{
+    if(btn){btn.disabled=false;btn.innerHTML=original;}
+  }
+});
  
 document.querySelectorAll('#menu a').forEach(function(a){a.addEventListener('click',function(){$('menu').classList.remove('open')})});
  
