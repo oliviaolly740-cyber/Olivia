@@ -551,7 +551,7 @@
       </div>
 
       <p class="text-gray-600 mb-6">
-        Sign in with the authorized Holly Movers administrator account to upload or update newsletters.
+        Sign in with the authorized Holly Movers administrator account to upload or update news.
       </p>
 
       <form onsubmit="adminLogin(event)" class="space-y-4">
@@ -600,7 +600,7 @@
 
       <!-- Upload / Update Issue -->
       <div class="mb-12">
-        <h3 id="issueFormHeading" class="heading text-2xl mb-6 text-gray-900">Upload New Weekly Issue</h3>
+        <h3 id="issueFormHeading" class="heading text-2xl mb-6 text-gray-900">Upload New News</h3>
 
           <label class="block text-sm font-medium mb-2">Photo or Video</label>
           <input type="file" id="issueMedia" accept="image/*,video/*"
@@ -621,7 +621,7 @@
           <button id="uploadBtn" onclick="uploadNewIssue()"
                   class="btn-blue flex-1 py-6 rounded-3xl font-semibold text-xl flex items-center justify-center gap-3">
             <i class="fa-solid fa-cloud-arrow-up"></i>
-            UPLOAD NEWSLETTER
+            UPLOAD NEWS
           </button>
           <button id="cancelEditBtn" onclick="cancelEditIssue()" style="display:none"
                   class="flex-1 py-6 rounded-3xl font-semibold text-xl bg-gray-100 text-gray-700 hover:bg-gray-200">
@@ -633,14 +633,14 @@
 
       <!-- Existing Issues -->
       <div>
-        <h3 class="heading text-2xl mb-6 text-gray-900">Published Newsletter Issues</h3>
+        <h3 class="heading text-2xl mb-6 text-gray-900">Published News</h3>
         <div id="adminIssuesList" class="space-y-3">
-          <p class="text-gray-400">Loading issues...</p>
+          <p class="text-gray-400">Loading news...</p>
         </div>
       </div>
 
       <div class="text-center text-xs text-gray-400 mt-12">
-        Media: Cloudinary • Newsletter data: Cloud Firestore
+        Media: Cloudinary • News data: Cloud Firestore
       </div>
     </div>
   </div>
@@ -923,7 +923,7 @@
     }
 
     // ============================================================
-    // UPLOAD / UPDATE NEWSLETTER
+    // UPLOAD / UPDATE NEWS
     // ============================================================
     let editingIssueKey = null;
 
@@ -935,7 +935,7 @@
         return;
       }
 
-      db.collection('newsletter').doc(key).get().then(snapshot => {
+      db.collection('news').doc(key).get().then(snapshot => {
         if (!snapshot.exists()) {
           alert('This newsletter no longer exists.');
           return;
@@ -946,8 +946,8 @@
         document.getElementById('issueDesc').value = issue.description || '';
         document.getElementById('issueMedia').value = '';
 
-        document.getElementById('issueFormHeading').textContent = 'Update Weekly Insight';
-        document.getElementById('uploadBtn').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> UPDATE NEWSLETTER';
+        document.getElementById('issueFormHeading').textContent = 'Update News';
+        document.getElementById('uploadBtn').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> UPDATE NEWS';
         document.getElementById('cancelEditBtn').style.display = 'block';
         document.getElementById('uploadStatus').textContent = 'Editing this weekly insight. Select new media only if you want to replace the current media.';
         document.getElementById('issueDesc').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -959,8 +959,8 @@
 
     function cancelEditIssue() {
       editingIssueKey = null;
-      document.getElementById('issueFormHeading').textContent = 'Upload New Weekly Issue';
-      document.getElementById('uploadBtn').innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD NEWSLETTER';
+      document.getElementById('issueFormHeading').textContent = 'Upload New News';
+      document.getElementById('uploadBtn').innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD NEWS';
       document.getElementById('cancelEditBtn').style.display = 'none';
       document.getElementById('issueMedia').value = '';
       document.getElementById('issueDesc').value = '';
@@ -1007,16 +1007,21 @@
           });
         }
 
-        status.textContent = 'Saving newsletter information to Cloud Firestore...';
+        status.textContent = 'Saving news information to Cloud Firestore...';
 
         if (editingIssueKey) {
-          const existingSnapshot = await db.collection('newsletter').doc(editingIssueKey).get();
+          const existingSnapshot = await db.collection('news').doc(editingIssueKey).get();
           if (!existingSnapshot.exists()) throw new Error('The newsletter no longer exists.');
 
           const existing = existingSnapshot.exists ? existingSnapshot.data() : null;
           const updatedIssue = {
-            ...existing,
             description: desc,
+            mediaUrl: media ? media.url : existing.mediaUrl,
+            mediaType: media ? media.resourceType : existing.mediaType,
+            cloudinaryPublicId: media ? media.publicId : (existing.cloudinaryPublicId || ''),
+            date: existing.date || new Date().toISOString().split('T')[0],
+            createdAt: existing.createdAt || firebase.firestore.FieldValue.serverTimestamp(),
+            published: true,
             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
           };
 
@@ -1026,10 +1031,10 @@
             updatedIssue.cloudinaryPublicId = media.publicId;
           }
 
-          await db.collection('newsletter').doc(editingIssueKey).update(updatedIssue);
-          status.textContent = '✅ Newsletter updated successfully!';
+          await db.collection('news').doc(editingIssueKey).update(updatedIssue);
+          status.textContent = '✅ News updated successfully!';
         } else {
-          const issueRef = db.collection('newsletter').doc();
+          const issueRef = db.collection('news').doc();
 
           await issueRef.set({
             description: desc,
@@ -1041,12 +1046,12 @@
             published: true
           });
 
-          status.textContent = '✅ Newsletter uploaded and published successfully!';
+          status.textContent = '✅ News uploaded and published successfully!';
         }
 
         progressBar.style.width = '100%';
         if (!editingIssueKey) {
-          status.textContent = '✅ Newsletter uploaded and published successfully!';
+          status.textContent = '✅ News uploaded and published successfully!';
         }
 
         document.getElementById('issueMedia').value = '';
@@ -1057,12 +1062,12 @@
         await loadAdminIssues();
 
       } catch (error) {
-        console.error('Newsletter upload error:', error);
+        console.error('News upload error:', error);
         status.textContent = '❌ Upload failed: ' + error.message;
-        alert('Upload failed. Make sure you are signed in as admin@hollymovers.com and that Firebase rules allow only this admin to write newsletter data.');
+        alert('Upload failed. Make sure you are signed in as admin@hollymovers.com and that Firebase rules allow only this admin to write news data.');
       } finally {
         button.disabled = false;
-        button.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD NEWSLETTER';
+        button.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD NEWS';
 
         setTimeout(() => {
           progress.style.display = 'none';
@@ -1076,15 +1081,15 @@
     async function deleteIssue(key) {
       if (!key) return;
 
-      const confirmed = confirm('Delete this newsletter from Cloud Firestore?');
+      const confirmed = confirm('Delete this news item from Cloud Firestore?');
       if (!confirmed) return;
 
       try {
         requireAdmin();
 
-        await db.collection('newsletter').doc(key).delete();
+        await db.collection('news').doc(key).delete();
 
-        alert('✅ Newsletter deleted.');
+        alert('✅ News deleted.');
         await loadNewsletter();
         await loadAdminIssues();
 
@@ -1106,20 +1111,21 @@
       }
 
       try {
-        const snapshot = await db.collection('newsletter').orderBy('createdAt', 'desc').get();
+        const snapshot = await db.collection('news').get();
 
         if (snapshot.empty) {
-          list.innerHTML = '<p class="text-gray-400">No published newsletters yet.</p>';
+          list.innerHTML = '<p class="text-gray-400">No published news yet.</p>';
           return;
         }
 
         const rows = snapshot.docs.map(doc => ({ key: doc.id, issue: doc.data() }));
+        rows.sort((a, b) => getTimestampValue(b.issue.createdAt) - getTimestampValue(a.issue.createdAt));
 
         list.innerHTML = rows.map(({key, issue}) => `
           <div class="flex items-center justify-between gap-4 bg-gray-50 rounded-2xl p-4">
             <div class="min-w-0">
-              <p class="font-semibold truncate">${escapeHtml(issue.title || 'Untitled')}</p>
-              <p class="text-xs text-gray-500">${escapeHtml(issue.date || '')}</p>
+              <p class="font-semibold truncate">${escapeHtml((issue.description || 'Untitled').replace(/\s+/g, ' ').slice(0, 80))}</p>
+              <p class="text-xs text-gray-500">${escapeHtml(issue.date || formatDate(issue.createdAt))}</p>
             </div>
             <div class="flex items-center gap-2 shrink-0">
               <button onclick="startEditIssue('${key}')"
@@ -1136,7 +1142,7 @@
 
       } catch (error) {
         console.error(error);
-        list.innerHTML = '<p class="text-red-500">Could not load newsletter issues.</p>';
+        list.innerHTML = '<p class="text-red-500">Could not load news.</p>';
       }
     }
 
@@ -1147,16 +1153,15 @@
       const contentDiv = document.getElementById('newsletterContent');
 
       try {
-        const snapshot = await db.collection('newsletter')
+        const snapshot = await db.collection('news')
           .where('published', '==', true)
-          .orderBy('createdAt', 'desc')
           .get();
 
         if (snapshot.empty) {
           contentDiv.innerHTML = `
             <div class="newsletter-card text-center py-20 px-8 text-gray-400">
               <i class="fa-regular fa-newspaper text-5xl mb-5"></i>
-              <p class="text-xl">No newsletter content yet.</p>
+              <p class="text-xl">No news content yet.</p>
             </div>
           `;
           return;
@@ -1164,10 +1169,12 @@
 
         const rows = snapshot.docs.map(doc => ({ key: doc.id, issue: doc.data() }));
 
+        rows.sort((a, b) => getTimestampValue(b.issue.createdAt) - getTimestampValue(a.issue.createdAt));
+
         if (!rows.length) {
           contentDiv.innerHTML = `
             <div class="newsletter-card text-center py-20 px-8 text-gray-400">
-              No published newsletter issues yet.
+              No published news items yet.
             </div>
           `;
           return;
@@ -1175,7 +1182,7 @@
 
         contentDiv.innerHTML = rows.map(({key, issue}) => {
           const description = escapeHtml(issue.description || '');
-          const date = escapeHtml(issue.date || 'New');
+          const date = escapeHtml(issue.date || formatDate(issue.createdAt));
 
           let mediaHtml = '';
 
@@ -1226,7 +1233,7 @@
           <div class="newsletter-card text-center py-20 px-8">
             <i class="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-5"></i>
             <p class="text-xl font-semibold text-gray-700">
-              We could not load the newsletter right now.
+              We could not load the news right now.
             </p>
             <p class="text-gray-500 mt-2">
               Please check the Cloud Firestore rules.
@@ -1234,6 +1241,22 @@
           </div>
         `;
       }
+    }
+
+    function getTimestampValue(value) {
+      if (!value) return 0;
+      if (typeof value.toMillis === 'function') return value.toMillis();
+      if (typeof value.seconds === 'number') return value.seconds * 1000;
+      const parsed = Date.parse(value);
+      return Number.isNaN(parsed) ? 0 : parsed;
+    }
+
+    function formatDate(value) {
+      const timestamp = getTimestampValue(value);
+      if (!timestamp) return 'New';
+      return new Date(timestamp).toLocaleDateString(undefined, {
+        year: 'numeric', month: 'short', day: 'numeric'
+      });
     }
 
     // ============================================================
