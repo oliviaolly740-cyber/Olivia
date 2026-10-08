@@ -14,107 +14,496 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
 
     :root {
-  --blue: #2563eb;
-  --dark-blue: #1d4ed8;
-  --light-blue: #eff6ff;
-  --slate: #0f172a;
-}
+      --blue: #2563eb;
+      --blue-dark: #1e3a8a;
+      --blue-deep: #0f172a;
+      --blue-soft: #eff6ff;
+      --orange: #f59e0b;
+      --orange-dark: #ea580c;
+      --slate: #0f172a;
+      --muted: #64748b;
+      --surface: #ffffff;
+      --line: rgba(15, 23, 42, .09);
+      --shadow-sm: 0 8px 25px rgba(15, 23, 42, .07);
+      --shadow-lg: 0 30px 80px rgba(15, 23, 42, .14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      font-family:'Inter',system-ui,sans-serif;
-      background:linear-gradient(135deg,#f8fafc 0%,#e0f2fe 100%);
-      color:#1f2937;
-      min-height:100vh;
+      font-family: 'Inter', system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(37,99,235,.08), transparent 28%),
+        radial-gradient(circle at 90% 20%, rgba(245,158,11,.07), transparent 25%),
+        linear-gradient(135deg, #f8fafc 0%, #eef5ff 52%, #f8fafc 100%);
+      color: #1f2937;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    h1,h2,.heading { font-family:'Playfair Display',serif; }
-
-    ..hero {
-  background:
-    linear-gradient(135deg, rgba(15, 23, 42, .92), rgba(30, 64, 175, .82)),
-    url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85')
-    center/cover no-repeat;
-}
-
-    .admin-panel {
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.85);
-      z-index:9999;
-      padding:2rem;
-      overflow-y:auto;
+    ::selection {
+      background: rgba(37,99,235,.18);
+      color: var(--blue-deep);
     }
 
-    .admin-panel.active { display:block; }
-    .admin-login {
-      max-width: 480px;
-      margin: 8vh auto;
+    h1, h2, h3, .heading {
+      font-family: 'Playfair Display', Georgia, serif;
     }
-    .admin-content { display:none; }
-    .admin-content.active { display:block; }
-    .auth-status {
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 760px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 7rem 1.5rem 11rem;
+      background:
+        linear-gradient(135deg, rgba(2,6,23,.94) 0%, rgba(15,23,42,.84) 42%, rgba(30,64,175,.74) 100%),
+        url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85')
+        center/cover no-repeat;
+      box-shadow: inset 0 -80px 100px rgba(2,6,23,.18);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(59,130,246,.18), transparent 34%),
+        linear-gradient(to bottom, transparent 55%, rgba(2,6,23,.42));
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: -240px;
+      top: -220px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow:
+        0 0 0 80px rgba(255,255,255,.025),
+        0 0 0 160px rgba(255,255,255,.018);
+      pointer-events: none;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      animation: heroReveal .9s ease both;
+    }
+
+    .hero .inline-flex {
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.09);
+      box-shadow: 0 15px 45px rgba(0,0,0,.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .hero h1 {
+      color: #fff;
+      letter-spacing: -.045em;
+      text-shadow: 0 12px 45px rgba(0,0,0,.3);
+    }
+
+    .hero p {
+      text-shadow: 0 4px 20px rgba(0,0,0,.24);
+    }
+
+    #newsletterForm {
+      padding: 7px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.10);
+      border-radius: 28px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.2);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    #nlEmail {
+      min-height: 64px;
+      background: rgba(255,255,255,.97);
+      border: 1px solid transparent !important;
+      box-shadow: inset 0 1px 2px rgba(15,23,42,.04);
+      transition: .25s ease;
+    }
+
+    #nlEmail:focus {
+      border-color: rgba(96,165,250,.8) !important;
+      box-shadow: 0 0 0 4px rgba(96,165,250,.16);
+    }
+
+    .btn-blue {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 55%, #1e40af 100%);
+      color: white;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 14px 30px rgba(37,99,235,.27);
+      transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+    }
+
+    .btn-blue:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(37,99,235,.36);
+      filter: brightness(1.04);
+    }
+
+    .btn-blue:active {
+      transform: translateY(0);
+    }
+
+    .btn-blue:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .newsletter-card {
+      position: relative;
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 32px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .newsletter-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 38px 90px rgba(15,23,42,.17);
+    }
+
+    .newsletter-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1d4ed8, #3b82f6, #f59e0b);
+      z-index: 2;
+    }
+
+    .newsletter-img,
+    .newsletter-card video {
+      height: 480px !important;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .newsletter-card:hover .newsletter-img,
+    .newsletter-card:hover video {
+      transform: scale(1.015);
+    }
+
+    .newsletter-card .relative {
+      overflow: hidden;
+      background: #e2e8f0;
+    }
+
+    .newsletter-card .relative::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, transparent 65%, rgba(2,6,23,.12));
+    }
+
+    .issue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--blue-soft);
+      color: #1d4ed8;
+      border: 1px solid #dbeafe;
+      padding: .55rem 1rem;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .newsletter-card h2 {
+      color: #0f172a;
+      letter-spacing: -.025em;
+    }
+
+    .newsletter-card p {
+      color: #475569;
+    }
+
+    .newsletter-card .mt-10 {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.2);
+      background: linear-gradient(135deg, #f59e0b 0%, #f97316 55%, #ea580c 100%) !important;
+      box-shadow: 0 18px 35px rgba(234,88,12,.18);
+    }
+
+    .newsletter-card .mt-10::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      right: -100px;
+      top: -120px;
+      background: rgba(255,255,255,.13);
+    }
+
+    .newsletter-card .mt-10 > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .newsletter-card .mt-10 .font-mono {
+      background: rgba(255,255,255,.9);
+      padding: .15rem .55rem;
+      border-radius: .55rem;
+      color: #9a3412 !important;
+      box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    }
+
+    #adminPanel {
+      background: rgba(2,6,23,.76) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 1.25rem !important;
+    }
+
+    #adminLogin,
+    #adminContent {
+      border: 1px solid rgba(255,255,255,.75);
+      box-shadow: 0 35px 100px rgba(0,0,0,.28);
+      background: rgba(255,255,255,.98);
+    }
+
+    #adminLogin {
+      border-radius: 30px !important;
+      padding: 2.25rem !important;
+    }
+
+    #adminContent {
+      border-radius: 30px !important;
+      padding: 2.25rem !important;
+    }
+
+    #adminPanel input,
+    #adminPanel textarea {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0 !important;
+      color: #0f172a;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    #adminPanel input:focus,
+    #adminPanel textarea:focus {
+      background: #fff;
+      border-color: #60a5fa !important;
+      box-shadow: 0 0 0 4px rgba(96,165,250,.13);
+    }
+
+    #adminPanel input[type="file"] {
+      padding: .85rem 1rem;
+    }
+
+    #adminPanel input[type="file"]::file-selector-button {
+      border: 0;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: .6rem .9rem;
+      border-radius: .7rem;
+      margin-right: .8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .admin-note {
+      background: linear-gradient(135deg, #eff6ff, #f8fbff) !important;
+      border: 1px solid #bfdbfe !important;
+      color: #1e40af !important;
+      border-radius: 18px !important;
+      box-shadow: 0 8px 25px rgba(37,99,235,.06);
+    }
+
+    #adminIssuesList > div {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc !important;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    #adminIssuesList > div:hover {
+      transform: translateY(-2px);
+      border-color: #bfdbfe;
+      box-shadow: var(--shadow-sm);
+    }
+
+    #uploadProgress {
+      height: 9px !important;
+      background: #e2e8f0 !important;
+      border-radius: 999px !important;
+    }
+
+    #uploadProgressBar {
+      background: linear-gradient(90deg, #2563eb, #60a5fa, #f59e0b) !important;
+      border-radius: inherit;
+    }
+
+    #subscribeStatus {
       min-height: 24px;
       font-size: .9rem;
     }
 
-    .newsletter-card {
-      background:white;
-      border-radius:2.5rem;
-      box-shadow:0 25px 50px -12px rgb(0 0 0 / .15);
-      overflow:hidden;
-      transition:transform .3s ease,box-shadow .3s ease;
+    #subscribeBtn {
+      min-height: 64px;
+      white-space: nowrap;
     }
 
-    .newsletter-img {
-      height:420px;
-      object-fit:cover;
-      transition:transform .4s ease;
+    body > button[onclick="toggleAdminPanel()"] {
+      border: 1px solid rgba(255,255,255,.8);
+      background: rgba(255,255,255,.88) !important;
+      color: #0f172a;
+      box-shadow: 0 12px 35px rgba(15,23,42,.13) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
-    .newsletter-card:hover .newsletter-img { transform:scale(1.03); }
-
-    .btn-blue {
-  background: linear-gradient(to right, #2563eb, #1d4ed8);
-  color: white;
-}
-
-    .issue-badge {
-  background: #eff6ff;
-  color: #1d4ed8;
-  padding: .5rem 1rem;
-  border-radius: 999px;
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-}
-
-    .progress {
-      display:none;
-      margin-top:1rem;
-      height:8px;
-      border-radius:999px;
-      background:#e5e7eb;
-      overflow:hidden;
+    body > button[onclick="toggleAdminPanel()"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(15,23,42,.18) !important;
     }
 
-    .progress-bar {
-      height:100%;
-      width:0;
-      background:#16a34a;
-      transition:width .2s ease;
+    body > button[onclick="toggleAdminPanel()"] i {
+      color: #1d4ed8;
     }
 
-    .admin-note {
-      background:#eff6ff;
-      border:1px solid #bfdbfe;
-      color:#1e40af;
-      border-radius:1rem;
-      padding:1rem;
-      font-size:.9rem;
+    #newsletterContent {
+      animation: contentReveal .7s ease both;
+    }
+
+    @keyframes heroReveal {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes contentReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 700px;
+        padding: 6rem 1rem 9rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.5rem, 17vw, 5.4rem);
+        line-height: .94;
+      }
+
+      .hero p {
+        font-size: 1.2rem !important;
+        line-height: 1.55;
+      }
+
+      #newsletterForm {
+        padding: 6px;
+        border-radius: 22px;
+      }
+
+      #nlEmail,
+      #subscribeBtn {
+        min-height: 58px;
+      }
+
+      .newsletter-img,
+      .newsletter-card video {
+        height: 340px !important;
+      }
+
+      .newsletter-card {
+        border-radius: 24px;
+      }
+
+      .newsletter-card h2 {
+        font-size: 2.25rem !important;
+      }
+
+      #adminPanel {
+        padding: .75rem !important;
+      }
+
+      #adminLogin,
+      #adminContent {
+        padding: 1.25rem !important;
+        border-radius: 22px !important;
+      }
+
+      body > button[onclick="toggleAdminPanel()"] {
+        top: 12px !important;
+        right: 12px !important;
+        padding: .7rem 1rem !important;
+        border-radius: 999px !important;
+      }
+
+      body > button[onclick="toggleAdminPanel()"] span {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
     }
   </style>
 </head>
