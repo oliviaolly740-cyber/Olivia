@@ -533,7 +533,7 @@
       </div>
 
       <p class="text-gray-600 mb-6">
-        Sign in with the authorized Holly Movers administrator account to upload or delete newsletters.
+        Sign in with the authorized Holly Movers administrator account to upload or update newsletters.
       </p>
 
       <form onsubmit="adminLogin(event)" class="space-y-4">
@@ -580,12 +580,12 @@
         <strong>Admin-only publishing:</strong> the selected image or video is uploaded directly to
         <strong>Cloudinary</strong>. The newsletter title, description, discount information,
         and Cloudinary URL are then saved in <strong>Firebase Realtime Database</strong>.
-        Visitors can only read published newsletters; only the authorized admin can create or delete them.
+        Visitors can only view published newsletters. Only the authorized admin can upload, update, or delete newsletters.
       </div>
 
-      <!-- Upload New Issue -->
+      <!-- Upload / Update Issue -->
       <div class="mb-12">
-        <h3 class="heading text-2xl mb-6 text-gray-900">Upload New Weekly Issue</h3>
+        <h3 id="issueFormHeading" class="heading text-2xl mb-6 text-gray-900">Upload New Weekly Issue</h3>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -621,11 +621,18 @@
 
         <p id="uploadStatus" class="text-sm text-gray-500 mt-3"></p>
 
-        <button id="uploadBtn" onclick="uploadNewIssue()"
-                class="btn-blue mt-8 w-full py-6 rounded-3xl font-semibold text-xl flex items-center justify-center gap-3">
-          <i class="fa-solid fa-cloud-arrow-up"></i>
-          UPLOAD NEWSLETTER
-        </button>
+        <div class="flex flex-col md:flex-row gap-3 mt-8">
+          <button id="uploadBtn" onclick="uploadNewIssue()"
+                  class="btn-blue flex-1 py-6 rounded-3xl font-semibold text-xl flex items-center justify-center gap-3">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            UPLOAD NEWSLETTER
+          </button>
+          <button id="cancelEditBtn" onclick="cancelEditIssue()" style="display:none"
+                  class="flex-1 py-6 rounded-3xl font-semibold text-xl bg-gray-100 text-gray-700 hover:bg-gray-200">
+            <i class="fa-solid fa-xmark mr-2"></i>
+            CANCEL UPDATE
+          </button>
+        </div>
       </div>
 
       <!-- Existing Issues -->
@@ -768,6 +775,14 @@
       return !!user && (user.email || '').toLowerCase() === ADMIN_EMAIL;
     }
 
+    // Client-side guard for the admin interface. Firebase Security Rules must
+    // also enforce read/write permissions on the database itself.
+    function requireAdmin() {
+      if (!isAuthorizedAdmin(auth.currentUser)) {
+        throw new Error('Admin authentication required. Visitors have read-only access.');
+      }
+    }
+
     function showAdminLogin(message = '') {
       document.getElementById('adminLogin').style.display = 'block';
       document.getElementById('adminContent').classList.remove('active');
@@ -907,8 +922,59 @@
     }
 
     // ============================================================
-    // UPLOAD NEW NEWSLETTER
+    // UPLOAD / UPDATE NEWSLETTER
     // ============================================================
+    let editingIssueKey = null;
+
+    function startEditIssue(key) {
+      try {
+        requireAdmin();
+      } catch (error) {
+        alert(error.message);
+        return;
+      }
+
+      db.ref('newsletter/' + key).once('value').then(snapshot => {
+        if (!snapshot.exists()) {
+          alert('This newsletter no longer exists.');
+          return;
+        }
+
+        const issue = snapshot.val();
+        editingIssueKey = key;
+
+        document.getElementById('issueTitle').value = issue.title || '';
+        document.getElementById('issueDesc').value = issue.description || '';
+        document.getElementById('issueDiscountCode').value = issue.discountCode || '';
+        document.getElementById('issueDiscountAmount').value = issue.discountAmount || '';
+        document.getElementById('issueImage').value = '';
+        document.getElementById('issueVideo').value = '';
+
+        document.getElementById('issueFormHeading').textContent = 'Update Newsletter Issue';
+        document.getElementById('uploadBtn').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> UPDATE NEWSLETTER';
+        document.getElementById('cancelEditBtn').style.display = 'block';
+        document.getElementById('uploadStatus').textContent = 'Editing: '+ (issue.title || 'Untitled newsletter') + '. Select new media only if you want to replace the current media.';
+        document.getElementById('issueTitle').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }).catch(error => {
+        console.error(error);
+        alert('Could not load this newsletter for editing.');
+      });
+    }
+
+    function cancelEditIssue() {
+      editingIssueKey = null;
+      document.getElementById('issueFormHeading').textContent = 'Upload New Weekly Issue';
+      document.getElementById('uploadBtn').innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD NEWSLETTER';
+      document.getElementById('cancelEditBtn').style.display = 'none';
+      document.getElementById('issueImage').value = '';
+      document.getElementById('issueVideo').value = '';
+      document.getElementById('issueTitle').value = '';
+      document.getElementById('issueDesc').value = '';
+      document.getElementById('issueDiscountCode').value = '';
+      document.getElementById('issueDiscountAmount').value = '';
+      document.getElementById('uploadStatus').textContent = '';
+    }
+
     async function uploadNewIssue() {
       const title = document.getElementById('issueTitle').value.trim();
       const desc = document.getElementById('issueDesc').value.trim();
@@ -928,7 +994,8 @@
         return;
       }
 
-      if (!imageFile && !videoFile) {
+      // New newsletters require media. Updates may keep the existing media.
+      if (!editingIssueKey && !imageFile && !videoFile) {
         alert('Please select an image or video for the newsletter.');
         return;
       }
@@ -945,35 +1012,62 @@
       status.textContent = 'Preparing upload...';
 
       try {
-        if (!isAuthorizedAdmin(auth.currentUser)) {
-          throw new Error('Admin authentication required. Please sign in as admin@hollymovers.com.');
+        requireAdmin();
+
+        let media = null;
+        const selectedMediaFile = imageFile || videoFile;
+
+        if (selectedMediaFile) {
+          status.textContent = 'Uploading media to Cloudinary...';
+
+          media = await uploadToCloudinary(selectedMediaFile, (percent) => {
+            progressBar.style.width = percent + '%';
+            status.textContent = `Uploading to Cloudinary... ${percent}%`;
+          });
         }
-
-        const mediaFile = imageFile || videoFile;
-
-        status.textContent = 'Uploading media to Cloudinary...';
-
-        const media = await uploadToCloudinary(mediaFile, (percent) => {
-          progressBar.style.width = percent + '%';
-          status.textContent = `Uploading to Cloudinary... ${percent}%`;
-        });
 
         status.textContent = 'Saving newsletter information to Firebase...';
 
-        const issueRef = db.ref('newsletter').push();
+        if (editingIssueKey) {
+          const existingSnapshot = await db.ref('newsletter/' + editingIssueKey).once('value');
+          if (!existingSnapshot.exists()) throw new Error('The newsletter no longer exists.');
 
-        await issueRef.set({
-          title,
-          description: desc,
-          discountCode: discountCode || '',
-          discountAmount: discountAmount || '',
-          mediaUrl: media.url,
-          mediaType: media.resourceType,
-          cloudinaryPublicId: media.publicId,
-          date: new Date().toISOString().split('T')[0],
-          createdAt: firebase.database.ServerValue.TIMESTAMP,
-          published: true
-        });
+          const existing = existingSnapshot.val();
+          const updatedIssue = {
+            ...existing,
+            title,
+            description: desc,
+            discountCode: discountCode || '',
+            discountAmount: discountAmount || '',
+            updatedAt: firebase.database.ServerValue.TIMESTAMP
+          };
+
+          if (media) {
+            updatedIssue.mediaUrl = media.url;
+            updatedIssue.mediaType = media.resourceType;
+            updatedIssue.cloudinaryPublicId = media.publicId;
+          }
+
+          await db.ref('newsletter/' + editingIssueKey).update(updatedIssue);
+          status.textContent = '✅ Newsletter updated successfully!';
+        } else {
+          const issueRef = db.ref('newsletter').push();
+
+          await issueRef.set({
+            title,
+            description: desc,
+            discountCode: discountCode || '',
+            discountAmount: discountAmount || '',
+            mediaUrl: media.url,
+            mediaType: media.resourceType,
+            cloudinaryPublicId: media.publicId,
+            date: new Date().toISOString().split('T')[0],
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            published: true
+          });
+
+          status.textContent = '✅ Newsletter uploaded and published successfully!';
+        }
 
         progressBar.style.width = '100%';
         status.textContent = '✅ Newsletter uploaded and published successfully!';
@@ -984,6 +1078,7 @@
         document.getElementById('issueDesc').value = '';
         document.getElementById('issueDiscountCode').value = '';
         document.getElementById('issueDiscountAmount').value = '';
+        cancelEditIssue();
 
         await loadNewsletter();
         await loadAdminIssues();
@@ -1012,9 +1107,7 @@
       if (!confirmed) return;
 
       try {
-        if (!isAuthorizedAdmin(auth.currentUser)) {
-          throw new Error('Admin authentication required.');
-        }
+        requireAdmin();
 
         await db.ref('newsletter/' + key).remove();
 
@@ -1058,10 +1151,16 @@
               <p class="font-semibold truncate">${escapeHtml(issue.title || 'Untitled')}</p>
               <p class="text-xs text-gray-500">${escapeHtml(issue.date || '')}</p>
             </div>
-            <button onclick="deleteIssue('${key}')"
-                    class="shrink-0 bg-red-600 text-white px-4 py-2 rounded-xl hover:bg-red-700">
-              <i class="fa-solid fa-trash"></i>
-            </button>
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="startEditIssue('${key}')"
+                      class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button onclick="deleteIssue('${key}')"
+                      class="bg-red-600 text-white px-4 py-2 rounded-xl hover:bg-red-700">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
           </div>
         `).join('');
 
@@ -1094,8 +1193,9 @@
 
         const issues = snapshot.val();
 
+        // Public visitors can ONLY see issues explicitly published by the admin.
         const rows = Object.entries(issues)
-          .filter(([key, issue]) => issue.published !== false)
+          .filter(([key, issue]) => issue && issue.published === true)
           .sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
 
         if (!rows.length) {
