@@ -16,7 +16,12 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
 
-    :root { --uganda:#006400; }
+    :root {
+  --blue: #2563eb;
+  --dark-blue: #1d4ed8;
+  --light-blue: #eff6ff;
+  --slate: #0f172a;
+}
 
     body {
       font-family:'Inter',system-ui,sans-serif;
@@ -27,15 +32,12 @@
 
     h1,h2,.heading { font-family:'Playfair Display',serif; }
 
-    .hero {
-      background:
-        linear-gradient(rgba(0,100,0,.88),rgba(0,100,0,.92)),
-        url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85')
-        center/cover no-repeat;
-      color:white;
-      padding:5rem 1.5rem;
-      border-radius:3rem 3rem 0 0;
-    }
+    ..hero {
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, .92), rgba(30, 64, 175, .82)),
+    url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=2000&q=85')
+    center/cover no-repeat;
+}
 
     .admin-panel {
       display:none;
@@ -76,19 +78,19 @@
     .newsletter-card:hover .newsletter-img { transform:scale(1.03); }
 
     .btn-blue {
-      background:linear-gradient(to right,#006400,#15803d);
-      color:white;
-    }
+  background: linear-gradient(to right, #2563eb, #1d4ed8);
+  color: white;
+}
 
     .issue-badge {
-      background:#dcfce7;
-      color:#166534;
-      padding:.5rem 1rem;
-      border-radius:999px;
-      font-size:.8rem;
-      font-weight:700;
-      letter-spacing:.08em;
-    }
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
 
     .progress {
       display:none;
