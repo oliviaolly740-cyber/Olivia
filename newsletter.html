@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Holly Movers • Weekly Insights</title>
+  <title>olly Movers • Weekly Insights</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -538,7 +538,7 @@
   <!-- ADMIN PANEL -->
   <div id="adminPanel" class="admin-panel">
     <!-- Login is shown to visitors; the upload dashboard stays hidden until the
-         authenticated Firebase account is exactly admin@hollymovers.com. -->
+         authenticated Firebase account is exactly admin@ollymovers.com. -->
     <div id="adminLogin" class="admin-login bg-white rounded-3xl p-8 shadow-2xl">
       <div class="flex justify-between items-center mb-8">
         <div>
@@ -551,12 +551,12 @@
       </div>
 
       <p class="text-gray-600 mb-6">
-        Sign in with the authorized Holly Movers administrator account to upload or update news.
+        Sign in with the authorized olly Movers administrator account to upload or update news.
       </p>
 
       <form onsubmit="adminLogin(event)" class="space-y-4">
         <input id="adminEmail" type="email" autocomplete="username"
-               value="admin@hollymovers.com"
+               value="admin@ollymovers.com"
                class="w-full border border-gray-300 rounded-2xl px-5 py-4"
                placeholder="Admin email" required>
 
@@ -574,7 +574,7 @@
       </form>
 
       <p class="text-xs text-gray-400 mt-6 text-center">
-        Authorized account: admin@hollymovers.com
+        Authorized account: admin@ollymovers.com
       </p>
     </div>
 
@@ -651,7 +651,7 @@
       <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-md px-6 py-2 rounded-3xl mb-6">
         <span class="text-white text-sm font-medium flex items-center gap-2">
           <i class="fa-solid fa-truck"></i>
-          HOLLY MOVERS
+          OLLY MOVERS
         </span>
         <span class="text-white/80 text-xs">Uganda • 2018</span>
       </div>
@@ -765,7 +765,7 @@
     // ============================================================
     // ADMIN AUTHENTICATION / PROTECTION
     // ============================================================
-    const ADMIN_EMAIL = "admin@hollymovers.com";
+    const ADMIN_EMAIL = "admin@ollymovers.com";
 
     function isAuthorizedAdmin(user) {
       return !!user && (user.email || '').toLowerCase() === ADMIN_EMAIL;
